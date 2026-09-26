@@ -410,6 +410,20 @@ export interface BannerSliderConfig {
   transitionSpeed?: 'normal' | 'smooth' | 'snappy';
 }
 
+export interface AppVersionRelease {
+  version: string;
+  buildNumber?: string | number;
+  title: string;
+  releaseNotes: string[];
+  forceUpdate: boolean;
+  targetPlatform?: 'all' | 'mobile_pwa' | 'web';
+  releasedAt: string;
+  releasedBy?: string;
+  downloadUrl?: string;
+  status: 'active' | 'archived';
+  changelogText?: string;
+}
+
 export interface MobileTabsConfig {
   tools: AppToolItem[];
   categoryButtons: AppCategoryButton[];

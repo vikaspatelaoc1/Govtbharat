@@ -64,3 +64,16 @@ self.addEventListener('activate', (event) => {
   );
   self.clients.claim();
 });
+
+// Immediate app update and cache refresh message handler
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
+  if (event.data && event.data.action === 'clearCache') {
+    caches.keys().then((names) => {
+      names.forEach((name) => caches.delete(name));
+    });
+  }
+});
+

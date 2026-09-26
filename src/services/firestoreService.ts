@@ -14,7 +14,7 @@ import {
   updateDoc
 } from 'firebase/firestore';
 import { db } from '../firebase';
-import { JobAlert, StagingJob, BackendPipelineConfig, EmployeeUser, SocialLinkItem, EmailNotificationConfig, NotificationDispatchLog } from '../types';
+import { JobAlert, StagingJob, BackendPipelineConfig, EmployeeUser, SocialLinkItem, EmailNotificationConfig, NotificationDispatchLog, AppVersionRelease } from '../types';
 import { defaultJobsDatabase, defaultSocialLinks } from '../data';
 import { ThemeColorConfig } from '../utils/themeColors';
 
@@ -1568,4 +1568,109 @@ export async function updateSuperAdminCredentials(username: string, password: st
     throw err;
   }
 }
+
+// ----------------------------------------------------
+// App Version Release & Live In-App Update Sync System
+// ----------------------------------------------------
+
+export const DEFAULT_APP_VERSION_RELEASE: AppVersionRelease = {
+  version: '2.5.0',
+  buildNumber: '2026.09.19.1',
+  title: '🚀 Naye Features & Fast Performance Update!',
+  releaseNotes: [
+    'Job links now open directly in your phone default browser on a new page',
+    'Instant push update alerts when Super Admin launches new features',
+    'Enhanced Sarkari Result direct download & official portal tools',
+    'Performance speedups and smoother mobile navigation'
+  ],
+  forceUpdate: false,
+  targetPlatform: 'all',
+  releasedAt: new Date().toISOString(),
+  releasedBy: 'Super Admin',
+  status: 'active',
+  changelogText: 'Default browser launcher, real-time in-app update notification, and faster job loading.'
+};
+
+export function subscribeToAppVersionRelease(
+  onUpdate: (release: AppVersionRelease | null) => void,
+  onError?: (err: any) => void
+) {
+  if (!db) {
+    const cached = localStorage.getItem('fastarc_latest_app_release');
+    if (cached) {
+      try {
+        onUpdate(JSON.parse(cached));
+      } catch {
+        onUpdate(DEFAULT_APP_VERSION_RELEASE);
+      }
+    } else {
+      onUpdate(DEFAULT_APP_VERSION_RELEASE);
+    }
+    return () => {};
+  }
+
+  const docRef = doc(db, 'site_config', 'app_version_release');
+  return onSnapshot(
+    docRef,
+    (snap) => {
+      if (snap.exists()) {
+        const data = snap.data() as AppVersionRelease;
+        localStorage.setItem('fastarc_latest_app_release', JSON.stringify(data));
+        onUpdate(data);
+      } else {
+        localStorage.setItem('fastarc_latest_app_release', JSON.stringify(DEFAULT_APP_VERSION_RELEASE));
+        onUpdate(DEFAULT_APP_VERSION_RELEASE);
+      }
+    },
+    (err) => {
+      console.warn('Firestore app version subscription notice:', err);
+      const cached = localStorage.getItem('fastarc_latest_app_release');
+      if (cached) {
+        try {
+          onUpdate(JSON.parse(cached));
+        } catch {
+          onUpdate(DEFAULT_APP_VERSION_RELEASE);
+        }
+      } else {
+        onUpdate(DEFAULT_APP_VERSION_RELEASE);
+      }
+      if (onError) onError(err);
+    }
+  );
+}
+
+export async function getAppVersionReleaseFromFirestore(): Promise<AppVersionRelease | null> {
+  if (!db) {
+    const cached = localStorage.getItem('fastarc_latest_app_release');
+    return cached ? JSON.parse(cached) : DEFAULT_APP_VERSION_RELEASE;
+  }
+  try {
+    const docRef = doc(db, 'site_config', 'app_version_release');
+    const snap = await getDoc(docRef);
+    if (snap.exists()) {
+      return snap.data() as AppVersionRelease;
+    }
+    return DEFAULT_APP_VERSION_RELEASE;
+  } catch (err) {
+    handleFirestoreQuotaError(err, 'getAppVersionRelease');
+    const cached = localStorage.getItem('fastarc_latest_app_release');
+    return cached ? JSON.parse(cached) : DEFAULT_APP_VERSION_RELEASE;
+  }
+}
+
+export async function saveAppVersionReleaseToFirestore(release: AppVersionRelease): Promise<void> {
+  localStorage.setItem('fastarc_latest_app_release', JSON.stringify(release));
+  if (!db) return;
+  try {
+    const docRef = doc(db, 'site_config', 'app_version_release');
+    await setDoc(docRef, {
+      ...release,
+      releasedAt: new Date().toISOString()
+    });
+  } catch (err) {
+    handleFirestoreQuotaError(err, 'saveAppVersionRelease');
+    console.warn('Saved app version release to local storage as fallback.');
+  }
+}
+
 

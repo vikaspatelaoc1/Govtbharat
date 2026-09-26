@@ -222,6 +222,7 @@ interface DatabaseSchema {
     appName: string;
     shortName?: string;
     appVersion: string;
+    pwaInstallUrl?: string;
   };
   users: Array<{ id: string; username: string; email: string; passwordHash: string; name: string; role: string }>;
   stagingJobs?: any[];
@@ -274,7 +275,8 @@ let dbState: DatabaseSchema = {
     autoWatcherEnabled: true,
     appName: 'FastARC Result',
     shortName: 'FastArc',
-    appVersion: '1.0.0'
+    appVersion: '1.0.0',
+    pwaInstallUrl: 'https://fastarcgovt.info/?mode=app&source=pwa'
   },
   users: [
     { id: 'usr-1', username: 'admin', email: 'admin@fastarc.in', passwordHash: 'admin123', name: 'Super Admin', role: 'superadmin' },
@@ -1141,11 +1143,12 @@ app.get('/api/v1/site-config', async (req, res) => {
 });
 
 app.post('/api/v1/update-site-config', async (req, res) => {
-  const { siteTitle, maintenanceMode, appName, appVersion } = req.body;
+  const { siteTitle, maintenanceMode, appName, appVersion, pwaInstallUrl } = req.body;
   if (siteTitle !== undefined) dbState.siteConfig.siteTitle = siteTitle;
   if (maintenanceMode !== undefined) dbState.siteConfig.maintenanceMode = !!maintenanceMode;
   if (appName !== undefined) dbState.siteConfig.appName = appName;
   if (appVersion !== undefined) dbState.siteConfig.appVersion = appVersion;
+  if (pwaInstallUrl !== undefined) dbState.siteConfig.pwaInstallUrl = pwaInstallUrl;
   await saveDatabase(dbState);
   return res.json({ success: true, siteConfig: dbState.siteConfig });
 });

@@ -998,11 +998,22 @@ export const ModernAppBottomSection: React.FC<ModernAppBottomSectionProps> = ({
         </section>
       )}
 
-      {/* Mobile Footer Brand & Copyright */}
-      <div className="max-w-6xl mx-auto px-4 text-center text-slate-500 dark:text-slate-400 text-xs py-2">
+      {/* Mobile Footer Brand, Version & In-App Update Trigger */}
+      <div className="max-w-6xl mx-auto px-4 text-center text-slate-500 dark:text-slate-400 text-xs py-2 space-y-1.5">
         <p className="font-semibold text-[11px]">
           FastArc Govt Jobs Portal &bull; All Rights Reserved
         </p>
+        <div className="flex items-center justify-center gap-3 text-[10px]">
+          <button
+            type="button"
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent('fastarc:check-updates'));
+            }}
+            className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 hover:underline font-bold cursor-pointer"
+          >
+            <span>⚡ Check for App Updates / नया वर्जन चेक करें</span>
+          </button>
+        </div>
       </div>
 
       {/* Tool Detail & Interactive Utility Modal */}
