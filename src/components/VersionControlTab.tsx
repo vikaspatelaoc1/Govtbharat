@@ -138,10 +138,13 @@ export const VersionControlTab: React.FC<VersionControlTabProps> = ({
   };
 
   const handleTestUpdatePrompt = () => {
-    // Temporarily clear current installed version key in localStorage so the prompt immediately shows
+    // Clear all update suppression keys so prompt is guaranteed to display
     localStorage.removeItem('fastarc_installed_app_version');
-    window.dispatchEvent(new CustomEvent('fastarc:check-updates'));
-    onToast('Testing update prompt! The notification will appear on user devices.');
+    localStorage.removeItem('fastarc_app_version');
+    sessionStorage.removeItem('fastarc_update_skipped');
+    window.dispatchEvent(new CustomEvent('fastarc:check-updates', { detail: { force: true, version: liveRelease?.version || '2.6.0' } }));
+    window.dispatchEvent(new CustomEvent('fastarc_trigger_update_prompt', { detail: { force: true, version: liveRelease?.version || '2.6.0' } }));
+    onToast('Testing update prompt! The notification modal is now visible on screen.');
   };
 
   const handleSaveConfig = () => {

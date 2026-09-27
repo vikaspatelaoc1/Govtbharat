@@ -1603,6 +1603,7 @@ export default function App() {
           onConfirm={confirmLogout}
           onCancel={() => setIsLogoutConfirmOpen(false)}
         />
+        <UpdatePrompt />
       </div>
     );
   }
