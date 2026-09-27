@@ -5,7 +5,7 @@ import { getDomainName, getDomainNameLowercase } from './utils/domain';
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Facebook, Twitter, Instagram, Youtube, Search, Bell, Home, Briefcase, FileText, Trophy, ArrowLeft, Star, IdCard, Trash2, Loader2, AlertTriangle, EyeOff } from 'lucide-react';
 import { Header } from './components/Header';
 import { Marquee } from './components/Marquee';
@@ -1453,38 +1453,40 @@ export default function App() {
     return jobState.toLowerCase() === filterState.toLowerCase();
   };
 
-  const filteredJobs = (stateFilters.includes('All') 
-    ? jobs 
-    : jobs.filter(j => stateFilters.some(sf => isStateMatch(j.state, sf)))
-  ).filter(job => {
-    const query = searchQuery.toLowerCase().trim();
-    if (!query) return true;
-    
-    // Check multiple fields so expired/historical forms are 100% discoverable by year, exam, org, etc.
-    const titleMatch = job.title && job.title.toLowerCase().includes(query);
-    const categoryMatch = job.category && job.category.toLowerCase().includes(query);
-    const stateMatch = job.state && job.state.toLowerCase().includes(query);
-    const shortInfoMatch = job.shortInfo && job.shortInfo.toLowerCase().includes(query);
-    const postDateMatch = job.postDate && job.postDate.toLowerCase().includes(query);
-    const startDateMatch = job.dates?.start && job.dates.start.toLowerCase().includes(query);
-    const lastDateMatch = job.dates?.last && job.dates.last.toLowerCase().includes(query);
-    const qualMatch = job.qualification && (Array.isArray(job.qualification) ? job.qualification.some(q => String(q).toLowerCase().includes(query)) : String(job.qualification).toLowerCase().includes(query));
-    const vacMatch = job.totalVacancies && String(job.totalVacancies).toLowerCase().includes(query);
+  const filteredJobs = useMemo(() => {
+    return (stateFilters.includes('All') 
+      ? jobs 
+      : jobs.filter(j => stateFilters.some(sf => isStateMatch(j.state, sf)))
+    ).filter(job => {
+      const query = searchQuery.toLowerCase().trim();
+      if (!query) return true;
+      
+      // Check multiple fields so expired/historical forms are 100% discoverable by year, exam, org, etc.
+      const titleMatch = job.title && job.title.toLowerCase().includes(query);
+      const categoryMatch = job.category && job.category.toLowerCase().includes(query);
+      const stateMatch = job.state && job.state.toLowerCase().includes(query);
+      const shortInfoMatch = job.shortInfo && job.shortInfo.toLowerCase().includes(query);
+      const postDateMatch = job.postDate && job.postDate.toLowerCase().includes(query);
+      const startDateMatch = job.dates?.start && job.dates.start.toLowerCase().includes(query);
+      const lastDateMatch = job.dates?.last && job.dates.last.toLowerCase().includes(query);
+      const qualMatch = job.qualification && (Array.isArray(job.qualification) ? job.qualification.some(q => String(q).toLowerCase().includes(query)) : String(job.qualification).toLowerCase().includes(query));
+      const vacMatch = job.totalVacancies && String(job.totalVacancies).toLowerCase().includes(query);
 
-    return (
-      titleMatch ||
-      categoryMatch ||
-      stateMatch ||
-      shortInfoMatch ||
-      postDateMatch ||
-      startDateMatch ||
-      lastDateMatch ||
-      qualMatch ||
-      vacMatch
-    );
-  });
+      return (
+        titleMatch ||
+        categoryMatch ||
+        stateMatch ||
+        shortInfoMatch ||
+        postDateMatch ||
+        startDateMatch ||
+        lastDateMatch ||
+        qualMatch ||
+        vacMatch
+      );
+    });
+  }, [jobs, stateFilters, searchQuery]);
 
-  const counts = {
+  const counts = useMemo(() => ({
     latest: filteredJobs.filter(j => j.category === 'latest-jobs').length,
     admit: filteredJobs.filter(j => j.category === 'admit-cards').length,
     results: filteredJobs.filter(j => j.category === 'results').length,
@@ -1493,7 +1495,7 @@ export default function App() {
     admission: filteredJobs.filter(j => j.category === 'admission').length,
     documents: filteredJobs.filter(j => j.category === 'documents').length,
     important: filteredJobs.filter(j => j.category === 'important').length,
-  };
+  }), [filteredJobs]);
 
   const handleSeeMoreCategory = (category: JobCategory) => {
     let targetTab = category as string;

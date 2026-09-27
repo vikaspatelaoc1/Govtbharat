@@ -779,7 +779,7 @@ export const Header: React.FC<HeaderProps> = ({
                 paddingTop: 'env(safe-area-inset-top, 0px)',
                 paddingBottom: 'env(safe-area-inset-bottom, 0px)'
               }}
-              className="relative w-64 sm:w-72 max-w-[75vw] bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 h-full shadow-2xl border-r border-slate-200 dark:border-slate-800 flex flex-col z-10 overflow-y-auto"
+              className="relative w-[86vw] sm:w-[420px] max-w-[88vw] sm:max-w-[430px] bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 h-full shadow-2xl border-r border-slate-200 dark:border-slate-800 flex flex-col z-10 overflow-y-auto"
             >
               
               {/* Top Official India Tricolor Line */}
@@ -825,14 +825,14 @@ export const Header: React.FC<HeaderProps> = ({
                 
                 {/* Action Buttons Dock (Moved from Header) */}
                 <div className="flex items-center h-10 rounded-lg border border-amber-500/40 bg-[#1e1e48] shadow-md divide-x divide-white/10 relative text-xs mb-2">
-                  <div className="relative h-full" ref={header3DotRef}>
+                  <div className="relative h-full flex-1" ref={header3DotRef}>
                     <button
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         setIsHeader3DotOpen(prev => !prev);
                       }}
-                      className={`h-full px-3 flex items-center justify-center transition-all hover:bg-blue-950 text-amber-400 cursor-pointer rounded-l-lg ${
+                      className={`h-full w-full px-3 flex items-center justify-center transition-all hover:bg-blue-950 text-amber-400 cursor-pointer rounded-l-lg ${
                         isHeader3DotOpen ? 'bg-blue-950 text-amber-300 ring-1 ring-amber-400 shadow-inner' : ''
                       }`}
                       title="3-Dot Menu"
@@ -895,7 +895,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <button
                     type="button"
                     onClick={() => { setIsDrawerOpen(false); onOpenSuperAdminModal?.('analytics'); }}
-                    className="h-full px-3 flex items-center justify-center transition-colors hover:bg-blue-950 text-amber-400 cursor-pointer"
+                    className="h-full flex-1 px-3 flex items-center justify-center transition-colors hover:bg-blue-950 text-amber-400 cursor-pointer"
                     title="Control Center"
                   >
                     <ShieldCheck className="w-4 h-4 text-amber-400" />
@@ -904,7 +904,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <button 
                     type="button"
                     onClick={() => { setIsDrawerOpen(false); onAdminLoginClick(); }}
-                    className="h-full px-3 flex items-center justify-center transition-colors hover:bg-blue-950 text-amber-400 cursor-pointer"
+                    className="h-full flex-1 px-3 flex items-center justify-center transition-colors hover:bg-blue-950 text-amber-400 cursor-pointer"
                     title="Add Job"
                   >
                     <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -915,7 +915,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <button 
                     type="button"
                     onClick={onLogout} 
-                    className="h-full px-3 bg-rose-950/90 hover:bg-rose-900 text-rose-400 flex items-center justify-center transition-colors cursor-pointer rounded-r-lg"
+                    className="h-full flex-1 px-3 bg-rose-950/90 hover:bg-rose-900 text-rose-400 flex items-center justify-center transition-colors cursor-pointer rounded-r-lg"
                     title="Logout"
                   >
                     <LogOut className="w-4 h-4 text-rose-400" />

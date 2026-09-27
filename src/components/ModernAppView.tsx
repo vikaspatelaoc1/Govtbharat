@@ -680,13 +680,13 @@ export const ModernAppView: React.FC<ModernAppViewProps> = ({
                       onTabChange(cat.targetTab);
                       if (cat.targetTab === 'home') {
                         if (setSearchQuery) setSearchQuery('');
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        window.scrollTo({ top: 0, behavior: 'auto' });
                       } else {
                         const el = document.getElementById(`section-${cat.targetTab}`) || document.getElementById('main-job-columns');
                         if (el) {
-                          el.scrollIntoView({ behavior: 'smooth' });
+                          el.scrollIntoView({ behavior: 'auto' });
                         } else {
-                          window.scrollTo({ top: 260, behavior: 'smooth' });
+                          window.scrollTo({ top: 260, behavior: 'auto' });
                         }
                       }
                     });
