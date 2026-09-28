@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-// Firebase Configuration for FastArc Govt Portal
+// Firebase Configuration for GovtBharat Portal
 // Provides safe, resilient configuration with environment variable support for Vercel, Netlify, and local development.
 
 export const defaultFirebaseConfig = {

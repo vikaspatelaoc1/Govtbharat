@@ -320,19 +320,19 @@ export const ToolDetailModal: React.FC<ToolDetailModalProps> = ({
       <div 
         className="relative w-full max-w-4xl bg-white dark:bg-[#0B1120] text-slate-900 dark:text-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden my-4 max-h-[92vh] flex flex-col transition-colors duration-300"
       >
-        {/* Top Header matching FastArc Govt brand */}
+        {/* Top Header matching GovtBharat brand */}
         <div className="bg-gradient-to-r from-[#8c1328] via-[#a81934] to-[#670d1e] text-white p-3.5 sm:p-5 flex items-center justify-between shrink-0 shadow-md">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0 flex-1">
             {siteLogo ? (
-              <img src={siteLogo} alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl object-contain bg-white/15 p-1 backdrop-blur-xs" />
+              <img src={siteLogo} alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl object-contain bg-white/15 p-1 backdrop-blur-xs shrink-0" />
             ) : (
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center font-black text-amber-300">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center font-black text-amber-300 shrink-0">
                 FA
               </div>
             )}
-            <div>
+            <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <h1 className="text-base sm:text-xl font-black tracking-tight leading-tight">
+                <h1 className="text-sm sm:text-lg md:text-xl font-black tracking-tight leading-tight truncate">
                   {tool.title}
                 </h1>
                 {tool.badge && (
@@ -504,7 +504,7 @@ export const ToolDetailModal: React.FC<ToolDetailModalProps> = ({
                           </div>
                           <a
                             href={resizedImage}
-                            download={`FastArc_Govt_Resized_${Date.now()}.jpg`}
+                            download={`GovtBharat_Govt_Resized_${Date.now()}.jpg`}
                             className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all cursor-pointer"
                           >
                             <Download className="w-4 h-4" />
@@ -1012,7 +1012,7 @@ export const ToolDetailModal: React.FC<ToolDetailModalProps> = ({
         {/* Modal Footer */}
         <div className="p-3 sm:p-4 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between shrink-0 text-xs">
           <span className="text-[11px] text-slate-500 font-medium">
-            FastArc Govt Result • 100% Free &amp; Secure
+            GovtBharat Result • 100% Free &amp; Secure
           </span>
           <button
             onClick={onClose}

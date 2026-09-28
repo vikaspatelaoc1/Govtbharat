@@ -54,7 +54,7 @@ export const PRIMARY_ACCENT_PRESETS: AccentPreset[] = [
     color: '#f59e0b',
     hoverColor: '#d97706',
     lightColor: '#fef3c7',
-    description: 'Warm gold and amber glowing tones (Original FastArc signature)',
+    description: 'Warm gold and amber glowing tones (Original GovtBharat signature)',
     badge: 'DEFAULT'
   },
   {
@@ -380,7 +380,7 @@ export function hexToRgb(hex: string): string {
 export const loadThemeColors = (): ThemeColorConfig => {
   if (typeof window === 'undefined') return DEFAULT_THEME_COLORS;
   try {
-    const saved = localStorage.getItem('fastarc_theme_colors');
+    const saved = localStorage.getItem('GovtBharat_theme_colors');
     if (saved) {
       return { ...DEFAULT_THEME_COLORS, ...JSON.parse(saved) };
     }
@@ -393,7 +393,7 @@ export const loadThemeColors = (): ThemeColorConfig => {
 export const saveThemeColors = (colors: ThemeColorConfig) => {
   if (typeof window === 'undefined') return;
   try {
-    localStorage.setItem('fastarc_theme_colors', JSON.stringify(colors));
+    localStorage.setItem('GovtBharat_theme_colors', JSON.stringify(colors));
     applyThemeColorsToDOM(colors);
   } catch (err) {
     console.error('Error saving theme colors:', err);
@@ -403,7 +403,7 @@ export const saveThemeColors = (colors: ThemeColorConfig) => {
 export const applyThemeColorsToDOM = (colors: ThemeColorConfig) => {
   if (typeof document === 'undefined') return;
 
-  const styleId = 'fastarc-custom-theme-style';
+  const styleId = 'GovtBharat-custom-theme-style';
   let styleEl = document.getElementById(styleId) as HTMLStyleElement | null;
   if (!styleEl) {
     styleEl = document.createElement('style');

@@ -37,7 +37,7 @@ export const BackendStagingQueue: React.FC<BackendStagingQueueProps> = ({
   // Pipeline settings
   const [pipelineConfig, setPipelineConfig] = useState<BackendPipelineConfig>({
     autoPromoteEnabled: false,
-    webhookSecret: 'FASTARC_BACKEND_SECRET_KEY_12345',
+    webhookSecret: 'GovtBharat_BACKEND_SECRET_KEY_12345',
     totalIngestedCount: 0
   });
   const [isSavingConfig, setIsSavingConfig] = useState(false);

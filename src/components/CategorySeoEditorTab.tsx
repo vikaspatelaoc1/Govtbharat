@@ -67,8 +67,8 @@ export const CategorySeoEditorTab: React.FC<CategorySeoEditorTabProps> = ({ onSh
   const [bulkKeywordInput, setBulkKeywordInput] = useState('');
   const [bulkOgImageInput, setBulkOgImageInput] = useState('');
   const [bulkRobotsInput, setBulkRobotsInput] = useState('index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
-  const [bulkTitlePattern, setBulkTitlePattern] = useState('{name} 2026 - Latest Notifications & Online Form | FastArc');
-  const [bulkDescPattern, setBulkDescPattern] = useState('Explore latest {name} 2026 notifications, exam dates, eligibility criteria, admit cards and direct apply links on FastArc.');
+  const [bulkTitlePattern, setBulkTitlePattern] = useState('{name} 2026 - Latest Notifications & Online Form | GovtBharat');
+  const [bulkDescPattern, setBulkDescPattern] = useState('Explore latest {name} 2026 notifications, exam dates, eligibility criteria, admit cards and direct apply links on GovtBharat.');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -222,7 +222,7 @@ export const CategorySeoEditorTab: React.FC<CategorySeoEditorTabProps> = ({ onSh
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(categoriesSeo, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `fastarc_category_seo_${new Date().toISOString().slice(0, 10)}.json`);
+    downloadAnchor.setAttribute("download", `GovtBharat_category_seo_${new Date().toISOString().slice(0, 10)}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -475,7 +475,7 @@ export const CategorySeoEditorTab: React.FC<CategorySeoEditorTabProps> = ({ onSh
                 type="text"
                 value={activeCategory.metaTitle || ''}
                 onChange={(e) => handleUpdateCategoryField(selectedCatId, 'metaTitle', e.target.value)}
-                placeholder={`e.g. ${activeCategory.name} 2026 - Apply Online for 50,000+ Vacancies | FastArc`}
+                placeholder={`e.g. ${activeCategory.name} 2026 - Apply Online for 50,000+ Vacancies | GovtBharat`}
                 className="w-full bg-slate-950 border border-slate-800 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 transition-all font-medium"
               />
               <p className="text-[11px] text-slate-400">
@@ -525,7 +525,7 @@ export const CategorySeoEditorTab: React.FC<CategorySeoEditorTabProps> = ({ onSh
                 type="text"
                 value={activeCategory.metaKeywords || ''}
                 onChange={(e) => handleUpdateCategoryField(selectedCatId, 'metaKeywords', e.target.value)}
-                placeholder={`Sarkari ${activeCategory.name}, ${activeCategory.name} 2026, FastArc, Online Form`}
+                placeholder={`Sarkari ${activeCategory.name}, ${activeCategory.name} 2026, GovtBharat, Online Form`}
                 className="w-full bg-slate-950 border border-slate-800 focus:border-teal-500 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 transition-all font-medium"
               />
               
@@ -660,7 +660,7 @@ export const CategorySeoEditorTab: React.FC<CategorySeoEditorTabProps> = ({ onSh
                       </div>
                       <div className="flex flex-col">
                         <span className="text-[12px] font-medium text-slate-800 dark:text-slate-200 leading-none">
-                          FastArc Govt Result › {activeCategory.name}
+                          GovtBharat › {activeCategory.name}
                         </span>
                         <span className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
                           https://{getDomainNameLowercase()} › ?tab={activeCategory.id}
@@ -689,11 +689,11 @@ export const CategorySeoEditorTab: React.FC<CategorySeoEditorTabProps> = ({ onSh
                   <h4 className={`font-semibold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer leading-tight ${
                     previewDevice === 'mobile' ? 'text-sm line-clamp-3' : 'text-base line-clamp-2'
                   }`}>
-                    {activeCategory.metaTitle || `${activeCategory.name} 2026 - FastArc`}
+                    {activeCategory.metaTitle || `${activeCategory.name} 2026 - GovtBharat`}
                   </h4>
 
                   <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
-                    {activeCategory.metaDescription || `Find all latest updates for ${activeCategory.name} 2026 on FastArc.`}
+                    {activeCategory.metaDescription || `Find all latest updates for ${activeCategory.name} 2026 on GovtBharat.`}
                   </p>
                 </div>
               ) : (
@@ -910,7 +910,7 @@ export const CategorySeoEditorTab: React.FC<CategorySeoEditorTabProps> = ({ onSh
                   type="text"
                   value={bulkKeywordInput}
                   onChange={(e) => setBulkKeywordInput(e.target.value)}
-                  placeholder="FastArc, Sarkari Result 2026, Govt Jobs"
+                  placeholder="GovtBharat, Sarkari Result 2026, Govt Jobs"
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white"
                 />
               </div>

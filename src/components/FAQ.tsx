@@ -8,7 +8,7 @@ const faqs = [
   },
   {
     question: "Is it free to use this portal?",
-    answer: "Yes, browsing notifications and accessing all information on FastArc is completely free for all students and aspirants."
+    answer: "Yes, browsing notifications and accessing all information on GovtBharat is completely free for all students and aspirants."
   },
   {
     question: "How can I get instant alerts for new jobs?",

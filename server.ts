@@ -138,7 +138,7 @@ app.use((req, res, next) => {
 
 // Persistent JSON file database path (with Vercel /tmp fallback for writable filesystem)
 const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(process.cwd(), 'data');
-const DB_FILE = path.join(DATA_DIR, 'fastarc_database.json');
+const DB_FILE = path.join(DATA_DIR, 'GovtBharat_database.json');
 
 // URL sanitizer & official portal cleaner with authoritative verification
 const cleanOfficialUrl = (url?: string, defaultFallback: string = 'https://www.india.gov.in'): string => {
@@ -239,9 +239,9 @@ interface DatabaseSchema {
 const defaultNotificationConfig = {
   autoSendOnPublish: true,
   provider: 'built-in' as const,
-  fromName: 'WWW.FASTARCGOVT.INFO - Govt Job Alerts',
-  fromEmail: 'alerts@fastarcgovt.info',
-  replyToEmail: 'support@fastarcgovt.info',
+  fromName: 'WWW.GOVTBHARAT.COM - Govt Job Alerts',
+  fromEmail: 'alerts@govtbharat.com',
+  replyToEmail: 'support@govtbharat.com',
   smtpHost: 'smtp.gmail.com',
   smtpPort: 587,
   smtpUser: '',
@@ -249,11 +249,11 @@ const defaultNotificationConfig = {
   smtpSecure: false,
   apiKey: '',
   webhookUrl: '',
-  subjectTemplate: '⚡ [FastArc Alert] {job_title} - {state} Apply Online',
-  preheaderText: 'New Government Job Notification has been published on FastArc Portal. Check eligibility and apply now.',
+  subjectTemplate: '⚡ [GovtBharat Alert] {job_title} - {state} Apply Online',
+  preheaderText: 'New Government Job Notification has been published on GovtBharat Portal. Check eligibility and apply now.',
   bannerTitle: 'OFFICIAL GOVERNMENT JOB NOTIFICATION RELEASED',
   callToActionText: 'View Full Job Details & Apply Online',
-  footerNote: 'You received this official alert because you subscribed on FastArc Govt Jobs Portal.',
+  footerNote: 'You received this official alert because you subscribed on GovtBharat Jobs Portal.',
   sendCategories: ['all', 'latest-jobs', 'admit-cards', 'results', 'answer-key', 'syllabus', 'admission'],
   sendDelaySeconds: 0,
   includePdfLink: true,
@@ -270,22 +270,22 @@ let dbState: DatabaseSchema = {
   notificationConfig: defaultNotificationConfig,
   notificationHistory: [],
   siteConfig: {
-    siteTitle: 'FastArc Govt Jobs',
+    siteTitle: 'GovtBharat',
     maintenanceMode: false,
     autoWatcherEnabled: true,
-    appName: 'FastARC Result',
-    shortName: 'FastArc',
+    appName: 'GovtBharat',
+    shortName: 'GovtBharat',
     appVersion: '1.0.0',
-    pwaInstallUrl: 'https://fastarcgovt.info/?mode=app&source=pwa'
+    pwaInstallUrl: 'https://govtbharat.com/?mode=app&source=pwa'
   },
   users: [
-    { id: 'usr-1', username: 'admin', email: 'admin@fastarc.in', passwordHash: 'admin123', name: 'Super Admin', role: 'superadmin' },
-    { id: 'usr-2', username: 'ramesh', email: 'ramesh@fastarc.in', passwordHash: 'Pass123#', name: 'Ramesh Operator', role: 'employee' },
+    { id: 'usr-1', username: 'admin', email: 'admin@govtbharat.com', passwordHash: 'admin123', name: 'Super Admin', role: 'superadmin' },
+    { id: 'usr-2', username: 'ramesh', email: 'ramesh@govtbharat.com', passwordHash: 'Pass123#', name: 'Ramesh Operator', role: 'employee' },
   ],
   stagingJobs: [],
   backendPipelineConfig: {
     autoPromoteEnabled: true,
-    webhookSecret: 'FASTARC_BACKEND_SECRET_KEY_12345',
+    webhookSecret: 'GovtBharat_BACKEND_SECRET_KEY_12345',
     totalIngestedCount: 0
   }
 };
@@ -397,7 +397,7 @@ export async function ensureDatabaseLoaded(timeoutMs = 8000): Promise<DatabaseSc
     try {
       const candidatePaths = [
         DB_FILE,
-        path.join(process.cwd(), 'data', 'fastarc_database.json')
+        path.join(process.cwd(), 'data', 'GovtBharat_database.json')
       ];
       for (const p of candidatePaths) {
         if (fs.existsSync(p)) {
@@ -544,7 +544,7 @@ async function initDB() {
         host: process.env.MYSQL_HOST,
         user: process.env.MYSQL_USER,
         password: process.env.MYSQL_PASSWORD || '',
-        database: process.env.MYSQL_DATABASE || 'fastarc_db',
+        database: process.env.MYSQL_DATABASE || 'GovtBharat_db',
         port: Number(process.env.MYSQL_PORT) || 3306,
         waitForConnections: true,
         connectionLimit: 10,
@@ -596,7 +596,7 @@ async function initDB() {
       useMySQL = false;
     }
   } else {
-    console.log('ℹ️ MySQL credentials not in .env, using persistent JSON database (data/fastarc_database.json)');
+    console.log('ℹ️ MySQL credentials not in .env, using persistent JSON database (data/GovtBharat_database.json)');
   }
 }
 
@@ -859,8 +859,8 @@ function serverEnrichJob(raw: any): any {
     answerKey: raw.links?.answerKey ? sanitizeUrl(raw.links?.answerKey, officialPortal) : undefined,
     syllabus: raw.links?.syllabus ? sanitizeUrl(raw.links?.syllabus, officialPortal) : undefined,
     videoHindi: (raw.links?.videoHindi && raw.links?.videoHindi.startsWith('http')) ? raw.links.videoHindi : `https://www.youtube.com/results?search_query=${encodeURIComponent(title + ' form fill up')}`,
-    telegram: raw.links?.telegram || 'https://t.me/fastarcgov',
-    whatsapp: raw.links?.whatsapp || 'https://whatsapp.com/channel/0029VaFastArcGov'
+    telegram: raw.links?.telegram || 'https://t.me/govtbharatofficial',
+    whatsapp: raw.links?.whatsapp || 'https://whatsapp.com/channel/govtbharatofficial'
   };
 
   return {
@@ -926,7 +926,16 @@ app.get('/api/v1/sarkari-posts', async (req, res) => {
             fsJobs.push({ id: d.id, ...d.data() });
           });
           if (fsJobs.length > 0) {
-            dbState.jobs = fsJobs;
+            const m = new Map<string, any>();
+            dbState.jobs.forEach(j => m.set(j.id, j));
+            fsJobs.forEach(j => {
+              if (j.isDeleted || j.deleted) {
+                m.delete(j.id);
+              } else {
+                m.set(j.id, { ...(m.get(j.id) || {}), ...j });
+              }
+            });
+            dbState.jobs = Array.from(m.values());
           }
         } catch (fsErr) {
           console.warn('⚠️ Server failed to fetch fresh jobs from Firestore for GET API:', fsErr);
@@ -1182,9 +1191,9 @@ app.post('/api/v1/update-website-control-config', async (req, res) => {
 app.get('/manifest.json', async (req, res) => {
   const manifest = {
     "id": "/",
-    "name": dbState.siteConfig.appName || "FastArc Govt Result",
-    "short_name": dbState.siteConfig.shortName || (dbState.siteConfig.appName?.toLowerCase().includes('fastarc') ? "FastArc" : (dbState.siteConfig.appName || "FastArc")),
-    "description": "WWW.FASTARCGOVT.INFO - FastArc Government Jobs Portal: Get instant updates for latest Sarkari Naukri, Online Forms, Admit Cards, Exam Results, Answer Keys, Syllabus & Admissions 2026.",
+    "name": dbState.siteConfig.appName || "GovtBharat",
+    "short_name": dbState.siteConfig.shortName || "GovtBharat",
+    "description": "WWW.GOVTBHARAT.COM - GovtBharat Government Jobs Portal: Get instant updates for latest Sarkari Naukri, Online Forms, Admit Cards, Exam Results, Answer Keys, Syllabus & Admissions 2026.",
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
@@ -1519,12 +1528,12 @@ app.post('/api/v1/subscribers/deleted/clear', async (req, res) => {
 // --- SOCIAL MEDIA LINKS API ---
 app.get('/api/v1/social-links', async (req, res) => {
   const links = (dbState as any).socialLinks || [
-    { id: 'social-telegram', platform: 'telegram', title: 'Telegram Channel', url: 'https://t.me/fastarcgovtofficial', handle: '@fastarcgovtofficial', badgeText: 'Join 150K+ Aspirants', enabled: true, color: '#0088cc', order: 1 },
-    { id: 'social-whatsapp', platform: 'whatsapp', title: 'WhatsApp Channel', url: 'https://whatsapp.com/channel/fastarcgovtofficial', handle: 'FastArc Govt Alerts', badgeText: 'Instant Job Alerts', enabled: true, color: '#25D366', order: 2 },
-    { id: 'social-youtube', platform: 'youtube', title: 'YouTube Official', url: 'https://youtube.com/@fastarcgovt', handle: '@fastarcgovt', badgeText: 'Video Updates & Analysis', enabled: true, color: '#FF0000', order: 3 },
-    { id: 'social-instagram', platform: 'instagram', title: 'Instagram Page', url: 'https://instagram.com/fastarcgovt', handle: '@fastarcgovt', badgeText: 'Daily GK & Info', enabled: true, color: '#E1306C', order: 4 },
-    { id: 'social-twitter', platform: 'twitter', title: 'Twitter / X', url: 'https://x.com/fastarcgovt', handle: '@fastarcgovt', badgeText: 'Official Notices', enabled: true, color: '#000000', order: 5 },
-    { id: 'social-facebook', platform: 'facebook', title: 'Facebook Page', url: 'https://facebook.com/fastarcgovt', handle: 'FastArc Govt Portal', badgeText: 'Community Page', enabled: true, color: '#1877F2', order: 6 }
+    { id: 'social-telegram', platform: 'telegram', title: 'Telegram Channel', url: 'https://t.me/govtbharatofficial', handle: '@govtbharatofficial', badgeText: 'Join 150K+ Aspirants', enabled: true, color: '#0088cc', order: 1 },
+    { id: 'social-whatsapp', platform: 'whatsapp', title: 'WhatsApp Channel', url: 'https://whatsapp.com/channel/govtbharatofficial', handle: 'GovtBharat Alerts', badgeText: 'Instant Job Alerts', enabled: true, color: '#25D366', order: 2 },
+    { id: 'social-youtube', platform: 'youtube', title: 'YouTube Official', url: 'https://youtube.com/@govtbharatofficial', handle: '@govtbharatofficial', badgeText: 'Video Updates & Analysis', enabled: true, color: '#FF0000', order: 3 },
+    { id: 'social-instagram', platform: 'instagram', title: 'Instagram Page', url: 'https://instagram.com/govtbharatofficial', handle: '@govtbharatofficial', badgeText: 'Daily GK & Info', enabled: true, color: '#E1306C', order: 4 },
+    { id: 'social-twitter', platform: 'twitter', title: 'Twitter / X', url: 'https://x.com/govtbharat', handle: '@govtbharat', badgeText: 'Official Notices', enabled: true, color: '#000000', order: 5 },
+    { id: 'social-facebook', platform: 'facebook', title: 'Facebook Page', url: 'https://facebook.com/govtbharatofficial', handle: 'GovtBharat Portal', badgeText: 'Community Page', enabled: true, color: '#1877F2', order: 6 }
   ];
   res.json({ success: true, links });
 });
@@ -1553,16 +1562,16 @@ function generateJobAlertEmailHtml(job: any, config: any, recipientEmail: string
   const startDate = typeof job.dates === 'object' ? (job.dates.start || postDate) : postDate;
   const genFee = typeof job.fees === 'object' ? (job.fees.general || '₹100') : '₹100';
   const scStFee = typeof job.fees === 'object' ? (job.fees.scSt || '₹0') : '₹0';
-  const applyLink = job.links?.apply || 'https://www.fastarcgovt.info';
-  const pdfLink = job.links?.notification || job.links?.official || 'https://www.fastarcgovt.info';
+  const applyLink = job.links?.apply || 'https://www.govtbharat.com';
+  const pdfLink = job.links?.notification || job.links?.official || 'https://www.govtbharat.com';
   const shortInfo = job.shortInfo || 'Official notification released by government department/commission. Check eligibility, vacancies, fee and application dates below.';
 
-  const subject = (config?.subjectTemplate || '⚡ [FastArc Alert] {job_title} - {state} Apply Online')
+  const subject = (config?.subjectTemplate || '⚡ [GovtBharat Alert] {job_title} - {state} Apply Online')
     .replace('{job_title}', jobTitle)
     .replace('{category}', category)
     .replace('{state}', state)
     .replace('{last_date}', lastDate)
-    .replace('{portal_name}', 'FastArc');
+    .replace('{portal_name}', 'GovtBharat');
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -1603,8 +1612,8 @@ function generateJobAlertEmailHtml(job: any, config: any, recipientEmail: string
     <div class="wrapper">
       <div class="tricolor-bar"></div>
       <div class="header">
-        <div class="logo-badge">⚡ FAST-ARC GOVT ALERTS</div>
-        <h1 class="portal-name">${config?.fromName || 'FastArc Sarkari Result'}</h1>
+        <div class="logo-badge">⚡ GOVTBHARAT ALERTS</div>
+        <h1 class="portal-name">${config?.fromName || 'GovtBharat Sarkari Result'}</h1>
         <p class="portal-sub">Instant Official Central &amp; State Recruitment Updates</p>
       </div>
 
@@ -1664,15 +1673,15 @@ function generateJobAlertEmailHtml(job: any, config: any, recipientEmail: string
       </div>
 
       <div class="footer">
-        <p style="margin:0 0 8px 0;">${config?.footerNote || 'You received this notification because you subscribed on FastArc Govt Jobs Portal.'}</p>
+        <p style="margin:0 0 8px 0;">${config?.footerNote || 'You received this notification because you subscribed on GovtBharat Jobs Portal.'}</p>
         <p style="margin:0 0 8px 0;">Recipient: <strong>${recipientEmail}</strong></p>
         <p style="margin:0;">
-          <a href="https://www.fastarcgovt.info">WWW.FASTARCGOVT.INFO</a> &bull;
-          <a href="https://www.fastarcgovt.info/#helpdesk">Candidate Helpdesk</a> &bull;
-          <a href="https://www.fastarcgovt.info/#unsubscribe?email=${encodeURIComponent(recipientEmail)}">Unsubscribe</a>
+          <a href="https://www.govtbharat.com">WWW.GOVTBHARAT.COM</a> &bull;
+          <a href="https://www.govtbharat.com/#helpdesk">Candidate Helpdesk</a> &bull;
+          <a href="https://www.govtbharat.com/#unsubscribe?email=${encodeURIComponent(recipientEmail)}">Unsubscribe</a>
         </p>
         <p style="margin:8px 0 0 0; font-size:10px; color:#64748b;">
-          &copy; 2026 WWW.FASTARCGOVT.INFO - FastArc Govt Result. Verified Public Job Notice Alert.
+          &copy; 2026 WWW.GOVTBHARAT.COM - GovtBharat. Verified Public Job Notice Alert.
         </p>
       </div>
     </div>
@@ -1690,7 +1699,7 @@ ${shortInfo}
 Apply Online: ${applyLink}
 Official PDF: ${pdfLink}
 
-To unsubscribe: https://www.fastarcgovt.info/#unsubscribe?email=${encodeURIComponent(recipientEmail)}`;
+To unsubscribe: https://www.govtbharat.com/#unsubscribe?email=${encodeURIComponent(recipientEmail)}`;
 
   return { subject, html, text };
 }
@@ -1973,7 +1982,7 @@ app.get('/api/v1/notifications/preview-template', async (req, res) => {
     links: { apply: 'https://ssc.gov.in', official: 'https://ssc.gov.in', notification: 'https://ssc.gov.in' }
   };
 
-  const preview = generateJobAlertEmailHtml(sampleJob, dbState.notificationConfig || defaultNotificationConfig, 'subscriber@fastarc.in');
+  const preview = generateJobAlertEmailHtml(sampleJob, dbState.notificationConfig || defaultNotificationConfig, 'subscriber@govtbharat.com');
   res.json({ success: true, ...preview, sampleJob });
 });
 
@@ -2347,7 +2356,7 @@ app.all(['/api/v1/scraper/run', '/api/scraper/run'], async (req, res) => {
   }
 });
 
-// 5. AUTO-INGEST SCRAPED POSTS DIRECTLY INTO FAST-ARC DATABASE & FIREBASE STAGING
+// 5. AUTO-INGEST SCRAPED POSTS DIRECTLY INTO GovtBharat DATABASE & FIREBASE STAGING
 async function autoIngestPosts(posts: any[], options?: { autoPromote?: boolean; sourceType?: string; sourceName?: string }) {
   let ingestedCount = 0;
   const newStagingJobsList: any[] = [];
@@ -2367,7 +2376,18 @@ async function autoIngestPosts(posts: any[], options?: { autoPromote?: boolean; 
       if (jobsSnap && typeof jobsSnap.forEach === 'function') {
         const fsJobs: any[] = [];
         jobsSnap.forEach((d: any) => fsJobs.push({ id: d.id, ...d.data() }));
-        if (fsJobs.length > 0) dbState.jobs = fsJobs;
+        if (fsJobs.length > 0) {
+          const m = new Map<string, any>();
+          dbState.jobs.forEach(j => m.set(j.id, j));
+          fsJobs.forEach(j => {
+            if (j.isDeleted || j.deleted) {
+              m.delete(j.id);
+            } else {
+              m.set(j.id, { ...(m.get(j.id) || {}), ...j });
+            }
+          });
+          dbState.jobs = Array.from(m.values());
+        }
       }
       if (stagingSnap && typeof stagingSnap.forEach === 'function') {
         const fsStaging: any[] = [];
@@ -2552,10 +2572,10 @@ app.get('/api/v1/jobs/staging', async (req, res) => {
 app.post('/api/v1/jobs/staging', async (req, res) => {
   try {
     const authHeader = req.headers.authorization || req.headers['x-backend-token'] || '';
-    const configuredSecret = dbState.backendPipelineConfig?.webhookSecret || 'FASTARC_BACKEND_SECRET_KEY_12345';
+    const configuredSecret = dbState.backendPipelineConfig?.webhookSecret || 'GovtBharat_BACKEND_SECRET_KEY_12345';
     
     // Validate secret token if provided, fallback to open ingestion for local crawler
-    if (authHeader && !authHeader.includes(configuredSecret) && !authHeader.includes('FASTARC_SECRET_KEY_12345')) {
+    if (authHeader && !authHeader.includes(configuredSecret) && !authHeader.includes('GovtBharat_SECRET_KEY_12345')) {
       return res.status(401).json({ success: false, error: 'Unauthorized: Invalid backend secret token' });
     }
 
@@ -2726,13 +2746,13 @@ app.delete('/api/v1/jobs/staging', async (req, res) => {
 // 7. GET BACKEND PIPELINE CONFIGURATION & GITHUB INFO
 app.get('/api/v1/backend-pipeline/config', async (req, res) => {
   try {
-    const host = req.get('host') || 'www.fastarcgovt.info';
+    const host = req.get('host') || 'www.govtbharat.com';
     const proto = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
     const baseUrl = `${proto}://${host}`;
 
     const config = dbState.backendPipelineConfig || {
       autoPromoteEnabled: true,
-      webhookSecret: 'FASTARC_BACKEND_SECRET_KEY_12345',
+      webhookSecret: 'GovtBharat_BACKEND_SECRET_KEY_12345',
       totalIngestedCount: 0
     };
 
@@ -2762,7 +2782,7 @@ app.post('/api/v1/backend-pipeline/config', async (req, res) => {
     if (!dbState.backendPipelineConfig) {
       dbState.backendPipelineConfig = {
         autoPromoteEnabled: true,
-        webhookSecret: 'FASTARC_BACKEND_SECRET_KEY_12345',
+        webhookSecret: 'GovtBharat_BACKEND_SECRET_KEY_12345',
         totalIngestedCount: 0
       };
     }
@@ -2813,7 +2833,7 @@ if (!process.env.VERCEL) {
   watcherTimer.unref?.();
 }
 
-// 6. PUBLIC RSS 2.0 FEED XML GENERATOR FOR FASTARC
+// 6. PUBLIC RSS 2.0 FEED XML GENERATOR FOR GOVTBHARAT
 app.get('/api/v1/rss/feed.xml', async (req, res) => {
   const category = (req.query.category as string) || '';
   const state = (req.query.state as string) || '';
@@ -2826,17 +2846,17 @@ app.get('/api/v1/rss/feed.xml', async (req, res) => {
     jobsList = jobsList.filter(j => (j.state || '').toLowerCase() === state.toLowerCase());
   }
 
-  const siteUrl = 'https://www.fastarcgovt.info';
+  const siteUrl = 'https://www.govtbharat.com';
   const now = new Date().toUTCString();
 
   const itemsXml = jobsList.slice(0, 50).map(job => {
     const pubDate = job.postDate ? new Date(job.postDate.split('-').reverse().join('-')).toUTCString() : now;
     const link = job.links?.apply || job.links?.official || `${siteUrl}/#job-${job.id}`;
-    const desc = escapeXml(job.shortInfo || `${job.title} - Check Eligibility, Dates, Application fee and Official Notification on FastArc Sarkari Portal.`);
+    const desc = escapeXml(job.shortInfo || `${job.title} - Check Eligibility, Dates, Application fee and Official Notification on GovtBharat Portal.`);
     return `    <item>
       <title>${escapeXml(job.title)}</title>
       <link>${escapeXml(link)}</link>
-      <guid isPermaLink="false">fastarc-${job.id}</guid>
+      <guid isPermaLink="false">govtbharat-${job.id}</guid>
       <pubDate>${pubDate}</pubDate>
       <category>${escapeXml(job.category)}</category>
       <state>${escapeXml(job.state || 'Central')}</state>
@@ -2847,7 +2867,7 @@ app.get('/api/v1/rss/feed.xml', async (req, res) => {
   const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>FastArc Sarkari Result &amp; Govt Job Alerts 2026</title>
+    <title>GovtBharat Sarkari Result &amp; Govt Job Alerts 2026</title>
     <link>${siteUrl}</link>
     <description>Live RSS Feed for Latest Central &amp; State Government Jobs, Admit Cards, Exam Results, Answer Keys, and Syllabus.</description>
     <language>en-in</language>
@@ -2881,7 +2901,7 @@ app.get('/api/v1/rss/preview', async (req, res) => {
   res.json({
     success: true,
     feedUrl: '/api/v1/rss/feed.xml' + (category ? `?category=${category}` : ''),
-    title: 'FastArc Sarkari Result & Govt Job Alerts Live RSS Feed',
+    title: 'GovtBharat Sarkari Result & Govt Job Alerts Live RSS Feed',
     itemsCount: previewItems.length,
     items: previewItems
   });
@@ -2994,7 +3014,7 @@ app.get('/api/v1/cron/auto-watcher', async (req, res) => {
 app.get('/api', (req, res) => {
   res.json({
     status: 'ok',
-    service: 'FastArc Government Results Portal API',
+    service: 'GovtBharat Government Results Portal API',
     totalJobs: dbState.jobs.length,
     timestamp: new Date().toISOString()
   });

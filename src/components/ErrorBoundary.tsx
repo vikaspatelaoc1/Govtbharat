@@ -27,7 +27,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.warn('[FastArc ErrorBoundary caught an error]', error, errorInfo);
+    console.warn('[GovtBharat ErrorBoundary caught an error]', error, errorInfo);
     this.setState({ error, errorInfo });
   }
 
@@ -60,7 +60,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
               <AlertTriangle className="w-7 h-7" />
             </div>
 
-            <h1 className="text-xl font-bold text-white mb-2">FastArc Portal Notice</h1>
+            <h1 className="text-xl font-bold text-white mb-2">GovtBharat Portal Notice</h1>
             <p className="text-sm text-slate-400 mb-6 leading-relaxed">
               The application encountered a temporary display issue. Your saved data and preferences are safe.
             </p>

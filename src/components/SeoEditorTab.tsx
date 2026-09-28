@@ -131,7 +131,7 @@ export const SeoEditorTab: React.FC<SeoEditorTabProps> = ({ onShowToast }) => {
               type="text"
               value={seoConfig.siteTitle}
               onChange={(e) => setSeoConfig({ ...seoConfig, siteTitle: e.target.value })}
-              placeholder="e.g. FastArc Govt Result | Latest Online Form & Admit Card 2026"
+              placeholder="e.g. GovtBharat | Latest Online Form & Admit Card 2026"
               className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 transition-all font-medium"
             />
             <p className="text-[11px] text-slate-400">
@@ -175,7 +175,7 @@ export const SeoEditorTab: React.FC<SeoEditorTabProps> = ({ onShowToast }) => {
               type="text"
               value={seoConfig.metaKeywords}
               onChange={(e) => setSeoConfig({ ...seoConfig, metaKeywords: e.target.value })}
-              placeholder="Sarkari Result, Govt Jobs 2026, Admit Card, Answer Key, FastArc"
+              placeholder="Sarkari Result, Govt Jobs 2026, Admit Card, Answer Key, GovtBharat"
               className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 transition-all font-medium"
             />
             <p className="text-[11px] text-slate-400">
@@ -193,7 +193,7 @@ export const SeoEditorTab: React.FC<SeoEditorTabProps> = ({ onShowToast }) => {
                 type="text"
                 value={seoConfig.authorName}
                 onChange={(e) => setSeoConfig({ ...seoConfig, authorName: e.target.value })}
-                placeholder="FastArc Portal Team"
+                placeholder="GovtBharat Portal Team"
                 className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl px-3.5 py-2 text-xs text-white"
               />
             </div>
@@ -282,7 +282,7 @@ export const SeoEditorTab: React.FC<SeoEditorTabProps> = ({ onShowToast }) => {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[12px] font-medium text-slate-800 dark:text-slate-200 leading-none">
-                      FastArc Govt Result
+                      GovtBharat
                     </span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
                       https://{getDomainNameLowercase()} › govt-result
@@ -292,12 +292,12 @@ export const SeoEditorTab: React.FC<SeoEditorTabProps> = ({ onShowToast }) => {
 
                 {/* Title */}
                 <h4 className="text-base font-semibold text-blue-600 dark:text-blue-400 hover:underline line-clamp-2 cursor-pointer leading-tight">
-                  {seoConfig.siteTitle || 'FastArc Govt Result'}
+                  {seoConfig.siteTitle || 'GovtBharat'}
                 </h4>
 
                 {/* Snippet Description */}
                 <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
-                  {seoConfig.metaDescription || 'FastArc Government Jobs Portal...'}
+                  {seoConfig.metaDescription || 'GovtBharat Government Jobs Portal...'}
                 </p>
               </div>
             ) : (

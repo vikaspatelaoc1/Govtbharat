@@ -505,8 +505,8 @@ export function enrichJobDetails(rawJob: Partial<JobAlert>): JobAlert {
     syllabus: cleanOfficialUrl(rawLinks.syllabus, notifUrl),
     videoHindi: rawLinks.videoHindi || `https://www.youtube.com/results?search_query=${encodeURIComponent(title + ' Form Kaise Bhare')}`,
     extendedNotice: cleanOfficialUrl(rawLinks.extendedNotice, notifUrl),
-    telegram: rawLinks.telegram || 'https://t.me/fastarcgov',
-    whatsapp: rawLinks.whatsapp || 'https://whatsapp.com/channel/0029VaFastArcGov',
+    telegram: rawLinks.telegram || 'https://t.me/govtbharatofficial',
+    whatsapp: rawLinks.whatsapp || 'https://whatsapp.com/channel/govtbharatofficial',
     tools: rawLinks.tools || '/?tab=documents'
   };
 

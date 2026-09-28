@@ -68,7 +68,7 @@ export interface CustomNavLinkItem {
 export interface WebsiteHeaderConfig {
   portalTitle: string;
   portalTagline: string;
-  domainName?: string; // e.g. FastArcGovt.info
+  domainName?: string; // e.g. GovtBharat.info
   logoUrl: string;
   logoSize: number; // in px e.g. 36
   headerHeight: number; // in px e.g. 64
@@ -268,9 +268,9 @@ export const DEFAULT_WEBSITE_CONTROL_CONFIG: WebsiteControlConfig = {
     cardBorderWidth: '1px'
   },
   header: {
-    portalTitle: 'Fast_Arc_Govt  Naukri',
+    portalTitle: 'GovtBharat',
     portalTagline: 'Fastest Central & State Govt Exam Notifications',
-    domainName: 'FastArcGovt.info',
+    domainName: 'GovtBharat.com',
     logoUrl: '/logo.png',
     logoSize: 38,
     headerHeight: 64,
@@ -291,15 +291,15 @@ export const DEFAULT_WEBSITE_CONTROL_CONFIG: WebsiteControlConfig = {
   },
   footer: {
     footerLogo: '/logo.png',
-    footerTitle: 'Fast_Arc_Govt  Naukri',
-    footerDescription: 'Fast_Arc_Govt  Naukri Result Info portal offers lightning-fast notification updates for Central & State Government examinations, admit cards, answer keys, results, and curriculum PDF patterns.',
-    copyrightText: '© 2026 FastArcGovt.info - FastArc Govt Result. All Rights Reserved.',
-    contactEmail: 'support@fastarcgovt.info',
+    footerTitle: 'GovtBharat',
+    footerDescription: 'GovtBharat Jobs Portal offers lightning-fast notification updates for Central & State Government examinations, admit cards, answer keys, results, and curriculum PDF patterns.',
+    copyrightText: '© 2026 GovtBharat.com - GovtBharat. All Rights Reserved.',
+    contactEmail: 'support@govtbharat.com',
     contactPhone: '+91 98765 43210',
     contactAddress: 'New Delhi, India',
     showSocialIcons: true,
     showSubscribeButton: true,
-    disclaimerText: 'Fast_Arc_Govt  Naukri is an informative educational web portal. We are NOT associated with any government ministry or official recruitment board.'
+    disclaimerText: 'GovtBharat is an informative educational web portal. We are NOT associated with any government ministry or official recruitment board.'
   },
   sections: DEFAULT_WEBSITE_SECTIONS,
   media: {
@@ -321,9 +321,9 @@ export const DEFAULT_WEBSITE_CONTROL_CONFIG: WebsiteControlConfig = {
     badgeHotText: 'NEW'
   },
   seo: {
-    metaTitle: 'FastArc Govt - Latest Sarkari Naukri, Results, Admit Card',
-    metaDescription: 'Find the latest Govt Jobs, Sarkari Naukri, Results, Admit Cards, and Exam updates instantly.',
-    metaKeywords: 'Sarkari Naukri, Govt Jobs, Results, Admit Card, SSC, Railway'
+    metaTitle: 'GovtBharat - Latest Sarkari Naukri, Results, Admit Card',
+    metaDescription: 'Find the latest Govt Jobs, Sarkari Naukri, Results, Admit Cards, and Exam updates instantly on GovtBharat.',
+    metaKeywords: 'GovtBharat, Sarkari Naukri, Govt Jobs, Results, Admit Card, SSC, Railway'
   },
   versionHistory: []
 };
@@ -470,7 +470,7 @@ export const GLOBAL_THEME_PRESETS: GlobalWebsiteThemePreset[] = [
 export const loadWebsiteControlConfig = (): WebsiteControlConfig => {
   if (typeof window === 'undefined') return DEFAULT_WEBSITE_CONTROL_CONFIG;
   try {
-    const saved = localStorage.getItem('fastarc_website_control_config');
+    const saved = localStorage.getItem('GovtBharat_website_control_config');
     if (saved) {
       const parsed = JSON.parse(saved);
       return {
@@ -497,7 +497,7 @@ export const loadWebsiteControlConfig = (): WebsiteControlConfig => {
 export const saveWebsiteControlConfig = (config: WebsiteControlConfig) => {
   if (typeof window === 'undefined') return;
   try {
-    localStorage.setItem('fastarc_website_control_config', JSON.stringify(config));
+    localStorage.setItem('GovtBharat_website_control_config', JSON.stringify(config));
     applyWebsiteControlToDOM(config);
   } catch (err) {
     console.error('Error saving website control config to storage:', err);
@@ -560,7 +560,7 @@ export const applyWebsiteControlToDOM = (config: WebsiteControlConfig) => {
   const jobLinkLineHeight = config.typography?.jobLinkLineHeight || STANDARD_JOB_LINK_LINE_HEIGHT;
 
   // 3. Inject CSS Variables
-  const styleId = 'fastarc-master-website-control-style';
+  const styleId = 'GovtBharat-master-website-control-style';
   let styleEl = document.getElementById(styleId) as HTMLStyleElement | null;
   if (!styleEl) {
     styleEl = document.createElement('style');

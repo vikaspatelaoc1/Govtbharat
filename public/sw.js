@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fastarc-pwa-cache-v4';
+const CACHE_NAME = 'govtbharat-pwa-cache-v4';
 const urlsToCache = [
   '/',
   '/index.html',

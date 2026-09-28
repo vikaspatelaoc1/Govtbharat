@@ -5,10 +5,10 @@ export function applyMobilePwaCardStylesToDOM(config?: MobilePwaCardConfig) {
   if (typeof document === 'undefined') return;
   const cfg = { ...DEFAULT_PWA_CARD_CONFIG, ...(config || {}) };
   
-  let styleEl = document.getElementById('fastarc-pwa-card-styles') as HTMLStyleElement;
+  let styleEl = document.getElementById('GovtBharat-pwa-card-styles') as HTMLStyleElement;
   if (!styleEl) {
     styleEl = document.createElement('style');
-    styleEl.id = 'fastarc-pwa-card-styles';
+    styleEl.id = 'GovtBharat-pwa-card-styles';
     document.head.appendChild(styleEl);
   }
 

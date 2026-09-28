@@ -325,24 +325,24 @@ export function getCategoryWiseJobLinks(job: JobAlert): SarkariLinkRow[] {
     });
   }
 
-  // 10. JOIN FASTARC GOVT ALERTS CHANNEL (Always show)
+  // 10. JOIN GOVTBHARAT ALERTS CHANNEL (Always show)
   rows.push({
     id: 'link-social',
-    categoryTitle: 'JOIN FASTARC GOVT ALERTS CHANNEL',
+    categoryTitle: 'JOIN GOVTBHARAT ALERTS CHANNEL',
     actionText: 'Telegram',
-    actionUrl: rawLinks.telegram || 'https://t.me/fastarcgov',
+    actionUrl: rawLinks.telegram || 'https://t.me/govtbharatofficial',
     server2Text: 'WhatsApp',
-    server2Url: rawLinks.whatsapp || 'https://whatsapp.com/channel/0029VaFastArcGov',
+    server2Url: rawLinks.whatsapp || 'https://whatsapp.com/channel/govtbharatofficial',
     isExternal: true,
     colorClass: 'text-[#059669] dark:text-[#34d399]',
     type: 'social'
   });
 
-  // 11. FASTARC TOOLS (PHOTO RESIZER, PDF COMPRESS) (Always show)
+  // 11. GOVTBHARAT TOOLS (PHOTO RESIZER, PDF COMPRESS) (Always show)
   rows.push({
     id: 'link-tools',
-    categoryTitle: 'FASTARC TOOLS (PHOTO RESIZER, PDF COMPRESS)',
-    actionText: 'FastArc Tools Portal',
+    categoryTitle: 'GOVTBHARAT TOOLS (PHOTO RESIZER, PDF COMPRESS)',
+    actionText: 'GovtBharat Tools Portal',
     actionUrl: '/?tab=documents',
     isExternal: false,
     colorClass: 'text-[#059669] dark:text-[#34d399]',

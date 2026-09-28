@@ -96,10 +96,10 @@ export const SubscribeModal: React.FC<SubscribeModalProps> = ({
 
     // 3. Save to localStorage list of subscribers
     try {
-      const existing = JSON.parse(localStorage.getItem('fastarc_subscribers') || '[]');
+      const existing = JSON.parse(localStorage.getItem('GovtBharat_subscribers') || '[]');
       if (!existing.includes(trimmedEmail)) {
         existing.push(trimmedEmail);
-        localStorage.setItem('fastarc_subscribers', JSON.stringify(existing));
+        localStorage.setItem('GovtBharat_subscribers', JSON.stringify(existing));
       }
     } catch (err) {
       console.error(err);
@@ -143,18 +143,18 @@ export const SubscribeModal: React.FC<SubscribeModalProps> = ({
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 text-slate-900 dark:text-white rounded-2xl shadow-2xl overflow-hidden z-10 animate-in zoom-in-95 duration-200 transition-colors">
+      <div className="relative w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 text-slate-900 dark:text-white rounded-2xl shadow-2xl overflow-hidden z-10 animate-in zoom-in-95 duration-200 transition-colors my-auto max-h-[92vh] flex flex-col">
         
         {/* Top Official India Tricolor Line */}
-        <div className="h-1.5 w-full bg-gradient-to-r from-amber-600 via-white to-emerald-600" />
+        <div className="h-1.5 w-full bg-gradient-to-r from-amber-600 via-white to-emerald-600 shrink-0" />
 
         {/* Header Govt Navy Bar */}
-        <div className="bg-slate-50 dark:bg-slate-950/90 border-b border-slate-200 dark:border-slate-800 p-5 text-slate-900 dark:text-white flex items-center justify-between transition-colors">
+        <div className="bg-slate-50 dark:bg-slate-950/90 border-b border-slate-200 dark:border-slate-800 p-4 sm:p-5 text-slate-900 dark:text-white flex items-center justify-between shrink-0 transition-colors">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-full p-0.5 bg-black border-2 border-amber-500 shadow-md flex items-center justify-center overflow-hidden shrink-0">
               <img 
                 src={siteLogo || "/logo.png"} 
-                alt="FastArc Logo" 
+                alt="GovtBharat Logo" 
                 className="w-full h-full object-contain rounded-full"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = "https://lh3.googleusercontent.com/d/1IE6MQ8EUwyKmGeXnpLTXx7d5HBLJiKb4";
@@ -163,9 +163,9 @@ export const SubscribeModal: React.FC<SubscribeModalProps> = ({
             </div>
             <div>
               <h3 className="text-lg font-black tracking-tight leading-none text-slate-900 dark:text-white flex items-center">
-                Fast<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-400">Arc</span>
+                Govt<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-400">Bharat</span>
               </h3>
-              <p className="text-[9px] text-amber-600 dark:text-amber-400 font-extrabold uppercase tracking-widest mt-0.5">Govt Jobs Portal</p>
+              <p className="text-[9px] text-amber-600 dark:text-amber-400 font-extrabold uppercase tracking-widest mt-0.5">Jobs Portal</p>
             </div>
           </div>
 
@@ -180,7 +180,7 @@ export const SubscribeModal: React.FC<SubscribeModalProps> = ({
         </div>
 
         {/* Content Body */}
-        <div className="p-6">
+        <div className="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1">
           {/* Feedback Toast Notification Banner */}
           {toast && (
             <div 
@@ -220,7 +220,7 @@ export const SubscribeModal: React.FC<SubscribeModalProps> = ({
               </div>
               <h4 className="text-lg font-black text-slate-900 dark:text-white">Subscribed Successfully!</h4>
               <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-xs mx-auto">
-                <span className="font-bold text-amber-600 dark:text-amber-400">{email}</span> has been added. You will now get instant email alerts whenever a new job post is published on <strong className="text-slate-900 dark:text-white">FastArc Govt Jobs Portal</strong>!
+                <span className="font-bold text-amber-600 dark:text-amber-400">{email}</span> has been added. You will now get instant email alerts whenever a new job post is published on <strong className="text-slate-900 dark:text-white">GovtBharat Portal</strong>!
               </p>
             </div>
           ) : (

@@ -45,8 +45,8 @@ export interface TrafficAnalyticsSummary {
   lastUpdated: string;
 }
 
-const STORAGE_KEY_TRAFFIC = 'fastarc_traffic_analytics_v2';
-const STORAGE_KEY_LINK_CLICKS = 'fastarc_link_click_counts';
+const STORAGE_KEY_TRAFFIC = 'GovtBharat_traffic_analytics_v2';
+const STORAGE_KEY_LINK_CLICKS = 'GovtBharat_link_click_counts';
 
 // Initial realistic baseline stats for government job portal categories
 const DEFAULT_CATEGORY_METRICS: Record<JobCategory, { baseClicks: number; weight: number; color: string; bgLight: string; label: string }> = {
@@ -195,7 +195,7 @@ export function trackLinkClick(
     localStorage.setItem(STORAGE_KEY_LINK_CLICKS, JSON.stringify(localClicks));
 
     // Also track by category
-    const catKey = `fastarc_cat_clicks_${category || 'general'}`;
+    const catKey = `GovtBharat_cat_clicks_${category || 'general'}`;
     const prevCat = parseInt(localStorage.getItem(catKey) || '0', 10);
     localStorage.setItem(catKey, String(prevCat + 1));
 
@@ -347,7 +347,7 @@ export function calculateTrafficAnalytics(jobs: JobAlert[]): TrafficAnalyticsSum
     
     // Read category click overrides
     const localCatBonus = parseInt(
-      (typeof window !== 'undefined' ? localStorage.getItem(`fastarc_cat_clicks_${cat}`) : '0') || '0', 
+      (typeof window !== 'undefined' ? localStorage.getItem(`GovtBharat_cat_clicks_${cat}`) : '0') || '0', 
       10
     );
 

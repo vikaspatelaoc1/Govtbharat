@@ -56,8 +56,8 @@ const initialDefaultTickets: HelpdeskTicket[] = [
       {
         id: 'rep-3',
         sender: 'admin',
-        senderName: 'FastArc Support Team',
-        message: 'Dear Priya, please navigate to the "Answer Key" column on FastArc home page and click on CTET 2026 Answer Key. Direct link to candidate login with roll number is provided.',
+        senderName: 'GovtBharat Support Team',
+        message: 'Dear Priya, please navigate to the "Answer Key" column on GovtBharat home page and click on CTET 2026 Answer Key. Direct link to candidate login with roll number is provided.',
         timestamp: '1 hour ago'
       }
     ]
@@ -114,7 +114,7 @@ const initialDefaultTickets: HelpdeskTicket[] = [
       {
         id: 'rep-7',
         sender: 'admin',
-        senderName: 'FastArc Admin',
+        senderName: 'GovtBharat Admin',
         message: 'UPSC usually releases City Slip 10 days prior to exam date on upsc.gov.in. Link will be posted on Admit Card column once live.',
         timestamp: '3 days ago'
       }
@@ -123,7 +123,7 @@ const initialDefaultTickets: HelpdeskTicket[] = [
 ];
 
 const cannedResponses = [
-  { label: '🔗 Link Updated', text: 'Thank you for reporting. The official server link has been verified and updated on the FastArc post.' },
+  { label: '🔗 Link Updated', text: 'Thank you for reporting. The official server link has been verified and updated on the GovtBharat post.' },
   { label: '🎫 Admit Card Help', text: 'Admit card servers are currently experiencing heavy traffic. Please clear your browser cache or try in incognito mode with the direct mirror link provided on our portal.' },
   { label: '📋 Eligibility Rule', text: 'Please refer to the official PDF notification attached under "Important Links" on the post for category-wise relaxation details.' },
   { label: '✅ Issue Resolved', text: 'We have resolved this inquiry. If you have any further questions or encounter any discrepancies, please feel free to reply.' }
@@ -136,7 +136,7 @@ interface HelpdeskTabProps {
 export const HelpdeskTab: React.FC<HelpdeskTabProps> = ({ onToast }) => {
   const [tickets, setTickets] = useState<HelpdeskTicket[]>(() => {
     try {
-      const saved = localStorage.getItem('fastarc_helpdesk_tickets');
+      const saved = localStorage.getItem('GovtBharat_helpdesk_tickets');
       if (saved) {
         return JSON.parse(saved);
       }
@@ -171,7 +171,7 @@ export const HelpdeskTab: React.FC<HelpdeskTabProps> = ({ onToast }) => {
     const unsub = subscribeToHelpdeskTickets((cloudTickets) => {
       if (Array.isArray(cloudTickets) && cloudTickets.length > 0) {
         setTickets(cloudTickets);
-        localStorage.setItem('fastarc_helpdesk_tickets', JSON.stringify(cloudTickets));
+        localStorage.setItem('GovtBharat_helpdesk_tickets', JSON.stringify(cloudTickets));
       }
     });
     return () => unsub();
@@ -179,7 +179,7 @@ export const HelpdeskTab: React.FC<HelpdeskTabProps> = ({ onToast }) => {
 
   const saveTickets = async (updated: HelpdeskTicket[]) => {
     setTickets(updated);
-    localStorage.setItem('fastarc_helpdesk_tickets', JSON.stringify(updated));
+    localStorage.setItem('GovtBharat_helpdesk_tickets', JSON.stringify(updated));
     try {
       await saveHelpdeskTicketsToFirestore(updated);
     } catch (e) {
@@ -251,7 +251,7 @@ export const HelpdeskTab: React.FC<HelpdeskTabProps> = ({ onToast }) => {
     const newReply: TicketReply = {
       id: 'rep-' + Date.now(),
       sender: 'admin',
-      senderName: 'FastArc Support Staff',
+      senderName: 'GovtBharat Support Staff',
       message: replyText.trim(),
       timestamp: 'Just now'
     };
@@ -296,7 +296,7 @@ export const HelpdeskTab: React.FC<HelpdeskTabProps> = ({ onToast }) => {
     const createdTicket: HelpdeskTicket = {
       id: newId,
       name: newTicket.name.trim(),
-      email: newTicket.email.trim() || 'candidate@fastarc.in',
+      email: newTicket.email.trim() || 'candidate@govtbharat.com',
       phone: newTicket.phone.trim() || undefined,
       category: newTicket.category,
       issue: newTicket.issue.trim(),

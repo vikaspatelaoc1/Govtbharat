@@ -46,13 +46,13 @@ export const VersionControlTab: React.FC<VersionControlTabProps> = ({
 
   useEffect(() => {
     // 1. Check local & Firestore backups
-    const localBackup = localStorage.getItem('fastarc_website_backup');
+    const localBackup = localStorage.getItem('GovtBharat_website_backup');
     if (localBackup) setHasBackup(true);
     
     getBackupFromFirestore().then(backup => {
       if (backup) {
         setHasBackup(true);
-        localStorage.setItem('fastarc_website_backup', JSON.stringify(backup));
+        localStorage.setItem('GovtBharat_website_backup', JSON.stringify(backup));
       }
     });
 
@@ -126,7 +126,7 @@ export const VersionControlTab: React.FC<VersionControlTabProps> = ({
       setLiveRelease(releaseData);
 
       // Trigger local dispatch for test
-      window.dispatchEvent(new CustomEvent('fastarc:check-updates'));
+      window.dispatchEvent(new CustomEvent('GovtBharat:check-updates'));
 
       onToast(`🚀 App Version v${releaseData.version} successfully launched! All installed mobile users will receive the update notification.`);
     } catch (err) {
@@ -135,16 +135,6 @@ export const VersionControlTab: React.FC<VersionControlTabProps> = ({
     } finally {
       setIsPublishing(false);
     }
-  };
-
-  const handleTestUpdatePrompt = () => {
-    // Clear all update suppression keys so prompt is guaranteed to display
-    localStorage.removeItem('fastarc_installed_app_version');
-    localStorage.removeItem('fastarc_app_version');
-    sessionStorage.removeItem('fastarc_update_skipped');
-    window.dispatchEvent(new CustomEvent('fastarc:check-updates', { detail: { force: true, version: liveRelease?.version || '2.6.0' } }));
-    window.dispatchEvent(new CustomEvent('fastarc_trigger_update_prompt', { detail: { force: true, version: liveRelease?.version || '2.6.0' } }));
-    onToast('Testing update prompt! The notification modal is now visible on screen.');
   };
 
   const handleSaveConfig = () => {
@@ -158,7 +148,7 @@ export const VersionControlTab: React.FC<VersionControlTabProps> = ({
       marqueeText,
       timestamp: new Date().toISOString()
     };
-    localStorage.setItem('fastarc_website_backup', JSON.stringify(backupData));
+    localStorage.setItem('GovtBharat_website_backup', JSON.stringify(backupData));
     saveBackupToFirestore(backupData).catch(console.error);
     setHasBackup(true);
     onToast('Old Website Version saved to backup folder successfully!');
@@ -174,7 +164,7 @@ export const VersionControlTab: React.FC<VersionControlTabProps> = ({
 
   const confirmRestore = () => {
     try {
-      const backupStr = localStorage.getItem('fastarc_website_backup');
+      const backupStr = localStorage.getItem('GovtBharat_website_backup');
       if (backupStr) {
         const backupData = JSON.parse(backupStr);
         if (backupData.jobs) {
@@ -231,16 +221,6 @@ export const VersionControlTab: React.FC<VersionControlTabProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-2 self-stretch sm:self-auto">
-            <button
-              onClick={handleTestUpdatePrompt}
-              className="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-indigo-600/60 hover:bg-indigo-600 border border-indigo-400/40 text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
-              title="Test the update notification UI"
-            >
-              <Sparkles className="w-4 h-4 text-amber-300" />
-              <span>Test Update Prompt</span>
-            </button>
-          </div>
         </div>
       </div>
 

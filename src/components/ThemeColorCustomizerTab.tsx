@@ -147,7 +147,7 @@ export const ThemeColorCustomizerTab: React.FC<ThemeColorCustomizerTabProps> = (
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(colors, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `fastarc-theme-${new Date().toISOString().slice(0, 10)}.json`);
+    downloadAnchor.setAttribute("download", `GovtBharat-theme-${new Date().toISOString().slice(0, 10)}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -351,7 +351,7 @@ export const ThemeColorCustomizerTab: React.FC<ThemeColorCustomizerTabProps> = (
                   </span>
                 </div>
                 <p className="text-[11px] text-slate-400 mt-1">
-                  This primary color accents the brand logo, highlights, interactive buttons, active rings, and notice badges across FastArc.
+                  This primary color accents the brand logo, highlights, interactive buttons, active rings, and notice badges across GovtBharat.
                 </p>
               </div>
             </div>
@@ -526,7 +526,7 @@ export const ThemeColorCustomizerTab: React.FC<ThemeColorCustomizerTabProps> = (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
             {renderColorInput('Header Background Color', 'headerBg', 'Top main navigation bar background')}
             {renderColorInput('Header Title & Text Color', 'headerText', 'Logo text, nav items and portal title')}
-            {renderColorInput('Brand Sparkle & Accent', 'headerAccent', 'FastArc sparkle glow and highlighting')}
+            {renderColorInput('Brand Sparkle & Accent', 'headerAccent', 'GovtBharat sparkle glow and highlighting')}
           </div>
         </div>
       )}
@@ -632,7 +632,7 @@ export const ThemeColorCustomizerTab: React.FC<ThemeColorCustomizerTabProps> = (
                 )}
               </div>
               <span className="text-white" style={{ color: colors.headerText }}>
-                {appName ? appName : <>Fast<span style={{ color: activeAccentHex }}>Arc</span></>}
+                {appName ? appName : <>Govt<span style={{ color: activeAccentHex }}>Bharat</span></>}
               </span>
               {!appName && <span className="text-[9px] uppercase tracking-widest font-extrabold" style={{ color: activeAccentHex }}>Govt Jobs</span>}
             </div>
@@ -681,7 +681,7 @@ export const ThemeColorCustomizerTab: React.FC<ThemeColorCustomizerTabProps> = (
             className="p-2 text-center text-[10px] border-t transition-colors"
             style={{ backgroundColor: colors.footerBg, color: colors.footerText, borderColor: colors.footerBorder }}
           >
-            © 2026 FastArc Govt Jobs Portal • All Government Job Alerts & Notifications
+            © 2026 GovtBharat.com • All Government Job Alerts & Notifications
           </div>
         </div>
       </div>

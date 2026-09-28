@@ -31,9 +31,9 @@ export interface CategorySeoItem {
 export type CategorySeoConfigMap = Record<string, CategorySeoItem>;
 
 export const DEFAULT_GLOBAL_SEO: GlobalSeoConfig = {
-  siteTitle: `${getDomainName()} | FastArc Govt Result - Latest Online Form, Admit Card & Results 2026`,
-  metaDescription: `${getDomainName()} - FastArc Government Jobs Portal: Get instant updates for latest Sarkari Naukri, Online Forms, Admit Cards, Exam Results, Answer Keys, Syllabus & Admissions 2026.`,
-  metaKeywords: `${getDomainName()}, Sarkari Result, Govt Jobs 2026, Latest Online Form, Admit Card, Exam Results, Answer Key, FastArc, Recruitment Notification`,
+  siteTitle: `${getDomainName()} | GovtBharat - Latest Online Form, Admit Card & Results 2026`,
+  metaDescription: `${getDomainName()} - GovtBharat Government Jobs Portal: Get instant updates for latest Sarkari Naukri, Online Forms, Admit Cards, Exam Results, Answer Keys, Syllabus & Admissions 2026.`,
+  metaKeywords: `${getDomainName()}, Sarkari Result, Govt Jobs 2026, Latest Online Form, Admit Card, Exam Results, Answer Key, GovtBharat, Recruitment Notification`,
   authorName: `${getDomainName()}`,
   ogImageUrl: "/logo.png",
   robotsDirective: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
@@ -44,10 +44,10 @@ export const DEFAULT_CATEGORY_SEO: CategorySeoConfigMap = {
     id: 'latest-jobs',
     name: 'Latest Jobs',
     hindiName: 'सरकारी नौकरी',
-    metaTitle: 'Latest Govt Jobs 2026 - Apply Online for 50,000+ Sarkari Naukri Vacancies | FastArc',
-    metaDescription: 'Explore all latest Central & State Govt Job vacancies 2026. Get instant notifications, eligibility criteria, online application links & exam dates on FastArc.',
-    metaKeywords: 'Latest Govt Jobs 2026, Sarkari Naukri, Online Form 2026, Railway Recruitment, SSC CGL, UPSC, Bank PO, Police Bharti, FastArc',
-    ogTitle: 'Latest Govt Jobs & Sarkari Online Forms 2026 - FastArc',
+    metaTitle: 'Latest Govt Jobs 2026 - Apply Online for 50,000+ Sarkari Naukri Vacancies | GovtBharat',
+    metaDescription: 'Explore all latest Central & State Govt Job vacancies 2026. Get instant notifications, eligibility criteria, online application links & exam dates on GovtBharat.',
+    metaKeywords: 'Latest Govt Jobs 2026, Sarkari Naukri, Online Form 2026, Railway Recruitment, SSC CGL, UPSC, Bank PO, Police Bharti, GovtBharat',
+    ogTitle: 'Latest Govt Jobs & Sarkari Online Forms 2026 - GovtBharat',
     ogDescription: 'Daily updated government job vacancies with direct online apply links and notifications.',
     ogImageUrl: '/logo.png',
     ogType: 'collection',
@@ -58,10 +58,10 @@ export const DEFAULT_CATEGORY_SEO: CategorySeoConfigMap = {
     id: 'admit-cards',
     name: 'Admit Card',
     hindiName: 'प्रवेश पत्र',
-    metaTitle: 'Admit Card 2026 - Download Hall Ticket, Call Letter & Exam City Slip | FastArc',
-    metaDescription: 'Download official Admit Cards, Hall Tickets & Exam City Intimation Slips for SSC, UPSC, Railway, State PSC & Banking Exams 2026 at FastArc.',
-    metaKeywords: 'Admit Card 2026, Hall Ticket Download, Exam City Slip, Call Letter, SSC Admit Card, Railway Hall Ticket, Sarkari Admit Card, FastArc',
-    ogTitle: 'Official Exam Admit Cards & Hall Tickets 2026 - FastArc',
+    metaTitle: 'Admit Card 2026 - Download Hall Ticket, Call Letter & Exam City Slip | GovtBharat',
+    metaDescription: 'Download official Admit Cards, Hall Tickets & Exam City Intimation Slips for SSC, UPSC, Railway, State PSC & Banking Exams 2026 at GovtBharat.',
+    metaKeywords: 'Admit Card 2026, Hall Ticket Download, Exam City Slip, Call Letter, SSC Admit Card, Railway Hall Ticket, Sarkari Admit Card, GovtBharat',
+    ogTitle: 'Official Exam Admit Cards & Hall Tickets 2026 - GovtBharat',
     ogDescription: 'Instant direct server links to download exam admit cards and view examination center.',
     ogImageUrl: '/logo.png',
     ogType: 'collection',
@@ -72,10 +72,10 @@ export const DEFAULT_CATEGORY_SEO: CategorySeoConfigMap = {
     id: 'results',
     name: 'Results',
     hindiName: 'परीक्षा परिणाम',
-    metaTitle: 'Sarkari Exam Results 2026 - Merit List, Score Card & Cut Off Marks | FastArc',
-    metaDescription: 'Check Sarkari Exam Results, Merit Lists, Final Selection Lists & Cut-Off Marks 2026. Direct server links with roll number search on FastArc.',
-    metaKeywords: 'Sarkari Result 2026, Exam Results, Merit List PDF, Cut Off Marks, Score Card Download, Final Result, FastArc',
-    ogTitle: 'Latest Sarkari Exam Results & Merit Lists 2026 - FastArc',
+    metaTitle: 'Sarkari Exam Results 2026 - Merit List, Score Card & Cut Off Marks | GovtBharat',
+    metaDescription: 'Check Sarkari Exam Results, Merit Lists, Final Selection Lists & Cut-Off Marks 2026. Direct server links with roll number search on GovtBharat.',
+    metaKeywords: 'Sarkari Result 2026, Exam Results, Merit List PDF, Cut Off Marks, Score Card Download, Final Result, GovtBharat',
+    ogTitle: 'Latest Sarkari Exam Results & Merit Lists 2026 - GovtBharat',
     ogDescription: 'Fastest exam result publication with direct download servers and cut-off lists.',
     ogImageUrl: '/logo.png',
     ogType: 'collection',
@@ -86,10 +86,10 @@ export const DEFAULT_CATEGORY_SEO: CategorySeoConfigMap = {
     id: 'answer-key',
     name: 'Answer Key',
     hindiName: 'उत्तर कुंजी',
-    metaTitle: 'Official Answer Key 2026 - Download Solved Question Papers & Challenge Objections | FastArc',
-    metaDescription: 'Download official provisional & final Answer Keys 2026 with question papers. Submit online objections & calculate expected scores on FastArc.',
-    metaKeywords: 'Answer Key 2026, Official Answer Sheet, Question Paper Solution, Objection Link, Response Sheet, FastArc',
-    ogTitle: 'Official Answer Keys & Solved Papers 2026 - FastArc',
+    metaTitle: 'Official Answer Key 2026 - Download Solved Question Papers & Challenge Objections | GovtBharat',
+    metaDescription: 'Download official provisional & final Answer Keys 2026 with question papers. Submit online objections & calculate expected scores on GovtBharat.',
+    metaKeywords: 'Answer Key 2026, Official Answer Sheet, Question Paper Solution, Objection Link, Response Sheet, GovtBharat',
+    ogTitle: 'Official Answer Keys & Solved Papers 2026 - GovtBharat',
     ogDescription: 'Download official response sheets, answer keys, and submit objection forms.',
     ogImageUrl: '/logo.png',
     ogType: 'collection',
@@ -100,10 +100,10 @@ export const DEFAULT_CATEGORY_SEO: CategorySeoConfigMap = {
     id: 'syllabus',
     name: 'Syllabus',
     hindiName: 'पाठ्यक्रम',
-    metaTitle: 'Exam Syllabus & Exam Pattern PDF 2026 - Download Previous Year Question Papers | FastArc',
-    metaDescription: 'Download updated subject-wise Exam Syllabus & latest Exam Pattern PDFs 2026 for SSC, Railway, UPSC, Teaching, Defence & Police exams on FastArc.',
-    metaKeywords: 'Exam Syllabus 2026, Syllabus PDF Download, Exam Pattern, Marking Scheme, Previous Year Papers, FastArc',
-    ogTitle: 'Updated Exam Syllabus & Question Patterns 2026 - FastArc',
+    metaTitle: 'Exam Syllabus & Exam Pattern PDF 2026 - Download Previous Year Question Papers | GovtBharat',
+    metaDescription: 'Download updated subject-wise Exam Syllabus & latest Exam Pattern PDFs 2026 for SSC, Railway, UPSC, Teaching, Defence & Police exams on GovtBharat.',
+    metaKeywords: 'Exam Syllabus 2026, Syllabus PDF Download, Exam Pattern, Marking Scheme, Previous Year Papers, GovtBharat',
+    ogTitle: 'Updated Exam Syllabus & Question Patterns 2026 - GovtBharat',
     ogDescription: 'Comprehensive subject-wise syllabus PDFs, test patterns, and previous papers.',
     ogImageUrl: '/logo.png',
     ogType: 'collection',
@@ -114,10 +114,10 @@ export const DEFAULT_CATEGORY_SEO: CategorySeoConfigMap = {
     id: 'admission',
     name: 'Admission',
     hindiName: 'प्रवेश',
-    metaTitle: 'Admission 2026 - Entrance Exams, College Admissions & Counselling Forms | FastArc',
-    metaDescription: 'Find university admissions, college entrance examination forms, counseling schedules, eligibility & prospectus downloads 2026 on FastArc.',
-    metaKeywords: 'Admission 2026, University Admission, Entrance Exam, CUET, NEET, JEE, College Counselling, FastArc',
-    ogTitle: 'University Admission & Entrance Exam Forms 2026 - FastArc',
+    metaTitle: 'Admission 2026 - Entrance Exams, College Admissions & Counselling Forms | GovtBharat',
+    metaDescription: 'Find university admissions, college entrance examination forms, counseling schedules, eligibility & prospectus downloads 2026 on GovtBharat.',
+    metaKeywords: 'Admission 2026, University Admission, Entrance Exam, CUET, NEET, JEE, College Counselling, GovtBharat',
+    ogTitle: 'University Admission & Entrance Exam Forms 2026 - GovtBharat',
     ogDescription: 'Apply online for top universities, diploma courses, and entrance exam forms.',
     ogImageUrl: '/logo.png',
     ogType: 'collection',
@@ -128,10 +128,10 @@ export const DEFAULT_CATEGORY_SEO: CategorySeoConfigMap = {
     id: 'documents',
     name: 'Certificate & Documents',
     hindiName: 'प्रमाण पत्र व सेवाएं',
-    metaTitle: 'Certificate & Online Services 2026 - Pan Card, Voter ID, Aadhar & Certificates | FastArc',
-    metaDescription: 'Official links for online government citizen services: Pan Card, Aadhar update, Voter ID, Domicile, Caste & Income Certificate verification on FastArc.',
-    metaKeywords: 'Online Services, Certificate Verification, Pan Card Apply, Voter Card, Aadhar Card, Caste Certificate, Domicile, FastArc',
-    ogTitle: 'Government Certificates & Online Citizen Services - FastArc',
+    metaTitle: 'Certificate & Online Services 2026 - Pan Card, Voter ID, Aadhar & Certificates | GovtBharat',
+    metaDescription: 'Official links for online government citizen services: Pan Card, Aadhar update, Voter ID, Domicile, Caste & Income Certificate verification on GovtBharat.',
+    metaKeywords: 'Online Services, Certificate Verification, Pan Card Apply, Voter Card, Aadhar Card, Caste Certificate, Domicile, GovtBharat',
+    ogTitle: 'Government Certificates & Online Citizen Services - GovtBharat',
     ogDescription: 'Access direct citizen online verification links, identity cards, and certificates.',
     ogImageUrl: '/logo.png',
     ogType: 'collection',
@@ -142,10 +142,10 @@ export const DEFAULT_CATEGORY_SEO: CategorySeoConfigMap = {
     id: 'important',
     name: 'Important Links',
     hindiName: 'आवश्यक सूचना',
-    metaTitle: 'Important Links & Official Notices 2026 - FastArc Govt Portal Alerts',
-    metaDescription: 'Check critical government alerts, recruitment notices, application deadline extensions, OTP corrections & official portals on FastArc.',
-    metaKeywords: 'Important Notices, Govt Alerts, Date Extension, Correction Window, Official Portals, FastArc',
-    ogTitle: 'Important Government Notices & Alert Bulletins - FastArc',
+    metaTitle: 'Important Links & Official Notices 2026 - GovtBharat Jobs Portal Alerts',
+    metaDescription: 'Check critical government alerts, recruitment notices, application deadline extensions, OTP corrections & official portals on GovtBharat.',
+    metaKeywords: 'Important Notices, Govt Alerts, Date Extension, Correction Window, Official Portals, GovtBharat',
+    ogTitle: 'Important Government Notices & Alert Bulletins - GovtBharat',
     ogDescription: 'Crucial alerts, date extensions, correction links, and government announcements.',
     ogImageUrl: '/logo.png',
     ogType: 'collection',
@@ -154,8 +154,8 @@ export const DEFAULT_CATEGORY_SEO: CategorySeoConfigMap = {
   }
 };
 
-const SEO_STORAGE_KEY = 'fastarc_global_seo_config';
-const CATEGORY_SEO_STORAGE_KEY = 'fastarc_category_seo_config';
+const SEO_STORAGE_KEY = 'GovtBharat_global_seo_config';
+const CATEGORY_SEO_STORAGE_KEY = 'GovtBharat_category_seo_config';
 
 /**
  * Loads custom global SEO configuration from LocalStorage or returns defaults.
@@ -181,7 +181,7 @@ export function saveGlobalSeoConfig(config: GlobalSeoConfig) {
   if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(SEO_STORAGE_KEY, JSON.stringify(config));
-    window.dispatchEvent(new CustomEvent('fastarc_seo_updated', { detail: config }));
+    window.dispatchEvent(new CustomEvent('GovtBharat_seo_updated', { detail: config }));
 
     // Asynchronously save to Firestore database
     saveSeoConfigToFirestore(config).catch(err => {
@@ -216,7 +216,7 @@ export function saveCategorySeoConfig(configs: CategorySeoConfigMap) {
   if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(CATEGORY_SEO_STORAGE_KEY, JSON.stringify(configs));
-    window.dispatchEvent(new CustomEvent('fastarc_category_seo_updated', { detail: configs }));
+    window.dispatchEvent(new CustomEvent('GovtBharat_category_seo_updated', { detail: configs }));
 
     // Asynchronously save to Firestore database
     saveCategorySeoConfigToFirestore(configs).catch(err => {
@@ -287,8 +287,8 @@ export function updateJobDetailSeo(job: JobAlert) {
 
   const fullTitle = `${job.title} - ${categoryName} 2026 | ${getDomainName()}`;
   const description = job.shortInfo && job.shortInfo.trim().length > 20
-    ? `${job.title}: ${job.shortInfo.slice(0, 160)}... Check eligibility, important dates, and apply online on FastArc.`
-    : `${job.title} notification released. Check latest eligibility, total vacancies, examination dates, admit card, and direct online form links at FastArc.`;
+    ? `${job.title}: ${job.shortInfo.slice(0, 160)}... Check eligibility, important dates, and apply online on GovtBharat.`
+    : `${job.title} notification released. Check latest eligibility, total vacancies, examination dates, admit card, and direct online form links at GovtBharat.`;
 
   const keywords = [
     job.title,
@@ -299,7 +299,7 @@ export function updateJobDetailSeo(job: JobAlert) {
     "Answer Key",
     "Online Form",
     job.state || 'All India',
-    "FastArc"
+    "GovtBharat"
   ].filter(Boolean).join(', ');
 
   const imageUrl = `${baseUrl}/logo.png`;
@@ -381,7 +381,7 @@ export function updateCategorySeo(categoryId: string) {
     return;
   }
 
-  const title = catConfig.metaTitle || `${catConfig.name} 2026 - Latest Notifications & Updates | FastArc`;
+  const title = catConfig.metaTitle || `${catConfig.name} 2026 - Latest Notifications & Updates | GovtBharat`;
   const description = catConfig.metaDescription || globalSeo.metaDescription;
   const keywords = catConfig.metaKeywords || globalSeo.metaKeywords;
   const canonicalUrl = catConfig.canonicalUrl || `${baseUrl}/?tab=${encodeURIComponent(categoryId)}`;
@@ -399,7 +399,7 @@ export function updateCategorySeo(categoryId: string) {
   setMetaTag('name', 'title', title);
   setMetaTag('name', 'description', description);
   setMetaTag('name', 'keywords', keywords);
-  setMetaTag('name', 'author', globalSeo.authorName || 'FastArc');
+  setMetaTag('name', 'author', globalSeo.authorName || 'GovtBharat');
   setMetaTag('name', 'robots', robots);
 
   // 3. Canonical Link
@@ -411,7 +411,7 @@ export function updateCategorySeo(categoryId: string) {
   setMetaTag('property', 'og:title', ogTitle);
   setMetaTag('property', 'og:description', ogDescription);
   setMetaTag('property', 'og:image', imageUrl);
-  setMetaTag('property', 'og:site_name', "FastArc Govt Result");
+  setMetaTag('property', 'og:site_name', "GovtBharat");
 
   // 5. Twitter Meta Tags
   setMetaTag('name', 'twitter:card', 'summary_large_image');
@@ -429,7 +429,7 @@ export function updateCategorySeo(categoryId: string) {
     "url": canonicalUrl,
     "publisher": {
       "@type": "Organization",
-      "name": globalSeo.authorName || "FastArc",
+      "name": globalSeo.authorName || "GovtBharat",
       "logo": {
         "@type": "ImageObject",
         "url": imageUrl
@@ -462,12 +462,12 @@ export function resetDefaultSeo(activeTab = 'home') {
   let title = globalSeo.siteTitle || DEFAULT_GLOBAL_SEO.siteTitle;
   
   // Ensure we don't show the ugly all-caps WWW...
-  title = title.replace(/WWW\.FASTARCGOVT\.INFO/ig, getDomainName());
+  title = title.replace(/WWW\.(GovtBharat\.INFO|GOVTBHARAT\.COM)/ig, getDomainName());
 
   let canonicalUrl = `${baseUrl}/`;
 
   if (activeTab === 'home') {
-    title = `Home | ${title.replace(/FastArcGovt\.info\s*\|\s*/i, '')}`;
+    title = `Home | ${title.replace(/(GovtBharat\.info|GovtBharat\.com)\s*\|\s*/i, '')}`;
   } else if (activeTab && activeTab !== 'home') {
     const tabName = activeTab
       .split('-')
@@ -477,8 +477,8 @@ export function resetDefaultSeo(activeTab = 'home') {
     canonicalUrl = `${baseUrl}/?tab=${encodeURIComponent(activeTab)}`;
   }
 
-  const description = (globalSeo.metaDescription || DEFAULT_GLOBAL_SEO.metaDescription).replace(/WWW\.FASTARCGOVT\.INFO/ig, getDomainName());
-  const keywords = (globalSeo.metaKeywords || DEFAULT_GLOBAL_SEO.metaKeywords).replace(/WWW\.FASTARCGOVT\.INFO/ig, getDomainName());
+  const description = (globalSeo.metaDescription || DEFAULT_GLOBAL_SEO.metaDescription).replace(/WWW\.(GovtBharat\.INFO|GOVTBHARAT\.COM)/ig, getDomainName());
+  const keywords = (globalSeo.metaKeywords || DEFAULT_GLOBAL_SEO.metaKeywords).replace(/WWW\.(GovtBharat\.INFO|GOVTBHARAT\.COM)/ig, getDomainName());
   const imageUrl = globalSeo.ogImageUrl?.startsWith('http')
     ? globalSeo.ogImageUrl
     : `${baseUrl}${globalSeo.ogImageUrl || '/logo.png'}`;
@@ -490,7 +490,7 @@ export function resetDefaultSeo(activeTab = 'home') {
   setMetaTag('name', 'title', title);
   setMetaTag('name', 'description', description);
   setMetaTag('name', 'keywords', keywords);
-  setMetaTag('name', 'author', (globalSeo.authorName || getDomainName()).replace(/WWW\.FASTARCGOVT\.INFO/ig, getDomainName()));
+  setMetaTag('name', 'author', (globalSeo.authorName || getDomainName()).replace(/WWW\.(GovtBharat\.INFO|GOVTBHARAT\.COM)/ig, getDomainName()));
   setMetaTag('name', 'robots', globalSeo.robotsDirective || DEFAULT_GLOBAL_SEO.robotsDirective);
 
   // 3. Canonical Link
@@ -516,7 +516,7 @@ export function resetDefaultSeo(activeTab = 'home') {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": `${getDomainName()}`,
-    "alternateName": "FastArc Govt Result",
+    "alternateName": "GovtBharat",
     "url": canonicalUrl,
     "author": {
       "@type": "Organization",

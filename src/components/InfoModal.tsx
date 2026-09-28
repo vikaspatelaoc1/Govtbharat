@@ -27,7 +27,7 @@ export const InfoModal: React.FC<InfoModalProps> = ({ pageId: initialPageId, onC
   const [copied, setCopied] = useState(false);
   const [pages, setPages] = useState<Record<string, DynamicPageItem>>(() => {
     try {
-      const saved = localStorage.getItem('fastarc_dynamic_pages');
+      const saved = localStorage.getItem('GovtBharat_dynamic_pages');
       if (saved) {
         return { ...defaultDynamicPages, ...JSON.parse(saved) };
       }
@@ -66,7 +66,7 @@ export const InfoModal: React.FC<InfoModalProps> = ({ pageId: initialPageId, onC
   const activePageData = pages[activeTab] || defaultDynamicPages[activeTab] || {
     id: activeTab,
     title: activeTab.toUpperCase(),
-    subtitle: 'FastArc Legal & Info Page',
+    subtitle: 'GovtBharat Legal & Info Page',
     content: '<p class="text-slate-500 dark:text-slate-400">Content loading or empty.</p>'
   };
 
@@ -95,16 +95,16 @@ export const InfoModal: React.FC<InfoModalProps> = ({ pageId: initialPageId, onC
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex justify-between items-center px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/90 shrink-0 transition-colors">
-          <div className="flex items-center space-x-2.5">
-            <div className="p-2 rounded-xl bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/20">
+        <div className="flex justify-between items-center px-4 sm:px-5 py-3.5 sm:py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/90 shrink-0 gap-2.5 transition-colors">
+          <div className="flex items-center space-x-2.5 min-w-0 flex-1">
+            <div className="p-2 rounded-xl bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/20 shrink-0">
               <Shield className="w-5 h-5" />
             </div>
-            <div>
-              <h2 className="text-base sm:text-lg font-black text-amber-600 dark:text-amber-400 flex items-center gap-2">
-                FastArc Official Portal Policies & Compliance
+            <div className="min-w-0 flex-1">
+              <h2 className="text-sm sm:text-base md:text-lg font-black text-amber-600 dark:text-amber-400 truncate">
+                GovtBharat Official Policies &amp; Compliance
               </h2>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">Google AdSense & Digital Media Legal Guidelines Compliant (2026)</p>
+              <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 truncate">Google AdSense &amp; Legal Guidelines (2026)</p>
             </div>
           </div>
           <button 
@@ -165,7 +165,7 @@ export const InfoModal: React.FC<InfoModalProps> = ({ pageId: initialPageId, onC
         <div className="flex items-center justify-between px-5 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/90 shrink-0 transition-colors">
           <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
-            <span>FastArc Official Portal 2026 • Realtime CMS Active</span>
+            <span>GovtBharat Official Portal 2026 • Realtime CMS Active</span>
           </div>
           
           <div className="flex items-center space-x-2">

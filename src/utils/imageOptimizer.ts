@@ -1,5 +1,5 @@
 /**
- * FastArc Image Optimizer & Compression Utility
+ * GovtBharat Image Optimizer & Compression Utility
  * High-performance browser-side image downscaling, WebP/PNG transcoding, and byte reduction
  * for Header Logo and Category Column Icons.
  */

@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "FastArc Govt Result",
-  "short_name": "FastArc",
-  "description": "WWW.FASTARCGOVT.INFO - FastArc Government Jobs Portal: Get instant updates for latest Sarkari Naukri, Online Forms, Admit Cards, Exam Results, Answer Keys, Syllabus & Admissions 2026.",
+  "name": "GovtBharat - Government Jobs Portal",
+  "short_name": "GovtBharat",
+  "description": "WWW.GOVTBHARAT.COM - GovtBharat Government Jobs Portal: Get instant updates for latest Sarkari Naukri, Online Forms, Admit Cards, Exam Results, Answer Keys, Syllabus & Admissions 2026.",
   "start_url": "/?mode=app",
   "scope": "/",
   "display": "standalone",

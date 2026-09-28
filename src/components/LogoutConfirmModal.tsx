@@ -22,7 +22,7 @@ export const LogoutConfirmModal: React.FC<LogoutConfirmModalProps> = ({
         className="fixed inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150" 
       />
 
-      {/* Ultra-compact Transparent Glass Modal matching FastArc Logo theme */}
+      {/* Ultra-compact Transparent Glass Modal matching GovtBharat Logo theme */}
       <div className="relative w-full max-w-[270px] bg-slate-950/80 backdrop-blur-xl border border-amber-500/40 rounded-2xl shadow-2xl shadow-amber-500/10 overflow-hidden z-10 p-4 text-center animate-in zoom-in-95 duration-150">
         
         {/* Top Gold Gradient Bar Accent */}
@@ -37,7 +37,7 @@ export const LogoutConfirmModal: React.FC<LogoutConfirmModalProps> = ({
           <X className="w-3.5 h-3.5" />
         </button>
 
-        {/* Title matching FastArc typography */}
+        {/* Title matching GovtBharat typography */}
         <div className="mt-1 mb-3">
           <p className="text-xs font-black text-white tracking-tight">
             Confirm <span className="text-amber-400">Logout?</span>

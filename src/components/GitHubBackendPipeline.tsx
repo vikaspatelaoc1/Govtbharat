@@ -16,7 +16,7 @@ export const GitHubBackendPipeline: React.FC<GitHubBackendPipelineProps> = ({ on
   const [activeTab, setActiveTab] = useState<'guide' | 'github_actions' | 'python_script' | 'firebase_direct'>('guide');
   const [pipelineConfig, setPipelineConfig] = useState<BackendPipelineConfig>({
     autoPromoteEnabled: false,
-    webhookSecret: 'FASTARC_BACKEND_SECRET_KEY_12345',
+    webhookSecret: 'GovtBharat_BACKEND_SECRET_KEY_12345',
     githubRepoUrl: '',
     totalIngestedCount: 0
   });
@@ -110,10 +110,10 @@ export const GitHubBackendPipeline: React.FC<GitHubBackendPipelineProps> = ({ on
 
   // GitHub Actions Workflow YAML
   const githubActionYaml = `# .github/workflows/scraper_pipeline.yml
-# FastArc Govt Job Portal - Independent Backend Scraper Daemon
+# GovtBharat Job Portal - Independent Backend Scraper Daemon
 # Automatically runs on a schedule and feeds new jobs into Firebase Staging
 
-name: FastArc Automated Scraper & Backend Feed
+name: GovtBharat Automated Scraper & Backend Feed
 
 on:
   schedule:
@@ -138,17 +138,17 @@ jobs:
         run: |
           pip install requests beautifulsoup4 feedparser
 
-      - name: Run Scraper & Push to FastArc Staging
+      - name: Run Scraper & Push to GovtBharat Staging
         env:
-          FASTARC_WEBHOOK_URL: "\${{ secrets.FASTARC_WEBHOOK_URL }}"
-          FASTARC_BACKEND_TOKEN: "\${{ secrets.FASTARC_BACKEND_TOKEN }}"
+          GovtBharat_WEBHOOK_URL: "\${{ secrets.GovtBharat_WEBHOOK_URL }}"
+          GovtBharat_BACKEND_TOKEN: "\${{ secrets.GovtBharat_BACKEND_TOKEN }}"
         run: |
           python scraper_daemon.py
 `;
 
   // Python Scraper Script
   const pythonScraperScript = `# scraper_daemon.py
-# FastArc Government Job Scraper - GitHub Backend Daemon
+# GovtBharat Government Job Scraper - GitHub Backend Daemon
 # Runs independently on GitHub Actions & feeds into Firebase Staging
 
 import os
@@ -157,8 +157,8 @@ import feedparser
 from datetime import datetime
 
 # 1. Configuration (Set these in GitHub Repository Secrets)
-WEBHOOK_URL = os.environ.get("FASTARC_WEBHOOK_URL", "${webhookUrl}")
-BACKEND_TOKEN = os.environ.get("FASTARC_BACKEND_TOKEN", "${pipelineConfig.webhookSecret}")
+WEBHOOK_URL = os.environ.get("GovtBharat_WEBHOOK_URL", "${webhookUrl}")
+BACKEND_TOKEN = os.environ.get("GovtBharat_BACKEND_TOKEN", "${pipelineConfig.webhookSecret}")
 
 # 2. Official Government Feeds to Scrape
 OFFICIAL_FEEDS = [
@@ -188,7 +188,7 @@ OFFICIAL_FEEDS = [
     }
 ]
 
-def push_to_fastarc_staging(jobs_batch):
+def push_to_GovtBharat_staging(jobs_batch):
     if not jobs_batch:
         print("ℹ️ No new jobs to push.")
         return
@@ -204,7 +204,7 @@ def push_to_fastarc_staging(jobs_batch):
         "sourceName": "GitHub Actions Auto-Scraper Daemon"
     }
 
-    print(f"🚀 Pushing {len(jobs_batch)} jobs to FastArc Backend Staging: {WEBHOOK_URL}")
+    print(f"🚀 Pushing {len(jobs_batch)} jobs to GovtBharat Backend Staging: {WEBHOOK_URL}")
     try:
         response = requests.post(WEBHOOK_URL, json=payload, headers=headers, timeout=20)
         print(f"✅ Response ({response.status_code}): {response.text}")
@@ -212,7 +212,7 @@ def push_to_fastarc_staging(jobs_batch):
         print(f"❌ Failed to push to webhook: {e}")
 
 def main():
-    print("⚡ FastArc Backend Scraper Started at:", datetime.now().isoformat())
+    print("⚡ GovtBharat Backend Scraper Started at:", datetime.now().isoformat())
     collected_jobs = []
 
     for feed in OFFICIAL_FEEDS:
@@ -241,7 +241,7 @@ def main():
         }
         collected_jobs.append(item)
 
-    push_to_fastarc_staging(collected_jobs)
+    push_to_GovtBharat_staging(collected_jobs)
     print("🎯 Scraper execution finished successfully.")
 
 if __name__ == "__main__":
@@ -358,7 +358,7 @@ print("🔥 Connected directly to Firebase Firestore Staging Pipeline!")
             type="text"
             value={pipelineConfig.githubRepoUrl || ''}
             onChange={(e) => setPipelineConfig(prev => ({ ...prev, githubRepoUrl: e.target.value }))}
-            placeholder="Apna GitHub Backend Repo URL yahan dalein (e.g. https://github.com/username/fastarc-backend-scraper)"
+            placeholder="Apna GitHub Backend Repo URL yahan dalein (e.g. https://github.com/username/GovtBharat-backend-scraper)"
             className="flex-1 px-3 py-2 bg-slate-950/90 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 outline-none focus:border-purple-500"
           />
           <button
@@ -437,7 +437,7 @@ print("🔥 Connected directly to Firebase Firestore Staging Pipeline!")
                   <strong className="text-purple-900 dark:text-purple-200 font-bold block mb-1">
                     1. GitHub me Naya Repository Banayein:
                   </strong>
-                  GitHub par jaakar ek new repository banayein (e.g. <code>fastarc-backend-scraper</code>). Yeh repository aapke scraper aur cron automation ko chalayega.
+                  GitHub par jaakar ek new repository banayein (e.g. <code>GovtBharat-backend-scraper</code>). Yeh repository aapke scraper aur cron automation ko chalayega.
                 </div>
 
                 <div className="p-3.5 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 rounded-xl">
@@ -445,8 +445,8 @@ print("🔥 Connected directly to Firebase Firestore Staging Pipeline!")
                     2. GitHub Secrets Add Karein (Settings &gt; Secrets and Variables &gt; Actions):
                   </strong>
                   <ul className="list-disc list-inside mt-1 space-y-1 font-mono text-[11px]">
-                    <li><strong>FASTARC_WEBHOOK_URL</strong>: <code>{webhookUrl}</code></li>
-                    <li><strong>FASTARC_BACKEND_TOKEN</strong>: <code>{pipelineConfig.webhookSecret}</code></li>
+                    <li><strong>GovtBharat_WEBHOOK_URL</strong>: <code>{webhookUrl}</code></li>
+                    <li><strong>GovtBharat_BACKEND_TOKEN</strong>: <code>{pipelineConfig.webhookSecret}</code></li>
                   </ul>
                 </div>
 

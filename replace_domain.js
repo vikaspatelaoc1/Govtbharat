@@ -18,7 +18,7 @@ filesToUpdate.forEach(file => {
   let content = fs.readFileSync(file, 'utf8');
   let originalContent = content;
 
-  if (content.includes('FastArcGovt.info') || content.includes('fastarcgovt.info')) {
+  if (content.includes('GovtBharat.info') || content.includes('GovtBharat.info')) {
     // Add import if not exists
     if (!content.includes('getDomainName')) {
        // Find last import

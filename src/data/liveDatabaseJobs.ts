@@ -39,8 +39,8 @@ export const liveDatabaseJobs: JobAlert[] = [
       "answerKey": "https://andhrapradesh.psc.gov.in/answer-key",
       "syllabus": "https://andhrapradesh.psc.gov.in",
       "videoHindi": "https://www.youtube.com/results?search_query=Andhra%20Pradesh%20PSC%20Official%20Board%20-%20Latest%20Public%20Notice%202026%20Form%20Kaise%20Bhare",
-      "telegram": "https://t.me/fastarcgov",
-      "whatsapp": "https://whatsapp.com/channel/0029VaFastArcGov"
+      "telegram": "https://t.me/govtbharatofficial",
+      "whatsapp": "https://whatsapp.com/channel/govtbharatofficial"
     },
     "sourceId": "src-auto-458",
     "sourceName": "Andhra Pradesh PSC Official Board",
@@ -135,8 +135,8 @@ export const liveDatabaseJobs: JobAlert[] = [
       "answerKey": "https://up.highcourt.gov.in/answer-key",
       "syllabus": "https://up.highcourt.gov.in",
       "videoHindi": "https://www.youtube.com/results?search_query=UP%20High%20Court%20Official%20Board%20-%20Latest%20Public%20Notice%202026%20Form%20Kaise%20Bhare",
-      "telegram": "https://t.me/fastarcgov",
-      "whatsapp": "https://whatsapp.com/channel/0029VaFastArcGov"
+      "telegram": "https://t.me/govtbharatofficial",
+      "whatsapp": "https://whatsapp.com/channel/govtbharatofficial"
     },
     "sourceId": "src-auto-4",
     "sourceName": "UP High Court Official Board",
@@ -231,8 +231,8 @@ export const liveDatabaseJobs: JobAlert[] = [
       "answerKey": "https://gujarat.revenuedept.gov.in/answer-key",
       "syllabus": "https://gujarat.revenuedept.gov.in",
       "videoHindi": "https://www.youtube.com/results?search_query=Gujarat%20Revenue%20Dept%20Official%20Board%20-%20Latest%20Public%20Notice%202026%20Form%20Kaise%20Bhare",
-      "telegram": "https://t.me/fastarcgov",
-      "whatsapp": "https://whatsapp.com/channel/0029VaFastArcGov"
+      "telegram": "https://t.me/govtbharatofficial",
+      "whatsapp": "https://whatsapp.com/channel/govtbharatofficial"
     },
     "sourceId": "src-auto-118",
     "sourceName": "Gujarat Revenue Dept Official Board",
@@ -327,8 +327,8 @@ export const liveDatabaseJobs: JobAlert[] = [
       "answerKey": "https://ssc.gov.in/answer-key",
       "syllabus": "https://ssc.gov.in",
       "videoHindi": "https://www.youtube.com/results?search_query=SSC%20CHSL%2010%2B2%20Tier-1%20Final%20Answer%20Key%20%26%20Candidate%20Response%20Sheet%202026%20Form%20Kaise%20Bhare",
-      "telegram": "https://t.me/fastarcgov",
-      "whatsapp": "https://whatsapp.com/channel/0029VaFastArcGov"
+      "telegram": "https://t.me/govtbharatofficial",
+      "whatsapp": "https://whatsapp.com/channel/govtbharatofficial"
     },
     "sourceId": "src-ssc-portal",
     "sourceName": "SSC (Staff Selection Commission) Central Notifications",
@@ -423,8 +423,8 @@ export const liveDatabaseJobs: JobAlert[] = [
       "answerKey": "https://ibps.in/answer-key",
       "syllabus": "https://ibps.in",
       "videoHindi": "https://www.youtube.com/results?search_query=IBPS%20PO%20%2F%20MT%20XIV%20Prelims%20Result%20%26%20Scorecard%202026%20Released%20Form%20Kaise%20Bhare",
-      "telegram": "https://t.me/fastarcgov",
-      "whatsapp": "https://whatsapp.com/channel/0029VaFastArcGov"
+      "telegram": "https://t.me/govtbharatofficial",
+      "whatsapp": "https://whatsapp.com/channel/govtbharatofficial"
     },
     "sourceId": "src-ibps-banking",
     "sourceName": "IBPS (Institute of Banking Personnel Selection)",
@@ -519,8 +519,8 @@ export const liveDatabaseJobs: JobAlert[] = [
       "answerKey": "https://upsc.gov.in/answer-key",
       "syllabus": "https://upsc.gov.in",
       "videoHindi": "https://www.youtube.com/results?search_query=UPSC%20NDA%20%26%20NA%20II%20Examination%202026%20E-Admit%20Card%20%2F%20Hall%20Ticket%20Download%20Form%20Kaise%20Bhare",
-      "telegram": "https://t.me/fastarcgov",
-      "whatsapp": "https://whatsapp.com/channel/0029VaFastArcGov"
+      "telegram": "https://t.me/govtbharatofficial",
+      "whatsapp": "https://whatsapp.com/channel/govtbharatofficial"
     },
     "sourceId": "src-upsc-portal",
     "sourceName": "UPSC (Union Public Service Commission) Active Examinations",
@@ -615,8 +615,8 @@ export const liveDatabaseJobs: JobAlert[] = [
       "answerKey": "https://upsc.gov.in/answer-key",
       "syllabus": "https://upsc.gov.in",
       "videoHindi": "https://www.youtube.com/results?search_query=UPSC%20Engineering%20Services%20(ESE)%202026%20Prelims%20Official%20Answer%20Key%20%26%20Objection%20Link%20Form%20Kaise%20Bhare",
-      "telegram": "https://t.me/fastarcgov",
-      "whatsapp": "https://whatsapp.com/channel/0029VaFastArcGov"
+      "telegram": "https://t.me/govtbharatofficial",
+      "whatsapp": "https://whatsapp.com/channel/govtbharatofficial"
     },
     "sourceId": "src-upsc-portal",
     "sourceName": "UPSC (Union Public Service Commission) Active Examinations",
@@ -711,8 +711,8 @@ export const liveDatabaseJobs: JobAlert[] = [
       "answerKey": "https://uppbpb.gov.in/answer-key",
       "syllabus": "https://uppbpb.gov.in/Recruitment",
       "videoHindi": "https://www.youtube.com/results?search_query=UP%20Police%20Sub%20Inspector%20(SI)%20Civil%20Police%20%26%20Platoon%20Commander%202026%20Notification%20Form%20Kaise%20Bhare",
-      "telegram": "https://t.me/fastarcgov",
-      "whatsapp": "https://whatsapp.com/channel/0029VaFastArcGov"
+      "telegram": "https://t.me/govtbharatofficial",
+      "whatsapp": "https://whatsapp.com/channel/govtbharatofficial"
     },
     "sourceId": "src-upprpb-police",
     "sourceName": "UP Police Recruitment Promotion Board (UPPRPB)",
@@ -807,8 +807,8 @@ export const liveDatabaseJobs: JobAlert[] = [
       "answerKey": "https://assam.pwd.gov.in/answer-key",
       "syllabus": "https://assam.pwd.gov.in",
       "videoHindi": "https://www.youtube.com/results?search_query=Assam%20PWD%20Official%20Board%20-%20Latest%20Public%20Notice%202026%20Form%20Kaise%20Bhare",
-      "telegram": "https://t.me/fastarcgov",
-      "whatsapp": "https://whatsapp.com/channel/0029VaFastArcGov"
+      "telegram": "https://t.me/govtbharatofficial",
+      "whatsapp": "https://whatsapp.com/channel/govtbharatofficial"
     },
     "sourceId": "src-auto-328",
     "sourceName": "Assam PWD Official Board",

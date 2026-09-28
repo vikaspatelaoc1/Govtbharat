@@ -5,7 +5,7 @@ import { getDomainName, getDomainNameLowercase } from './utils/domain';
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Facebook, Twitter, Instagram, Youtube, Search, Bell, Home, Briefcase, FileText, Trophy, ArrowLeft, Star, IdCard, Trash2, Loader2, AlertTriangle, EyeOff } from 'lucide-react';
 import { Header } from './components/Header';
 import { Marquee } from './components/Marquee';
@@ -24,7 +24,6 @@ import { LogoutConfirmModal } from './components/LogoutConfirmModal';
 import { FAQ } from './components/FAQ';
 import { SplashScreen } from './components/SplashScreen';
 import { InstallPrompt } from './components/InstallPrompt';
-import { UpdatePrompt } from './components/UpdatePrompt';
 import { getSocialTheme } from './components/SocialLinksManager';
 import { OfficialSocialLogo } from './components/SocialIcons';
 import { JobAlert, JobCategory, EmployeeUser, SocialLinkItem, SuperAdminTabType, SyncLogEntry, MobileTabsConfig } from './types';
@@ -36,6 +35,7 @@ import { loadColumnConfigs, DEFAULT_COLUMN_CONFIGS, ColumnConfigsMap } from './u
 import { loadWebsiteControlConfig, applyWebsiteControlToDOM, WebsiteControlConfig } from './utils/websiteControlConfig';
 import { updateJobDetailSeo, resetDefaultSeo } from './utils/seo';
 import { enrichJobDetails, cleanOfficialUrl } from './utils/jobEnricher';
+import { safeSaveJobsToLocalStorage, loadJobsFromLocalStorage } from './utils/jobStorage';
 import { 
   subscribeToJobs, 
   saveJobToFirestore, 
@@ -154,7 +154,7 @@ export default function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('fastarc_auth_session');
+        const saved = localStorage.getItem('GovtBharat_auth_session');
         if (saved) {
           const parsed = JSON.parse(saved);
           return Boolean(parsed.isAdminLoggedIn);
@@ -167,7 +167,7 @@ export default function App() {
   const [isSuperAdminLoggedIn, setIsSuperAdminLoggedIn] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('fastarc_auth_session');
+        const saved = localStorage.getItem('GovtBharat_auth_session');
         if (saved) {
           const parsed = JSON.parse(saved);
           return Boolean(parsed.isSuperAdminLoggedIn);
@@ -180,7 +180,7 @@ export default function App() {
   const [currentUserRole, setCurrentUserRole] = useState<'superadmin' | 'admin' | 'employee' | null>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('fastarc_auth_session');
+        const saved = localStorage.getItem('GovtBharat_auth_session');
         if (saved) {
           const parsed = JSON.parse(saved);
           return parsed.currentUserRole || null;
@@ -193,7 +193,7 @@ export default function App() {
   const [currentEmployee, setCurrentEmployee] = useState<EmployeeUser | null>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('fastarc_auth_session');
+        const saved = localStorage.getItem('GovtBharat_auth_session');
         if (saved) {
           const parsed = JSON.parse(saved);
           return parsed.currentEmployee || null;
@@ -207,21 +207,21 @@ export default function App() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (isAdminLoggedIn) {
-        localStorage.setItem('fastarc_auth_session', JSON.stringify({
+        localStorage.setItem('GovtBharat_auth_session', JSON.stringify({
           isAdminLoggedIn,
           isSuperAdminLoggedIn,
           currentUserRole,
           currentEmployee
         }));
       } else {
-        localStorage.removeItem('fastarc_auth_session');
+        localStorage.removeItem('GovtBharat_auth_session');
       }
     }
   }, [isAdminLoggedIn, isSuperAdminLoggedIn, currentUserRole, currentEmployee]);
 
   const [employees, setEmployees] = useState<EmployeeUser[]>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('fastarc_employees');
+      const saved = localStorage.getItem('GovtBharat_employees');
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
@@ -261,7 +261,7 @@ export default function App() {
     deletedBy: string;
   }>>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('fastarc_deleted_employee_logs');
+      const saved = localStorage.getItem('GovtBharat_deleted_employee_logs');
       if (saved) {
         try { return JSON.parse(saved); } catch (e) {}
       }
@@ -269,44 +269,7 @@ export default function App() {
     return [];
   });
 
-  const [jobs, setJobs] = useState<JobAlert[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('fastarc_jobs');
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            const masterMap = new Map<string, any>();
-            defaultJobsDatabase.forEach(j => masterMap.set(j.id, j));
-            parsed.forEach((j: any) => {
-              if (j && j.id) masterMap.set(j.id, { ...(masterMap.get(j.id) || {}), ...j });
-            });
-            return Array.from(masterMap.values()).map((j: any) => {
-              const rawLinks = j.links || {};
-              const official = cleanOfficialUrl(rawLinks.official, 'https://india.gov.in');
-              const apply = cleanOfficialUrl(rawLinks.apply, official);
-              const notification = cleanOfficialUrl(rawLinks.notification, official);
-              return {
-                ...j,
-                links: {
-                  ...rawLinks,
-                  official,
-                  apply,
-                  notification,
-                  applyServer2: rawLinks.applyServer2 ? cleanOfficialUrl(rawLinks.applyServer2, apply) : undefined,
-                  admitCard: rawLinks.admitCard ? cleanOfficialUrl(rawLinks.admitCard, apply) : undefined,
-                  result: rawLinks.result ? cleanOfficialUrl(rawLinks.result, apply) : undefined,
-                  resultServer2: rawLinks.resultServer2 ? cleanOfficialUrl(rawLinks.resultServer2, apply) : undefined,
-                  answerKey: rawLinks.answerKey ? cleanOfficialUrl(rawLinks.answerKey, official) : undefined,
-                }
-              };
-            });
-          }
-        } catch (e) { /* ignore */ }
-      }
-    }
-    return defaultJobsDatabase;
-  });
+  const [jobs, setJobs] = useState<JobAlert[]>(() => loadJobsFromLocalStorage());
 
   const [columnConfigs, setColumnConfigs] = useState<ColumnConfigsMap>(() => loadColumnConfigs());
 
@@ -319,14 +282,14 @@ export default function App() {
       }
     };
 
-    window.addEventListener('fastarc_columns_updated', handleColumnUpdate);
+    window.addEventListener('GovtBharat_columns_updated', handleColumnUpdate);
     return () => {
-      window.removeEventListener('fastarc_columns_updated', handleColumnUpdate);
+      window.removeEventListener('GovtBharat_columns_updated', handleColumnUpdate);
     };
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('fastarc_jobs', JSON.stringify(jobs));
+    safeSaveJobsToLocalStorage(jobs);
   }, [jobs]);
 
   // Real-time Firestore & Backend Sync
@@ -357,8 +320,21 @@ export default function App() {
               }
             };
           });
-          setJobs(sanitizedJobs);
-          localStorage.setItem('fastarc_jobs', JSON.stringify(sanitizedJobs));
+          setJobs(prev => {
+            const masterMap = new Map<string, JobAlert>();
+            defaultJobsDatabase.forEach(j => masterMap.set(j.id, j));
+            prev.forEach(j => masterMap.set(j.id, j));
+            sanitizedJobs.forEach(j => {
+              if ((j as any).isDeleted || (j as any).deleted) {
+                masterMap.delete(j.id);
+              } else {
+                masterMap.set(j.id, { ...(masterMap.get(j.id) || {}), ...j });
+              }
+            });
+            const merged = Array.from(masterMap.values());
+            safeSaveJobsToLocalStorage(merged);
+            return merged;
+          });
         }
       },
       (err) => {
@@ -377,7 +353,7 @@ export default function App() {
     const unsubscribeEmployees = subscribeToEmployees((liveEmployees) => {
       if (Array.isArray(liveEmployees)) {
         setEmployees(liveEmployees);
-        localStorage.setItem('fastarc_employees', JSON.stringify(liveEmployees));
+        localStorage.setItem('GovtBharat_employees', JSON.stringify(liveEmployees));
 
         // Sync current active staff session permissions/status if logged in as employee
         setCurrentEmployee(prev => {
@@ -444,19 +420,29 @@ export default function App() {
           });
           setJobs(prev => {
             const m = new Map<string, JobAlert>();
-            // 1. Add all server database jobs (full catalog + server additions)
-            serverJobs.forEach(j => m.set(j.id, j));
-            // 2. Overlay live state / local modifications (preserving local/Firestore updates)
+            // 1. Seed with previous / cached local state
             prev.forEach(j => {
-              const existing = m.get(j.id);
-              if (existing) {
-                m.set(j.id, { ...existing, ...j });
-              } else {
-                m.set(j.id, j);
+              if (j && j.id) m.set(j.id, j);
+            });
+            // 2. Overlay fresh server database jobs with highest priority over stale local cache
+            serverJobs.forEach(serverJob => {
+              if (!serverJob || !serverJob.id) return;
+              if ((serverJob as any).isDeleted || (serverJob as any).deleted) {
+                m.delete(serverJob.id);
+                return;
               }
+              const existingLocal = m.get(serverJob.id);
+              m.set(serverJob.id, {
+                ...(existingLocal || {}),
+                ...serverJob,
+                links: {
+                  ...(existingLocal?.links || {}),
+                  ...(serverJob.links || {})
+                }
+              });
             });
             const merged = Array.from(m.values());
-            localStorage.setItem('fastarc_jobs', JSON.stringify(merged));
+            safeSaveJobsToLocalStorage(merged);
             return merged;
           });
         }
@@ -474,27 +460,27 @@ export default function App() {
           finalLogo = liveLogo.includes('?') ? `${liveLogo}&v=${timestamp}` : `${liveLogo}?v=${timestamp}`;
         }
         setSiteLogo(finalLogo);
-        localStorage.setItem('fastarc_site_logo', finalLogo);
+        localStorage.setItem('GovtBharat_site_logo', finalLogo);
       }
     });
 
     const unsubscribeSocial = subscribeToSocialLinks((liveSocial) => {
       if (Array.isArray(liveSocial) && liveSocial.length > 0) {
         setSocialLinks(liveSocial);
-        localStorage.setItem('fastarc_social_links', JSON.stringify(liveSocial));
+        localStorage.setItem('GovtBharat_social_links', JSON.stringify(liveSocial));
       }
     });
 
     const unsubscribeColumns = subscribeToColumnConfigs((liveConfigs) => {
       if (liveConfigs) {
         setColumnConfigs(liveConfigs);
-        localStorage.setItem('fastarc_column_configs', JSON.stringify(liveConfigs));
+        localStorage.setItem('GovtBharat_column_configs', JSON.stringify(liveConfigs));
       }
     });
 
     const unsubscribeSeo = subscribeToSeoConfig((liveSeo) => {
       if (liveSeo) {
-        localStorage.setItem('fastarc_global_seo_config', JSON.stringify(liveSeo));
+        localStorage.setItem('GovtBharat_global_seo_config', JSON.stringify(liveSeo));
         if (typeof window !== 'undefined') {
           const urlParams = new URLSearchParams(window.location.search);
           if (!urlParams.get('jobId')) {
@@ -506,7 +492,7 @@ export default function App() {
 
     const unsubscribeCategorySeo = subscribeToCategorySeoConfig((liveCategorySeo) => {
       if (liveCategorySeo) {
-        localStorage.setItem('fastarc_category_seo_config', JSON.stringify(liveCategorySeo));
+        localStorage.setItem('GovtBharat_category_seo_config', JSON.stringify(liveCategorySeo));
         if (typeof window !== 'undefined') {
           const urlParams = new URLSearchParams(window.location.search);
           if (!urlParams.get('jobId')) {
@@ -518,7 +504,7 @@ export default function App() {
 
     const unsubscribeTheme = subscribeToThemeColors((liveColors) => {
       if (liveColors) {
-        localStorage.setItem('fastarc_theme_colors', JSON.stringify(liveColors));
+        localStorage.setItem('GovtBharat_theme_colors', JSON.stringify(liveColors));
         applyThemeColorsToDOM(liveColors);
       }
     });
@@ -526,7 +512,7 @@ export default function App() {
     const unsubscribeWebsiteControl = subscribeToWebsiteControlConfig((liveConfig) => {
       if (liveConfig) {
         setWebsiteControlConfig(liveConfig);
-        localStorage.setItem('fastarc_website_control_config', JSON.stringify(liveConfig));
+        localStorage.setItem('GovtBharat_website_control_config', JSON.stringify(liveConfig));
         applyWebsiteControlToDOM(liveConfig);
       }
     });
@@ -567,7 +553,7 @@ export default function App() {
 
   const [socialLinks, setSocialLinks] = useState<SocialLinkItem[]>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('fastarc_social_links');
+      const saved = localStorage.getItem('GovtBharat_social_links');
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
@@ -581,7 +567,7 @@ export default function App() {
   const handleSaveSocialLinks = async (newLinks: SocialLinkItem[]) => {
     setSocialLinks(newLinks);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('fastarc_social_links', JSON.stringify(newLinks));
+      localStorage.setItem('GovtBharat_social_links', JSON.stringify(newLinks));
     }
     if (!isFirestoreQuotaExceeded()) {
       saveSocialLinksToFirestore(newLinks).catch(() => {});
@@ -619,13 +605,13 @@ export default function App() {
   
   const [siteLogo, setSiteLogo] = useState<string>(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('fastarc_site_logo') || "/logo.png";
+      return localStorage.getItem('GovtBharat_site_logo') || "/logo.png";
     }
     return "/logo.png";
   });
   
   useEffect(() => {
-    localStorage.setItem('fastarc_site_logo', siteLogo);
+    localStorage.setItem('GovtBharat_site_logo', siteLogo);
   }, [siteLogo]);
 
   const [websiteControlConfig, setWebsiteControlConfig] = useState<WebsiteControlConfig>(() => {
@@ -648,7 +634,7 @@ export default function App() {
       document.referrer.includes('android-app://') ||
       urlParams.get('source') === 'pwa' ||
       urlParams.get('utm_source') === 'pwa' ||
-      localStorage.getItem('fastarc_app_view') === 'app'
+      localStorage.getItem('GovtBharat_app_view') === 'app'
     );
   });
 
@@ -673,7 +659,7 @@ export default function App() {
         document.referrer.includes('android-app://') ||
         urlParams.get('source') === 'pwa' ||
         urlParams.get('utm_source') === 'pwa' ||
-        localStorage.getItem('fastarc_app_view') === 'app';
+        localStorage.getItem('GovtBharat_app_view') === 'app';
       setIsApplication(!!isStandalone);
     };
 
@@ -695,13 +681,13 @@ export default function App() {
         setIsApplication(false);
       }
     };
-    window.addEventListener('fastarc_toggle_app_mode', handleAppModeSwitch);
+    window.addEventListener('GovtBharat_toggle_app_mode', handleAppModeSwitch);
 
     return () => {
       mqStandalone.removeEventListener?.('change', handleMq);
       mqFullscreen.removeEventListener?.('change', handleMq);
       mqMinimal.removeEventListener?.('change', handleMq);
-      window.removeEventListener('fastarc_toggle_app_mode', handleAppModeSwitch);
+      window.removeEventListener('GovtBharat_toggle_app_mode', handleAppModeSwitch);
     };
   }, []);
 
@@ -716,8 +702,8 @@ export default function App() {
         applyWebsiteControlToDOM(cfg);
       }
     };
-    window.addEventListener('fastarc_website_control_updated', handleWebsiteControlUpdate);
-    return () => window.removeEventListener('fastarc_website_control_updated', handleWebsiteControlUpdate);
+    window.addEventListener('GovtBharat_website_control_updated', handleWebsiteControlUpdate);
+    return () => window.removeEventListener('GovtBharat_website_control_updated', handleWebsiteControlUpdate);
   }, []);
 
   // Mobile PWA Card & Icon sizing sync
@@ -731,8 +717,8 @@ export default function App() {
         applyMobilePwaCardStylesToDOM(e.detail);
       }
     };
-    window.addEventListener('fastarc_pwa_card_config_updated', handlePwaCardConfigUpdated);
-    return () => window.removeEventListener('fastarc_pwa_card_config_updated', handlePwaCardConfigUpdated);
+    window.addEventListener('GovtBharat_pwa_card_config_updated', handlePwaCardConfigUpdated);
+    return () => window.removeEventListener('GovtBharat_pwa_card_config_updated', handlePwaCardConfigUpdated);
   }, []);
 
   useEffect(() => {
@@ -755,11 +741,11 @@ export default function App() {
         resetDefaultSeo(activeTab);
       }
     };
-    window.addEventListener('fastarc_seo_updated', handleSeoUpdate);
-    window.addEventListener('fastarc_category_seo_updated', handleSeoUpdate);
+    window.addEventListener('GovtBharat_seo_updated', handleSeoUpdate);
+    window.addEventListener('GovtBharat_category_seo_updated', handleSeoUpdate);
     return () => {
-      window.removeEventListener('fastarc_seo_updated', handleSeoUpdate);
-      window.removeEventListener('fastarc_category_seo_updated', handleSeoUpdate);
+      window.removeEventListener('GovtBharat_seo_updated', handleSeoUpdate);
+      window.removeEventListener('GovtBharat_category_seo_updated', handleSeoUpdate);
     };
   }, [selectedJobId, activeTab]);
   const [isMoreStatesOpen, setIsMoreStatesOpen] = useState(false);
@@ -768,7 +754,7 @@ export default function App() {
   
   const [recentJobIds, setRecentJobIds] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('fastarc_recent_jobs');
+      const saved = localStorage.getItem('GovtBharat_recent_jobs');
       if (saved) {
         try { return JSON.parse(saved); } catch (e) { /* ignore */ }
       }
@@ -777,13 +763,13 @@ export default function App() {
   });
 
   useEffect(() => {
-    localStorage.setItem('fastarc_recent_jobs', JSON.stringify(recentJobIds));
+    localStorage.setItem('GovtBharat_recent_jobs', JSON.stringify(recentJobIds));
   }, [recentJobIds]);
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isAutoSyncActive, setIsAutoSyncActiveState] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('fastarc_auto_sync');
+      const saved = localStorage.getItem('GovtBharat_auto_sync');
       if (saved !== null) {
         return saved !== 'false';
       }
@@ -796,7 +782,7 @@ export default function App() {
     const unsubscribe = subscribeToAutoSync((isActive) => {
       setIsAutoSyncActiveState(isActive);
       if (typeof window !== 'undefined') {
-        localStorage.setItem('fastarc_auto_sync', String(isActive));
+        localStorage.setItem('GovtBharat_auto_sync', String(isActive));
       }
     });
     return () => unsubscribe();
@@ -805,7 +791,7 @@ export default function App() {
   const setIsAutoSyncActive = (isActive: boolean) => {
     setIsAutoSyncActiveState(isActive);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('fastarc_auto_sync', String(isActive));
+      localStorage.setItem('GovtBharat_auto_sync', String(isActive));
     }
     if (!isFirestoreQuotaExceeded()) {
       saveAutoSyncToFirestore(isActive).catch(() => {});
@@ -821,7 +807,7 @@ export default function App() {
     { 
       id: 1, 
       time: new Date().toLocaleTimeString(), 
-      message: "FastArc Server Sync & Persistent Database Initialized.", 
+      message: "GovtBharat Server Sync & Persistent Database Initialized.", 
       type: "system",
       statusCode: 200,
       durationMs: 42,
@@ -1093,7 +1079,7 @@ export default function App() {
   }, [isAutoSyncActive]);
 
   useEffect(() => {
-    localStorage.setItem('fastarc_employees', JSON.stringify(employees));
+    localStorage.setItem('GovtBharat_employees', JSON.stringify(employees));
   }, [employees]);
 
   // Employee/Role permissions resolution
@@ -1197,7 +1183,7 @@ export default function App() {
       } else {
         updated = [finalJob, ...prev];
       }
-      localStorage.setItem('fastarc_jobs', JSON.stringify(updated));
+      safeSaveJobsToLocalStorage(updated);
       return updated;
     });
 
@@ -1222,7 +1208,7 @@ export default function App() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer FASTARC_SECRET_KEY_12345'
+            'Authorization': 'Bearer GovtBharat_SECRET_KEY_12345'
           },
           body: JSON.stringify(finalJob)
         });
@@ -1239,7 +1225,7 @@ export default function App() {
     const enrichedJobs = jobsToSave.map(j => enrichJobDetails(j));
     setJobs(prev => {
       const merged = [...enrichedJobs, ...prev.filter(p => !enrichedJobs.some(j => j.id === p.id))];
-      localStorage.setItem('fastarc_jobs', JSON.stringify(merged));
+      safeSaveJobsToLocalStorage(merged);
       return merged;
     });
     try {
@@ -1386,7 +1372,7 @@ export default function App() {
       // 2. Only after receiving a successful response from Firestore, apply optimistic UI update
       setJobs(prev => {
         const updated = prev.filter(j => j.id !== id);
-        localStorage.setItem('fastarc_jobs', JSON.stringify(updated));
+        safeSaveJobsToLocalStorage(updated);
         return updated;
       });
 
@@ -1453,40 +1439,38 @@ export default function App() {
     return jobState.toLowerCase() === filterState.toLowerCase();
   };
 
-  const filteredJobs = useMemo(() => {
-    return (stateFilters.includes('All') 
-      ? jobs 
-      : jobs.filter(j => stateFilters.some(sf => isStateMatch(j.state, sf)))
-    ).filter(job => {
-      const query = searchQuery.toLowerCase().trim();
-      if (!query) return true;
-      
-      // Check multiple fields so expired/historical forms are 100% discoverable by year, exam, org, etc.
-      const titleMatch = job.title && job.title.toLowerCase().includes(query);
-      const categoryMatch = job.category && job.category.toLowerCase().includes(query);
-      const stateMatch = job.state && job.state.toLowerCase().includes(query);
-      const shortInfoMatch = job.shortInfo && job.shortInfo.toLowerCase().includes(query);
-      const postDateMatch = job.postDate && job.postDate.toLowerCase().includes(query);
-      const startDateMatch = job.dates?.start && job.dates.start.toLowerCase().includes(query);
-      const lastDateMatch = job.dates?.last && job.dates.last.toLowerCase().includes(query);
-      const qualMatch = job.qualification && (Array.isArray(job.qualification) ? job.qualification.some(q => String(q).toLowerCase().includes(query)) : String(job.qualification).toLowerCase().includes(query));
-      const vacMatch = job.totalVacancies && String(job.totalVacancies).toLowerCase().includes(query);
+  const filteredJobs = (stateFilters.includes('All') 
+    ? jobs 
+    : jobs.filter(j => stateFilters.some(sf => isStateMatch(j.state, sf)))
+  ).filter(job => {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return true;
+    
+    // Check multiple fields so expired/historical forms are 100% discoverable by year, exam, org, etc.
+    const titleMatch = job.title && job.title.toLowerCase().includes(query);
+    const categoryMatch = job.category && job.category.toLowerCase().includes(query);
+    const stateMatch = job.state && job.state.toLowerCase().includes(query);
+    const shortInfoMatch = job.shortInfo && job.shortInfo.toLowerCase().includes(query);
+    const postDateMatch = job.postDate && job.postDate.toLowerCase().includes(query);
+    const startDateMatch = job.dates?.start && job.dates.start.toLowerCase().includes(query);
+    const lastDateMatch = job.dates?.last && job.dates.last.toLowerCase().includes(query);
+    const qualMatch = job.qualification && (Array.isArray(job.qualification) ? job.qualification.some(q => String(q).toLowerCase().includes(query)) : String(job.qualification).toLowerCase().includes(query));
+    const vacMatch = job.totalVacancies && String(job.totalVacancies).toLowerCase().includes(query);
 
-      return (
-        titleMatch ||
-        categoryMatch ||
-        stateMatch ||
-        shortInfoMatch ||
-        postDateMatch ||
-        startDateMatch ||
-        lastDateMatch ||
-        qualMatch ||
-        vacMatch
-      );
-    });
-  }, [jobs, stateFilters, searchQuery]);
+    return (
+      titleMatch ||
+      categoryMatch ||
+      stateMatch ||
+      shortInfoMatch ||
+      postDateMatch ||
+      startDateMatch ||
+      lastDateMatch ||
+      qualMatch ||
+      vacMatch
+    );
+  });
 
-  const counts = useMemo(() => ({
+  const counts = {
     latest: filteredJobs.filter(j => j.category === 'latest-jobs').length,
     admit: filteredJobs.filter(j => j.category === 'admit-cards').length,
     results: filteredJobs.filter(j => j.category === 'results').length,
@@ -1495,7 +1479,7 @@ export default function App() {
     admission: filteredJobs.filter(j => j.category === 'admission').length,
     documents: filteredJobs.filter(j => j.category === 'documents').length,
     important: filteredJobs.filter(j => j.category === 'important').length,
-  }), [filteredJobs]);
+  };
 
   const handleSeeMoreCategory = (category: JobCategory) => {
     let targetTab = category as string;
@@ -1535,6 +1519,7 @@ export default function App() {
         <JobDetailsPage
           job={selectedJob}
           allJobs={jobs}
+          isApplication={isApplication}
           onBackToHome={handleCloseJobModal}
           onSelectJob={(jobId) => handleJobClick(jobId)}
           siteLogo={siteLogo}
@@ -1605,7 +1590,6 @@ export default function App() {
           onConfirm={confirmLogout}
           onCancel={() => setIsLogoutConfirmOpen(false)}
         />
-        <UpdatePrompt />
       </div>
     );
   }
@@ -2575,12 +2559,12 @@ export default function App() {
                   setActiveTab('home');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                title="FastArc Govt Jobs Portal - Back to Home"
+                title="GovtBharat Jobs Portal - Back to Home"
               >
                 <div className="w-13 h-13 sm:w-15 sm:h-15 lg:w-16 lg:h-16 rounded-full p-0.5 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 shadow-md flex items-center justify-center overflow-hidden shrink-0 transform group-hover:scale-105 transition-transform duration-200">
                   <img 
                     src={siteLogo || "/logo.png"} 
-                    alt="FastArc Logo" 
+                    alt="GovtBharat Logo" 
                     className="w-full h-full object-contain rounded-full"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "https://lh3.googleusercontent.com/d/1IE6MQ8EUwyKmGeXnpLTXx7d5HBLJiKb4";
@@ -2589,14 +2573,14 @@ export default function App() {
                 </div>
                 <div>
                   <h4 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-none group-hover:text-amber-400 transition-colors">
-                    Fast<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300">Arc</span>
+                    Govt<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300">Bharat</span>
                   </h4>
-                  <p className="text-xs sm:text-[13px] text-amber-400 font-extrabold tracking-wider uppercase mt-1">Govt Jobs Portal</p>
+                  <p className="text-xs sm:text-[13px] text-amber-400 font-extrabold tracking-wider uppercase mt-1">Jobs Portal</p>
                 </div>
               </a>
 
               <p className="text-slate-300 text-sm sm:text-[14.5px] leading-relaxed">
-                FastArc Govt Jobs Portal offers lightning-fast notification updates for Central & State Government examinations, admit cards, answer keys, results, and curriculum PDF patterns.
+                GovtBharat Jobs Portal offers lightning-fast notification updates for Central & State Government examinations, admit cards, answer keys, results, and curriculum PDF patterns.
               </p>
             </div>
             <div>
@@ -2693,12 +2677,12 @@ export default function App() {
                 </button>
               </h5>
               <p className="text-sm sm:text-[14px] text-slate-300 leading-relaxed font-normal">
-                FastArc is an independent career news aggregator. We are NOT associated with UPSC, SSC, NTA, or any government agency. Always cross-verify exam details on official commission platforms before submitting application fees.
+                GovtBharat is an independent career news aggregator. We are NOT associated with UPSC, SSC, NTA, or any government agency. Always cross-verify exam details on official commission platforms before submitting application fees.
               </p>
             </div>
           </div>
           <div className="border-t border-slate-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-slate-400 font-medium">{websiteControlConfig.footer?.copyrightText || '© 2026 {getDomainName()} - FastArc Govt Result. All Rights Reserved.'}</p>
+            <p className="text-sm text-slate-400 font-medium">{websiteControlConfig.footer?.copyrightText || '© 2026 {getDomainName()} - GovtBharat. All Rights Reserved.'}</p>
             <div className="flex flex-col items-center gap-2">
               <span className="text-xs sm:text-[13px] font-black text-slate-300 uppercase tracking-widest text-center">
                 Official Channels & Social Links
@@ -2838,7 +2822,6 @@ export default function App() {
         onCancel={() => setIsLogoutConfirmOpen(false)}
       />
       <InstallPrompt />
-      <UpdatePrompt />
     </div>
   );
 }

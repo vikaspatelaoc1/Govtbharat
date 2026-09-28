@@ -24,9 +24,9 @@ interface EmailNotificationsTabProps {
 const DEFAULT_CONFIG: EmailNotificationConfig = {
   autoSendOnPublish: true,
   provider: 'built-in',
-  fromName: 'FastArc Govt Job Alerts',
-  fromEmail: 'alerts@fastarc.in',
-  replyToEmail: 'support@fastarc.in',
+  fromName: 'GovtBharat Job Alerts',
+  fromEmail: 'alerts@govtbharat.com',
+  replyToEmail: 'support@govtbharat.com',
   smtpHost: 'smtp.gmail.com',
   smtpPort: 587,
   smtpUser: '',
@@ -34,11 +34,11 @@ const DEFAULT_CONFIG: EmailNotificationConfig = {
   smtpSecure: false,
   apiKey: '',
   webhookUrl: '',
-  subjectTemplate: '⚡ [FastArc Alert] {job_title} - {state} Apply Online',
-  preheaderText: 'New Government Job Notification published on FastArc Portal. Check eligibility and vacancies.',
+  subjectTemplate: '⚡ [GovtBharat Alert] {job_title} - {state} Apply Online',
+  preheaderText: 'New Government Job Notification published on GovtBharat Portal. Check eligibility and vacancies.',
   bannerTitle: 'OFFICIAL GOVERNMENT JOB NOTIFICATION RELEASED',
   callToActionText: 'View Full Details & Apply Online',
-  footerNote: 'You received this notification because you subscribed to instant alerts on FastArc Govt Portal.',
+  footerNote: 'You received this notification because you subscribed to instant alerts on GovtBharat Portal.',
   sendCategories: ['all', 'latest-jobs', 'admit-cards', 'results', 'answer-key', 'syllabus', 'admission'],
   sendDelaySeconds: 0,
   includePdfLink: true,
@@ -260,12 +260,12 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
     links: { apply: 'https://ssc.gov.in', official: 'https://ssc.gov.in', notification: 'https://ssc.gov.in' }
   };
 
-  const liveSubject = (config.subjectTemplate || '⚡ [FastArc Alert] {job_title} - {state} Apply Online')
+  const liveSubject = (config.subjectTemplate || '⚡ [GovtBharat Alert] {job_title} - {state} Apply Online')
     .replace('{job_title}', sampleJob.title)
     .replace('{category}', (sampleJob.category || 'latest-jobs').toUpperCase())
     .replace('{state}', sampleJob.state || 'Central')
     .replace('{last_date}', typeof sampleJob.dates === 'object' ? (sampleJob.dates.last || 'N/A') : 'N/A')
-    .replace('{portal_name}', 'FastArc');
+    .replace('{portal_name}', 'GovtBharat');
 
   return (
     <div className="space-y-6">
@@ -332,7 +332,7 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gateway Provider</div>
             <div className="text-lg sm:text-xl font-black text-white mt-0.5 capitalize flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              {config.provider === 'built-in' ? 'FastArc Cloud' : config.provider.toUpperCase()}
+              {config.provider === 'built-in' ? 'GovtBharat Cloud' : config.provider.toUpperCase()}
             </div>
           </div>
 
@@ -438,7 +438,7 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-black uppercase">FastArc Cloud Engine</span>
+                    <span className="text-xs font-black uppercase">GovtBharat Cloud Engine</span>
                     {config.provider === 'built-in' && <CheckCircle2 className="w-4 h-4 text-blue-600" />}
                   </div>
                   <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
@@ -533,7 +533,7 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
                         type="text"
                         value={config.smtpUser || ''}
                         onChange={(e) => setConfig(prev => ({ ...prev, smtpUser: e.target.value }))}
-                        placeholder="e.g. alerts@fastarc.in"
+                        placeholder="e.g. alerts@govtbharat.com"
                         className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500"
                       />
                     </div>
@@ -603,7 +603,7 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
                     type="text"
                     value={config.fromName}
                     onChange={(e) => setConfig(prev => ({ ...prev, fromName: e.target.value }))}
-                    placeholder="FastArc Govt Job Alerts"
+                    placeholder="GovtBharat Job Alerts"
                     className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
@@ -616,7 +616,7 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
                     type="email"
                     value={config.fromEmail}
                     onChange={(e) => setConfig(prev => ({ ...prev, fromEmail: e.target.value }))}
-                    placeholder="alerts@fastarc.in"
+                    placeholder="alerts@govtbharat.com"
                     className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
@@ -629,7 +629,7 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
                     type="email"
                     value={config.replyToEmail || ''}
                     onChange={(e) => setConfig(prev => ({ ...prev, replyToEmail: e.target.value }))}
-                    placeholder="support@fastarc.in"
+                    placeholder="support@govtbharat.com"
                     className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
@@ -784,7 +784,7 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
                 type="text"
                 value={config.subjectTemplate}
                 onChange={(e) => setConfig(prev => ({ ...prev, subjectTemplate: e.target.value }))}
-                placeholder="⚡ [FastArc Alert] {job_title} - {state} Apply Online"
+                placeholder="⚡ [GovtBharat Alert] {job_title} - {state} Apply Online"
                 className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 font-medium"
               />
 
@@ -846,7 +846,7 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
                   rows={2}
                   value={config.footerNote}
                   onChange={(e) => setConfig(prev => ({ ...prev, footerNote: e.target.value }))}
-                  placeholder="You received this notification because you subscribed to instant alerts on FastArc Govt Portal."
+                  placeholder="You received this notification because you subscribed to instant alerts on GovtBharat Portal."
                   className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 resize-none"
                 />
               </div>
@@ -929,7 +929,7 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
                 {/* Email Header */}
                 <div className="bg-slate-950 text-white p-5 text-center">
                   <span className="inline-block bg-amber-400 text-slate-950 text-[10px] font-black px-3 py-0.5 rounded-full uppercase tracking-wider mb-2">
-                    ⚡ FAST-ARC GOVT ALERTS
+                    ⚡ GovtBharat ALERTS
                   </span>
                   <h3 className="text-lg font-black tracking-tight text-white">{config.fromName}</h3>
                   <p className="text-[11px] text-slate-400 mt-0.5">Instant Official Central &amp; State Recruitment Updates</p>
@@ -1025,9 +1025,9 @@ export const EmailNotificationsTab: React.FC<EmailNotificationsTabProps> = ({
                 <div className="bg-slate-950 text-slate-400 p-4 text-center text-[10px] space-y-1.5">
                   <p>{config.footerNote}</p>
                   <p className="text-slate-500">
-                    Candidate Helpdesk &bull; FastArc Sarkari Portal &bull; <span className="underline cursor-pointer">Unsubscribe</span>
+                    Candidate Helpdesk &bull; GovtBharat Sarkari Portal &bull; <span className="underline cursor-pointer">Unsubscribe</span>
                   </p>
-                  <p className="text-slate-600">&copy; 2026 FastArc Sarkari Portal. Verified Public Job Notice Alert.</p>
+                  <p className="text-slate-600">&copy; 2026 GovtBharat Sarkari Portal. Verified Public Job Notice Alert.</p>
                 </div>
 
               </div>

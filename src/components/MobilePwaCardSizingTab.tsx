@@ -81,7 +81,7 @@ export const MobilePwaCardSizingTab: React.FC<MobilePwaCardSizingTabProps> = ({
         cardTitleFontSize: 14,
         cardMetaFontSize: 11
       });
-      onToast('Applied "Modern FastArc App" preset');
+      onToast('Applied "Modern GovtBharat App" preset');
     } else if (type === 'compact') {
       setPwaConfig({
         ...pwaConfig,

@@ -214,11 +214,11 @@ async function runMigration() {
     firestoreBrokenLinksFlagged: 0,
   };
 
-  // 1. Process Local JSON Database (data/fastarc_database.json)
-  const localDbPath = path.resolve(__dirname, '../data/fastarc_database.json');
+  // 1. Process Local JSON Database (data/GovtBharat_database.json)
+  const localDbPath = path.resolve(__dirname, '../data/GovtBharat_database.json');
   if (fs.existsSync(localDbPath)) {
     try {
-      console.log('📁 1/2. Processing local fallback database (data/fastarc_database.json)...');
+      console.log('📁 1/2. Processing local fallback database (data/GovtBharat_database.json)...');
       const localData = JSON.parse(fs.readFileSync(localDbPath, 'utf8'));
       
       if (localData.jobs && Array.isArray(localData.jobs)) {

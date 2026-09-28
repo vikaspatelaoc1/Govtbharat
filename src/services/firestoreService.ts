@@ -537,7 +537,7 @@ export function subscribeToBackendPipelineConfig(onUpdate: (config: BackendPipel
     } else {
       onUpdate({
         autoPromoteEnabled: false,
-        webhookSecret: 'FASTARC_BACKEND_SECRET_KEY_12345',
+        webhookSecret: 'GovtBharat_BACKEND_SECRET_KEY_12345',
         totalIngestedCount: 0
       });
     }
@@ -1334,9 +1334,9 @@ export async function saveWebsiteControlConfigToFirestore(config: any): Promise<
 export const defaultEmailNotificationConfig: EmailNotificationConfig = {
   autoSendOnPublish: true,
   provider: 'built-in',
-  fromName: 'FastArc Govt Job Alerts',
-  fromEmail: 'alerts@fastarc.in',
-  replyToEmail: 'support@fastarc.in',
+  fromName: 'GovtBharat Job Alerts',
+  fromEmail: 'alerts@govtbharat.com',
+  replyToEmail: 'support@govtbharat.com',
   smtpHost: 'smtp.gmail.com',
   smtpPort: 587,
   smtpUser: '',
@@ -1344,11 +1344,11 @@ export const defaultEmailNotificationConfig: EmailNotificationConfig = {
   smtpSecure: false,
   apiKey: '',
   webhookUrl: '',
-  subjectTemplate: '⚡ [FastArc Alert] {job_title} - {state} Apply Online',
-  preheaderText: 'New Government Job Notification has been published on FastArc Portal. Check eligibility and apply now.',
+  subjectTemplate: '⚡ [GovtBharat Alert] {job_title} - {state} Apply Online',
+  preheaderText: 'New Government Job Notification has been published on GovtBharat Portal. Check eligibility and apply now.',
   bannerTitle: 'OFFICIAL GOVERNMENT JOB NOTIFICATION RELEASED',
   callToActionText: 'View Full Job Details & Apply Online',
-  footerNote: 'You received this official alert because you subscribed on FastArc Govt Jobs Portal.',
+  footerNote: 'You received this official alert because you subscribed on GovtBharat Portal.',
   sendCategories: ['all', 'latest-jobs', 'admit-cards', 'results', 'answer-key', 'syllabus', 'admission'],
   sendDelaySeconds: 0,
   includePdfLink: true,
@@ -1596,7 +1596,7 @@ export function subscribeToAppVersionRelease(
   onError?: (err: any) => void
 ) {
   if (!db) {
-    const cached = localStorage.getItem('fastarc_latest_app_release');
+    const cached = localStorage.getItem('GovtBharat_latest_app_release');
     if (cached) {
       try {
         onUpdate(JSON.parse(cached));
@@ -1615,16 +1615,16 @@ export function subscribeToAppVersionRelease(
     (snap) => {
       if (snap.exists()) {
         const data = snap.data() as AppVersionRelease;
-        localStorage.setItem('fastarc_latest_app_release', JSON.stringify(data));
+        localStorage.setItem('GovtBharat_latest_app_release', JSON.stringify(data));
         onUpdate(data);
       } else {
-        localStorage.setItem('fastarc_latest_app_release', JSON.stringify(DEFAULT_APP_VERSION_RELEASE));
+        localStorage.setItem('GovtBharat_latest_app_release', JSON.stringify(DEFAULT_APP_VERSION_RELEASE));
         onUpdate(DEFAULT_APP_VERSION_RELEASE);
       }
     },
     (err) => {
       console.warn('Firestore app version subscription notice:', err);
-      const cached = localStorage.getItem('fastarc_latest_app_release');
+      const cached = localStorage.getItem('GovtBharat_latest_app_release');
       if (cached) {
         try {
           onUpdate(JSON.parse(cached));
@@ -1641,7 +1641,7 @@ export function subscribeToAppVersionRelease(
 
 export async function getAppVersionReleaseFromFirestore(): Promise<AppVersionRelease | null> {
   if (!db) {
-    const cached = localStorage.getItem('fastarc_latest_app_release');
+    const cached = localStorage.getItem('GovtBharat_latest_app_release');
     return cached ? JSON.parse(cached) : DEFAULT_APP_VERSION_RELEASE;
   }
   try {
@@ -1653,13 +1653,13 @@ export async function getAppVersionReleaseFromFirestore(): Promise<AppVersionRel
     return DEFAULT_APP_VERSION_RELEASE;
   } catch (err) {
     handleFirestoreQuotaError(err, 'getAppVersionRelease');
-    const cached = localStorage.getItem('fastarc_latest_app_release');
+    const cached = localStorage.getItem('GovtBharat_latest_app_release');
     return cached ? JSON.parse(cached) : DEFAULT_APP_VERSION_RELEASE;
   }
 }
 
 export async function saveAppVersionReleaseToFirestore(release: AppVersionRelease): Promise<void> {
-  localStorage.setItem('fastarc_latest_app_release', JSON.stringify(release));
+  localStorage.setItem('GovtBharat_latest_app_release', JSON.stringify(release));
   if (!db) return;
   try {
     const docRef = doc(db, 'site_config', 'app_version_release');

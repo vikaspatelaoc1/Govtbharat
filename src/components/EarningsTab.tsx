@@ -85,32 +85,32 @@ export const EarningsTab: React.FC<EarningsTabProps> = ({ onToast }) => {
   const currSym = currency === 'INR' ? '₹' : '$';
 
   // Config States (Stored in localStorage)
-  const [adsensePubId, setAdsensePubId] = useState(() => localStorage.getItem('fastarc_adsense_pub_id') || 'ca-pub-8388501386760000');
-  const [amazonTag, setAmazonTag] = useState(() => localStorage.getItem('fastarc_amazon_tag') || 'fastarcgovt-21');
-  const [testbookPartnerId, setTestbookPartnerId] = useState(() => localStorage.getItem('fastarc_testbook_id') || 'FASTARC_TEST_2026');
-  const [bankName, setBankName] = useState(() => localStorage.getItem('fastarc_bank_name') || 'HDFC');
-  const [accountEnding, setAccountEnding] = useState(() => localStorage.getItem('fastarc_account_ending') || '4920');
+  const [adsensePubId, setAdsensePubId] = useState(() => localStorage.getItem('GovtBharat_adsense_pub_id') || 'ca-pub-8388501386760000');
+  const [amazonTag, setAmazonTag] = useState(() => localStorage.getItem('GovtBharat_amazon_tag') || 'govtbharat-21');
+  const [testbookPartnerId, setTestbookPartnerId] = useState(() => localStorage.getItem('GovtBharat_testbook_id') || 'GOVTBHARAT_2026');
+  const [bankName, setBankName] = useState(() => localStorage.getItem('GovtBharat_bank_name') || 'HDFC');
+  const [accountEnding, setAccountEnding] = useState(() => localStorage.getItem('GovtBharat_account_ending') || '4920');
   const [autoAdsEnabled, setAutoAdsEnabled] = useState(true);
   const [headerAdEnabled, setHeaderAdEnabled] = useState(true);
   const [inArticleAdEnabled, setInArticleAdEnabled] = useState(true);
   const [downloadPageAdEnabled, setDownloadPageAdEnabled] = useState(true);
 
   // Payout Disbursement Tracker Config States
-  const [payoutBankName, setPayoutBankName] = useState(() => localStorage.getItem('fastarc_payout_bank_name') || localStorage.getItem('fastarc_bank_name') || 'HDFC');
-  const [payoutAccountEnding, setPayoutAccountEnding] = useState(() => localStorage.getItem('fastarc_payout_account_ending') || localStorage.getItem('fastarc_account_ending') || '4920');
-  const [payoutBeneficiaryName, setPayoutBeneficiaryName] = useState(() => localStorage.getItem('fastarc_payout_beneficiary_name') || 'Vikas Patel');
+  const [payoutBankName, setPayoutBankName] = useState(() => localStorage.getItem('GovtBharat_payout_bank_name') || localStorage.getItem('GovtBharat_bank_name') || 'HDFC');
+  const [payoutAccountEnding, setPayoutAccountEnding] = useState(() => localStorage.getItem('GovtBharat_payout_account_ending') || localStorage.getItem('GovtBharat_account_ending') || '4920');
+  const [payoutBeneficiaryName, setPayoutBeneficiaryName] = useState(() => localStorage.getItem('GovtBharat_payout_beneficiary_name') || 'Vikas Patel');
   const [payoutThreshold, setPayoutThreshold] = useState<number>(() => {
-    const saved = localStorage.getItem('fastarc_payout_threshold');
+    const saved = localStorage.getItem('GovtBharat_payout_threshold');
     return saved ? Number(saved) : 8500;
   });
-  const [payoutNextDate, setPayoutNextDate] = useState(() => localStorage.getItem('fastarc_payout_next_date') || '21st Aug 2026');
-  const [payoutMethod, setPayoutMethod] = useState(() => localStorage.getItem('fastarc_payout_method') || 'Bank Wire (NEFT/RTGS)');
-  const [payoutTaxStatus, setPayoutTaxStatus] = useState(() => localStorage.getItem('fastarc_payout_tax_status') || 'Verified & Active');
+  const [payoutNextDate, setPayoutNextDate] = useState(() => localStorage.getItem('GovtBharat_payout_next_date') || '21st Aug 2026');
+  const [payoutMethod, setPayoutMethod] = useState(() => localStorage.getItem('GovtBharat_payout_method') || 'Bank Wire (NEFT/RTGS)');
+  const [payoutTaxStatus, setPayoutTaxStatus] = useState(() => localStorage.getItem('GovtBharat_payout_tax_status') || 'Verified & Active');
   const [payoutBalanceMode, setPayoutBalanceMode] = useState<'auto' | 'custom'>(() => {
-    return (localStorage.getItem('fastarc_payout_balance_mode') as 'auto' | 'custom') || 'custom';
+    return (localStorage.getItem('GovtBharat_payout_balance_mode') as 'auto' | 'custom') || 'custom';
   });
   const [payoutCustomBalance, setPayoutCustomBalance] = useState<number>(() => {
-    const saved = localStorage.getItem('fastarc_payout_custom_balance');
+    const saved = localStorage.getItem('GovtBharat_payout_custom_balance');
     return saved ? Number(saved) : 117570;
   });
 
@@ -123,7 +123,7 @@ export const EarningsTab: React.FC<EarningsTabProps> = ({ onToast }) => {
     date: string;
     status: 'Completed' | 'Processing';
   }>>(() => {
-    const saved = localStorage.getItem('fastarc_custom_revenue_entries');
+    const saved = localStorage.getItem('GovtBharat_custom_revenue_entries');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -391,7 +391,7 @@ export const EarningsTab: React.FC<EarningsTabProps> = ({ onToast }) => {
     ];
 
     const metadataRows = [
-      `# FastArc Govt Portal - Revenue & Ad Performance Trends`,
+      `# GovtBharat Portal - Revenue & Ad Performance Trends`,
       `# Selected Timeframe: ${periodLabel}`,
       `# Growth Performance: ${isGrowthPositive ? '+' : ''}${growthPercentage}% (${prevPeriodLabel})`,
       `# Currency: ${currency}`,
@@ -411,7 +411,7 @@ export const EarningsTab: React.FC<EarningsTabProps> = ({ onToast }) => {
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
     const filenameContext = sourceContext ? `_${sourceContext}` : '';
-    link.setAttribute('download', `FastArc_Revenue_Trends_${timeframe}${filenameContext}_2026.csv`);
+    link.setAttribute('download', `GovtBharat_Revenue_Trends_${timeframe}${filenameContext}_2026.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -429,16 +429,16 @@ export const EarningsTab: React.FC<EarningsTabProps> = ({ onToast }) => {
 
   // Handler to save Config
   const handleSaveConfig = () => {
-    localStorage.setItem('fastarc_adsense_pub_id', adsensePubId);
-    localStorage.setItem('fastarc_amazon_tag', amazonTag);
-    localStorage.setItem('fastarc_testbook_id', testbookPartnerId);
-    localStorage.setItem('fastarc_bank_name', bankName);
-    localStorage.setItem('fastarc_account_ending', accountEnding);
+    localStorage.setItem('GovtBharat_adsense_pub_id', adsensePubId);
+    localStorage.setItem('GovtBharat_amazon_tag', amazonTag);
+    localStorage.setItem('GovtBharat_testbook_id', testbookPartnerId);
+    localStorage.setItem('GovtBharat_bank_name', bankName);
+    localStorage.setItem('GovtBharat_account_ending', accountEnding);
     // Also keep payout states in sync
     setPayoutBankName(bankName);
     setPayoutAccountEnding(accountEnding);
-    localStorage.setItem('fastarc_payout_bank_name', bankName);
-    localStorage.setItem('fastarc_payout_account_ending', accountEnding);
+    localStorage.setItem('GovtBharat_payout_bank_name', bankName);
+    localStorage.setItem('GovtBharat_payout_account_ending', accountEnding);
     
     // Save to firestore
     saveEarningsConfigToFirestore({
@@ -455,20 +455,20 @@ export const EarningsTab: React.FC<EarningsTabProps> = ({ onToast }) => {
   // Handler to save Payout Tracker Settings
   const handleSavePayoutConfig = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    localStorage.setItem('fastarc_payout_bank_name', payoutBankName);
-    localStorage.setItem('fastarc_payout_account_ending', payoutAccountEnding);
-    localStorage.setItem('fastarc_payout_beneficiary_name', payoutBeneficiaryName);
-    localStorage.setItem('fastarc_payout_threshold', payoutThreshold.toString());
-    localStorage.setItem('fastarc_payout_next_date', payoutNextDate);
-    localStorage.setItem('fastarc_payout_method', payoutMethod);
-    localStorage.setItem('fastarc_payout_tax_status', payoutTaxStatus);
-    localStorage.setItem('fastarc_payout_balance_mode', payoutBalanceMode);
-    localStorage.setItem('fastarc_payout_custom_balance', payoutCustomBalance.toString());
+    localStorage.setItem('GovtBharat_payout_bank_name', payoutBankName);
+    localStorage.setItem('GovtBharat_payout_account_ending', payoutAccountEnding);
+    localStorage.setItem('GovtBharat_payout_beneficiary_name', payoutBeneficiaryName);
+    localStorage.setItem('GovtBharat_payout_threshold', payoutThreshold.toString());
+    localStorage.setItem('GovtBharat_payout_next_date', payoutNextDate);
+    localStorage.setItem('GovtBharat_payout_method', payoutMethod);
+    localStorage.setItem('GovtBharat_payout_tax_status', payoutTaxStatus);
+    localStorage.setItem('GovtBharat_payout_balance_mode', payoutBalanceMode);
+    localStorage.setItem('GovtBharat_payout_custom_balance', payoutCustomBalance.toString());
 
     setBankName(payoutBankName);
     setAccountEnding(payoutAccountEnding);
-    localStorage.setItem('fastarc_bank_name', payoutBankName);
-    localStorage.setItem('fastarc_account_ending', payoutAccountEnding);
+    localStorage.setItem('GovtBharat_bank_name', payoutBankName);
+    localStorage.setItem('GovtBharat_account_ending', payoutAccountEnding);
 
     // Save to firestore
     saveEarningsConfigToFirestore({
@@ -509,7 +509,7 @@ export const EarningsTab: React.FC<EarningsTabProps> = ({ onToast }) => {
     };
     const updated = [entry, ...customEntries];
     setCustomEntries(updated);
-    localStorage.setItem('fastarc_custom_revenue_entries', JSON.stringify(updated));
+    localStorage.setItem('GovtBharat_custom_revenue_entries', JSON.stringify(updated));
     pushConfigToFirestore(updated);
     setShowAddEntryModal(false);
     setNewDesc('');
@@ -522,7 +522,7 @@ export const EarningsTab: React.FC<EarningsTabProps> = ({ onToast }) => {
     e.stopPropagation();
     const updated = customEntries.filter(item => item.id !== id);
     setCustomEntries(updated);
-    localStorage.setItem('fastarc_custom_revenue_entries', JSON.stringify(updated));
+    localStorage.setItem('GovtBharat_custom_revenue_entries', JSON.stringify(updated));
     pushConfigToFirestore(updated);
     triggerToast('🗑️ Direct payment entry removed');
   };
@@ -1290,7 +1290,7 @@ export const EarningsTab: React.FC<EarningsTabProps> = ({ onToast }) => {
                   type="text"
                   value={amazonTag}
                   onChange={(e) => setAmazonTag(e.target.value)}
-                  placeholder="fastarcgovt-21"
+                  placeholder="govtbharat-21"
                   className="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-emerald-400 font-mono text-xs"
                 />
               </div>
@@ -1304,7 +1304,7 @@ export const EarningsTab: React.FC<EarningsTabProps> = ({ onToast }) => {
                   type="text"
                   value={testbookPartnerId}
                   onChange={(e) => setTestbookPartnerId(e.target.value)}
-                  placeholder="FASTARC_TEST_2026"
+                  placeholder="GOVTBHARAT_2026"
                   className="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-emerald-400 font-mono text-xs"
                 />
               </div>

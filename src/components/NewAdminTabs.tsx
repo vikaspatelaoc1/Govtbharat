@@ -122,7 +122,7 @@ export const ActivityLogsTab = () => {
   const [excludeSystem, setExcludeSystem] = useState(false);
   const [logs, setLogs] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('fastarc_activity_audit_logs');
+      const saved = localStorage.getItem('GovtBharat_activity_audit_logs');
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
@@ -240,8 +240,8 @@ export const ActivityLogsTab = () => {
 };
 
 export const AutoBroadcasterTab = ({ onToast }: { onToast?: (msg: string) => void }) => {
-  const [telegramChannel, setTelegramChannel] = useState('@fastarc_govt_alerts');
-  const [whatsappGroup, setWhatsappGroup] = useState('FastArc Govt Jobs 2026');
+  const [telegramChannel, setTelegramChannel] = useState('@GovtBharat_alerts');
+  const [whatsappGroup, setWhatsappGroup] = useState('GovtBharat 2026');
 
   return (
     <div className="space-y-6">
@@ -273,7 +273,7 @@ export const AutoBroadcasterTab = ({ onToast }: { onToast?: (msg: string) => voi
                   type="text" 
                   value={telegramChannel}
                   onChange={(e) => setTelegramChannel(e.target.value)}
-                  placeholder="Channel handle e.g. @fastarc_jobs" 
+                  placeholder="Channel handle e.g. @GovtBharat_jobs" 
                   className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-xl px-3 py-2 text-xs font-mono text-slate-900 dark:text-white outline-none" 
                 />
                 

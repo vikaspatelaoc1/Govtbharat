@@ -1225,7 +1225,7 @@ export const WebsiteControlTab: React.FC<WebsiteControlTabProps> = ({
                     header: { ...prev.header, portalTitle: e.target.value }
                   }))}
                   className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white"
-                  placeholder="e.g. Fast_Arc_Govt  Naukri"
+                  placeholder="e.g. GovtBharat  Naukri"
                 />
               </div>
 
@@ -1255,7 +1255,7 @@ export const WebsiteControlTab: React.FC<WebsiteControlTabProps> = ({
                     header: { ...prev.header, domainName: e.target.value }
                   }))}
                   className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white font-mono"
-                  placeholder="e.g. FastArcGovt.info"
+                  placeholder="e.g. GovtBharat.com"
                 />
               </div>
 
@@ -1874,7 +1874,7 @@ export const WebsiteControlTab: React.FC<WebsiteControlTabProps> = ({
                     seo: { ...prev.seo!, metaTitle: e.target.value }
                   }))}
                   className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white"
-                  placeholder="e.g. FastArc Govt - Latest Sarkari Naukri"
+                  placeholder="e.g. GovtBharat - Latest Sarkari Naukri"
                 />
               </div>
               <div className="space-y-1.5">

@@ -10,6 +10,7 @@ import {
 import { JobAlert, JobCategory, PostWiseVacancy } from '../types';
 import { DateInputWithPicker } from './DateInputWithPicker';
 import { enrichJobDetails, cleanOfficialUrl } from '../utils/jobEnricher';
+import { loadJobsFromLocalStorage } from '../utils/jobStorage';
 import { PopularCategoriesAndTrafficAnalytics } from './PopularCategoriesAndTrafficAnalytics';
 
 interface AdminPanelProps {
@@ -180,8 +181,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, onSave,
       cutoff: '',
       examDate: '',
       videoHindi: '',
-      telegram: 'https://t.me/fastarcgovtresul',
-      whatsapp: 'https://whatsapp.com/channel/fastarc',
+      telegram: 'https://t.me/govtbharatofficial',
+      whatsapp: 'https://whatsapp.com/channel/govtbharatofficial',
       otherLinks: []
     }
   });
@@ -248,13 +249,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, onSave,
   }, [editingJob, isOpen]);
 
   const existingJobs = useMemo<JobAlert[]>(() => {
-    if (typeof window === 'undefined') return [];
-    try {
-      const raw = localStorage.getItem('fastarc_jobs');
-      return raw ? JSON.parse(raw) : [];
-    } catch {
-      return [];
-    }
+    return loadJobsFromLocalStorage();
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -576,8 +571,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, onSave,
         answerKey: sanitizeUrl(formData.links?.answerKey) || '',
         syllabus: sanitizeUrl(formData.links?.syllabus) || '',
         videoHindi: sanitizeUrl(formData.links?.videoHindi) || '',
-        telegram: sanitizeUrl(formData.links?.telegram) || 'https://t.me/fastarcgovtresul',
-        whatsapp: sanitizeUrl(formData.links?.whatsapp) || 'https://whatsapp.com/channel/fastarc',
+        telegram: sanitizeUrl(formData.links?.telegram) || 'https://t.me/govtbharatofficial',
+        whatsapp: sanitizeUrl(formData.links?.whatsapp) || 'https://whatsapp.com/channel/govtbharatofficial',
       },
       ...formData
     });
@@ -1892,7 +1887,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, onSave,
                 </label>
                 <input
                   type="text"
-                  placeholder="https://t.me/fastarcgovtresul"
+                  placeholder="https://t.me/govtbharatofficial"
                   value={formData.links?.telegram || ''}
                   onChange={e => handleChange('telegram', e.target.value, 'links')}
                   className="w-full border border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 rounded-xl p-2.5 text-slate-900 dark:text-white"
@@ -2009,7 +2004,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, onSave,
                   {formData.postName || formData.title} : Short Details of Notification
                 </p>
                 <div className="inline-block py-1 px-4 rounded-md my-1 font-black text-xs sm:text-sm text-[#dc2626] dark:text-[#f87171] uppercase tracking-wider">
-                  FastArc Result Official • {getDomainName()}
+                  GovtBharat Result Official • {getDomainName()}
                 </div>
               </div>
 

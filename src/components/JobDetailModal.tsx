@@ -115,7 +115,7 @@ export const JobDetailModal: React.FC<JobDetailModalProps> = ({ job, onClose }) 
   const handleShare = async () => {
     const shareData = {
       title: job.title,
-      text: `Check out this job opportunity: ${job.title} on FastArc Govt Jobs\n\n`,
+      text: `Check out this job opportunity: ${job.title} on GovtBharat\n\n`,
       url: getJobUrl(),
     };
 
@@ -303,8 +303,8 @@ export const JobDetailModal: React.FC<JobDetailModalProps> = ({ job, onClose }) 
                   <img src="/logo.png" style="width: 100%; height: 100%; object-fit: cover;" />
                 </div>
                 <div>
-                  <h1 class="logo-title">Fast<span style="color: #f59e0b;">Arc</span></h1>
-                  <div class="subtitle">Govt Jobs Portal • Official Job Notice</div>
+                  <h1 class="logo-title">Govt<span style="color: #f59e0b;">Bharat</span></h1>
+                  <div class="subtitle">Jobs Portal • Official Job Notice</div>
                 </div>
               </div>
               <div style="text-align: right; font-size: 11px; color: #64748b;">
@@ -425,26 +425,26 @@ export const JobDetailModal: React.FC<JobDetailModalProps> = ({ job, onClose }) 
       <div 
         id="printable-job-detail"
         onClick={(e) => e.stopPropagation()}
-        className="bg-white dark:bg-slate-950/90 text-slate-900 dark:text-white backdrop-blur-2xl w-full max-w-4xl rounded-2xl border-2 border-amber-500/30 dark:border-amber-500/50 shadow-[0_0_60px_rgba(245,158,11,0.1)] dark:shadow-[0_0_60px_rgba(245,158,11,0.2)] flex flex-col overflow-hidden animate-[scaleUp_0.25s_ease-out]"
+        className="bg-white dark:bg-slate-950/90 text-slate-900 dark:text-white backdrop-blur-2xl w-full max-w-4xl rounded-2xl border-2 border-amber-500/30 dark:border-amber-500/50 shadow-[0_0_60px_rgba(245,158,11,0.1)] dark:shadow-[0_0_60px_rgba(245,158,11,0.2)] flex flex-col overflow-hidden animate-[scaleUp_0.25s_ease-out] my-auto max-h-[92vh]"
       >
-        <div className="bg-slate-50 dark:bg-slate-950/90 border-b border-amber-200 dark:border-amber-500/40 p-4 sm:p-5 flex items-center justify-between gap-4 backdrop-blur-md">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full p-0.5 bg-white dark:bg-black border-2 border-amber-400 dark:border-amber-500/80 shadow-sm dark:shadow-md flex items-center justify-center overflow-hidden shrink-0">
+        <div className="bg-slate-50 dark:bg-slate-950/90 border-b border-amber-200 dark:border-amber-500/40 p-3.5 sm:p-5 flex items-center justify-between gap-2.5 sm:gap-4 backdrop-blur-md">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full p-0.5 bg-white dark:bg-black border-2 border-amber-400 dark:border-amber-500/80 shadow-sm dark:shadow-md flex items-center justify-center overflow-hidden shrink-0">
               <img 
                 src="/logo.png" 
-                alt="FastArc Logo" 
+                alt="GovtBharat Logo" 
                 className="w-full h-full object-cover rounded-full"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = "https://lh3.googleusercontent.com/d/1IE6MQ8EUwyKmGeXnpLTXx7d5HBLJiKb4";
                 }}
               />
             </div>
-            <div>
-              <span className="bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-500/50 text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-md mb-1 inline-block">
+            <div className="min-w-0 flex-1">
+              <span className="bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-500/50 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md mb-1 inline-block">
                 {job.category.replace('-', ' ')}
               </span>
-              <h3 className="text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight">{job.title}</h3>
-              <p className="text-xs text-amber-600 dark:text-amber-400/80 font-bold mt-0.5">Published on: {job.postDate}</p>
+              <h3 className="text-base sm:text-lg md:text-xl font-black text-slate-900 dark:text-white tracking-tight break-words-safe line-clamp-2 sm:line-clamp-none">{job.title}</h3>
+              <p className="text-[11px] sm:text-xs text-amber-600 dark:text-amber-400/80 font-bold mt-0.5">Published on: {job.postDate}</p>
             </div>
           </div>
           <div className="flex items-center gap-2 print:hidden shrink-0">

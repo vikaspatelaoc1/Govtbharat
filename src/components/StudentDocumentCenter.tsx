@@ -96,7 +96,7 @@ export const StudentDocumentCenter: React.FC = () => {
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
         <div className="relative z-10 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-indigo-500/30 border border-indigo-400/50 text-indigo-100 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
-            <GraduationCap className="w-4 h-4" /> FastArc Student Utility Center
+            <GraduationCap className="w-4 h-4" /> GovtBharat Student Utility Center
           </div>
           <h1 className="text-3xl sm:text-5xl font-black text-white mb-6 leading-tight">
             All Your Documents & Certificates <span className="text-amber-400">in One Place</span>
@@ -285,7 +285,7 @@ export const StudentDocumentCenter: React.FC = () => {
           <span className="text-xl">⚠️</span> Important Disclaimer
         </h4>
         <p className="text-sm text-amber-700 dark:text-amber-400/80 leading-relaxed">
-          FastArc is an information platform and not an official government portal. We provide verified official links for your convenience. For any official application, download, or verification, always refer to the respective government, board, or university website.
+          GovtBharat is an information platform and not an official government portal. We provide verified official links for your convenience. For any official application, download, or verification, always refer to the respective government, board, or university website.
         </p>
       </div>
 

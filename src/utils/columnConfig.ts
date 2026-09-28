@@ -90,7 +90,7 @@ export const DEFAULT_COLUMN_CONFIGS: ColumnConfigsMap = {
 export const loadColumnConfigs = (): ColumnConfigsMap => {
   if (typeof window === 'undefined') return DEFAULT_COLUMN_CONFIGS;
   try {
-    const saved = localStorage.getItem('fastarc_column_configs');
+    const saved = localStorage.getItem('GovtBharat_column_configs');
     if (saved) {
       const parsed = JSON.parse(saved);
       return { ...DEFAULT_COLUMN_CONFIGS, ...parsed };
@@ -104,9 +104,9 @@ export const loadColumnConfigs = (): ColumnConfigsMap => {
 export const saveColumnConfigs = (configs: ColumnConfigsMap) => {
   if (typeof window === 'undefined') return;
   try {
-    localStorage.setItem('fastarc_column_configs', JSON.stringify(configs));
+    localStorage.setItem('GovtBharat_column_configs', JSON.stringify(configs));
     // Trigger custom event so all active components re-render immediately
-    window.dispatchEvent(new CustomEvent('fastarc_columns_updated', { detail: configs }));
+    window.dispatchEvent(new CustomEvent('GovtBharat_columns_updated', { detail: configs }));
     
     // Asynchronously sync to Firestore database
     saveColumnConfigsToFirestore(configs).catch(err => {

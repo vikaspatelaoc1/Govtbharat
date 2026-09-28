@@ -101,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({
       document.referrer.includes('android-app://') ||
       urlParams.get('source') === 'pwa' ||
       urlParams.get('utm_source') === 'pwa' ||
-      localStorage.getItem('fastarc_app_view') === 'app'
+      localStorage.getItem('GovtBharat_app_view') === 'app'
     );
   });
 
@@ -125,7 +125,7 @@ export const Header: React.FC<HeaderProps> = ({
         document.referrer.includes('android-app://') ||
         urlParams.get('source') === 'pwa' ||
         urlParams.get('utm_source') === 'pwa' ||
-        localStorage.getItem('fastarc_app_view') === 'app';
+        localStorage.getItem('GovtBharat_app_view') === 'app';
       setIsApplication(!!isStandalone);
     };
     checkAppMode();
@@ -143,13 +143,13 @@ export const Header: React.FC<HeaderProps> = ({
         setIsApplication(false);
       }
     };
-    window.addEventListener('fastarc_toggle_app_mode', handleAppModeSwitch);
+    window.addEventListener('GovtBharat_toggle_app_mode', handleAppModeSwitch);
 
     return () => {
       if (mqStandalone.removeEventListener) {
         mqStandalone.removeEventListener('change', handleMq);
       }
-      window.removeEventListener('fastarc_toggle_app_mode', handleAppModeSwitch);
+      window.removeEventListener('GovtBharat_toggle_app_mode', handleAppModeSwitch);
     };
   }, []);
   const [currentLangCode, setCurrentLangCode] = useState<string>('en');
@@ -160,7 +160,7 @@ export const Header: React.FC<HeaderProps> = ({
   useEffect(() => {
     const match = document.cookie.match(/(?:^|;\s*)googtrans=\/(?:auto|en)\/([a-zA-Z-]+)/);
     const cookieLang = match ? match[1] : null;
-    const saved = localStorage.getItem('fastarc_preferred_language');
+    const saved = localStorage.getItem('GovtBharat_preferred_language');
     setCurrentLangCode(cookieLang || saved || 'en');
   }, []);
 
@@ -262,15 +262,15 @@ export const Header: React.FC<HeaderProps> = ({
         setDeferredPrompt(null);
         setIsInstallable(false);
         try {
-          localStorage.setItem('fastarc_app_view', 'app');
-          window.dispatchEvent(new CustomEvent('fastarc_toggle_app_mode', { detail: { mode: 'app' } }));
+          localStorage.setItem('GovtBharat_app_view', 'app');
+          window.dispatchEvent(new CustomEvent('GovtBharat_toggle_app_mode', { detail: { mode: 'app' } }));
         } catch (e) {}
       }
     } else {
       // If browser has already installed or doesn't support deferredPrompt, toggle app view directly
       try {
-        localStorage.setItem('fastarc_app_view', 'app');
-        window.dispatchEvent(new CustomEvent('fastarc_toggle_app_mode', { detail: { mode: 'app' } }));
+        localStorage.setItem('GovtBharat_app_view', 'app');
+        window.dispatchEvent(new CustomEvent('GovtBharat_toggle_app_mode', { detail: { mode: 'app' } }));
         if (!window.location.search.includes('mode=app')) {
           const newUrl = new URL(window.location.href);
           newUrl.searchParams.set('mode', 'app');
@@ -283,8 +283,8 @@ export const Header: React.FC<HeaderProps> = ({
   const handleShareClick = async () => {
     const shareUrl = window.location.href;
     const shareData = {
-      title: 'FastArc - Govt Jobs Portal',
-      text: 'FastArc - Sarkari Result, Latest Govt Jobs, Admit Card & Answer Key',
+      title: 'GovtBharat - Jobs Portal',
+      text: 'GovtBharat - Sarkari Result, Latest Govt Jobs, Admit Card & Answer Key',
       url: shareUrl
     };
 
@@ -406,7 +406,7 @@ export const Header: React.FC<HeaderProps> = ({
       )}
 
       <header className="bg-white border-b border-slate-200 dark:bg-slate-900 dark:border-slate-800 w-full transition-colors duration-300 relative z-50">
-      <div className="w-full mx-auto px-3 sm:px-5 lg:px-6">
+      <div className="w-full mx-auto px-1 sm:px-1 lg:px-1">
         {isApplication && isAppSearchOpen ? (
           /* Mobile App View: Full Header Search Column (matching image.png) */
           <div className="flex items-center w-full h-14 sm:h-16 gap-2 py-1 animate-in fade-in duration-200">
@@ -481,7 +481,7 @@ export const Header: React.FC<HeaderProps> = ({
           /* Normal Header Bar */
           <div className="flex justify-between h-14 sm:h-16 items-center py-1">
           
-          {/* Left Side: All Options Hamburger Button + FastArc Logo */}
+          {/* Left Side: All Options Hamburger Button + GovtBharat Logo */}
           <div className="flex items-center space-x-2.5 sm:space-x-3">
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -507,7 +507,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xs flex items-center justify-center overflow-hidden shrink-0 transform group-hover:scale-105 transition-transform duration-200">
                 <img 
                   src={siteLogo} 
-                  alt="FastArc Logo" 
+                  alt="GovtBharat Logo" 
                   className="w-full h-full object-contain rounded-full"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = "https://lh3.googleusercontent.com/d/1IE6MQ8EUwyKmGeXnpLTXx7d5HBLJiKb4";
@@ -516,10 +516,10 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
               <div>
                 <h1 className="text-base sm:text-xl font-black text-slate-900 dark:text-white tracking-tight leading-none group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors flex items-center gap-0.5">
-                  <span>Fast</span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 dark:from-amber-400 dark:via-yellow-400 dark:to-amber-300">Arc</span>
+                  <span>Govt</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 dark:from-amber-400 dark:via-yellow-400 dark:to-amber-300">Bharat</span>
                 </h1>
-                <p className="text-[9.5px] sm:text-[10.5px] text-amber-700 dark:text-amber-400/90 font-extrabold tracking-wider uppercase mt-0.5">Govt Jobs Portal</p>
+                <p className="text-[9.5px] sm:text-[10.5px] text-amber-700 dark:text-amber-400/90 font-extrabold tracking-wider uppercase mt-0.5">Jobs Portal</p>
               </div>
             </a>
           </div>
@@ -680,11 +680,11 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Official Social Media Channels with Original Logos (Telegram & WhatsApp) - Hidden in Mobile App mode */}
             {!isApplication && (() => {
               const activeSocials = (socialLinks?.filter(l => l.enabled && l.platform !== 'youtube')) || [
-                { id: 'tg', platform: 'telegram' as const, title: 'Telegram Channel', url: 'https://t.me/fastarcgovtofficial' },
-                { id: 'wa', platform: 'whatsapp' as const, title: 'WhatsApp Channel', url: 'https://whatsapp.com/channel/fastarcgovtofficial' }
+                { id: 'tg', platform: 'telegram' as const, title: 'Telegram Channel', url: 'https://t.me/govtbharatofficial' },
+                { id: 'wa', platform: 'whatsapp' as const, title: 'WhatsApp Channel', url: 'https://whatsapp.com/channel/govtbharatofficial' }
               ];
               return (
-                <div className="flex items-center space-x-2 sm:space-x-2.5">
+                <div className="hidden min-[400px]:flex items-center space-x-1.5 sm:space-x-2.5">
                   {activeSocials.slice(0, 2).map((item) => (
                     <a
                       key={item.id}
@@ -777,21 +777,23 @@ export const Header: React.FC<HeaderProps> = ({
               transition={{ type: 'spring', damping: 28, stiffness: 300 }}
               style={{
                 paddingTop: 'env(safe-area-inset-top, 0px)',
-                paddingBottom: 'env(safe-area-inset-bottom, 0px)'
+                paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+                paddingLeft: 'env(safe-area-inset-left, 0px)',
+                paddingRight: 'env(safe-area-inset-right, 0px)'
               }}
-              className="relative w-[86vw] sm:w-[420px] max-w-[88vw] sm:max-w-[430px] bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 h-full shadow-2xl border-r border-slate-200 dark:border-slate-800 flex flex-col z-10 overflow-y-auto"
+              className="relative w-[85vw] sm:w-[380px] md:w-[420px] max-w-[calc(100vw-36px)] bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 h-full shadow-2xl border-r border-slate-200 dark:border-slate-800 flex flex-col z-10 overflow-y-auto overscroll-contain"
             >
               
               {/* Top Official India Tricolor Line */}
               <div className="h-1 w-full bg-gradient-to-r from-amber-600 via-white to-emerald-600 shrink-0 sticky top-0 z-20" />
 
               {/* Drawer Header */}
-              <div className="px-3.5 py-2.5 bg-white dark:bg-slate-950 text-slate-900 dark:text-white flex items-center justify-between shadow-sm dark:shadow-md sticky top-1 z-10 border-b border-slate-200 dark:border-slate-800">
+              <div className="px-4 py-3 bg-white dark:bg-slate-950 text-slate-900 dark:text-white flex items-center justify-between shadow-sm dark:shadow-md sticky top-1 z-10 border-b border-slate-200 dark:border-slate-800">
                 <div className="flex items-center space-x-2.5">
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-center overflow-hidden shrink-0">
                     <img 
                       src={siteLogo} 
-                      alt="FastArc Logo" 
+                      alt="GovtBharat Logo" 
                       className="w-full h-full object-contain rounded-full"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = "https://lh3.googleusercontent.com/d/1IE6MQ8EUwyKmGeXnpLTXx7d5HBLJiKb4";
@@ -800,24 +802,24 @@ export const Header: React.FC<HeaderProps> = ({
                   </div>
                   <div>
                     <h2 className="text-lg font-black text-slate-900 dark:text-white tracking-tight leading-none">
-                      Fast<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 dark:from-amber-400 dark:via-yellow-400 dark:to-amber-300">Arc</span>
+                      Govt<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 dark:from-amber-400 dark:via-yellow-400 dark:to-amber-300">Bharat</span>
                     </h2>
-                    <p className="text-[9px] text-amber-700 dark:text-amber-400/80 font-extrabold tracking-widest uppercase mt-0.5">Govt Jobs Portal</p>
+                    <p className="text-[10px] text-amber-700 dark:text-amber-400/90 font-extrabold tracking-widest uppercase mt-0.5">Jobs Portal</p>
                   </div>
                 </div>
                 
                 <button 
                   onClick={() => setIsDrawerOpen(false)}
-                  className="p-1 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all cursor-pointer hover:scale-110 active:scale-95"
+                  className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all cursor-pointer hover:scale-110 active:scale-95"
                   title="Close Drawer"
                   aria-label="Close Drawer"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-4.5 h-4.5" />
                 </button>
               </div>
 
             {/* Drawer Navigation Content */}
-            <div className="p-3 space-y-5 flex-1 custom-scrollbar">
+            <div className="p-3.5 space-y-5 flex-1 custom-scrollbar">
 
             {/* SECTION 1: Super Admin Control Options (for Super Admin) */}
             {isSuperAdmin && (
@@ -842,7 +844,7 @@ export const Header: React.FC<HeaderProps> = ({
                     </button>
                     {isHeader3DotOpen && (
                       <div 
-                        className="absolute left-0 top-full mt-2 w-64 bg-[#090d16] border border-amber-500 rounded-xl shadow-2xl z-[9999] overflow-hidden animate-in fade-in zoom-in-95 duration-150 flex flex-col"
+                        className="absolute left-0 top-full mt-2 w-64 max-w-[calc(100vw-36px)] bg-[#090d16] border border-amber-500 rounded-xl shadow-2xl z-[9999] overflow-hidden animate-in fade-in zoom-in-95 duration-150 flex flex-col"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <div className="px-4 py-3 bg-[#060a12] border-b border-slate-800 flex items-center justify-between">
@@ -875,9 +877,9 @@ export const Header: React.FC<HeaderProps> = ({
                                setIsDrawerOpen(false); 
                                const nextMode = isApplication ? 'web' : 'app';
                                try {
-                                 localStorage.setItem('fastarc_app_view', nextMode);
+                                 localStorage.setItem('GovtBharat_app_view', nextMode);
                                } catch(e) {}
-                               window.dispatchEvent(new CustomEvent('fastarc_toggle_app_mode', { detail: { mode: nextMode } }));
+                               window.dispatchEvent(new CustomEvent('GovtBharat_toggle_app_mode', { detail: { mode: nextMode } }));
                                const newUrl = new URL(window.location.href);
                                newUrl.searchParams.set('mode', nextMode);
                                window.history.pushState({}, '', newUrl.toString());
@@ -993,19 +995,19 @@ export const Header: React.FC<HeaderProps> = ({
 
               {/* SECTION 2: Core Portal Sections (2-Column Grid) */}
               <div>
-                <div className="flex gap-2 mb-2.5">
+                <div className="flex gap-2.5 mb-3">
                   <button
                     onClick={handleInstallClick}
-                    className="flex items-center justify-center gap-1.5 flex-1 px-2 py-1.5 rounded-md bg-transparent border border-amber-600/80 text-amber-600 dark:text-amber-400 font-bold text-xs shadow-none hover:bg-amber-500/10 active:scale-[0.98] transition-all duration-200 cursor-pointer"
+                    className="flex items-center justify-center gap-1.5 flex-1 px-3 py-2 rounded-lg bg-transparent border border-amber-600/80 text-amber-600 dark:text-amber-400 font-bold text-xs shadow-none hover:bg-amber-500/10 active:scale-[0.98] transition-all duration-200 cursor-pointer"
                     title="Install App"
                   >
-                    <Download className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+                    <Download className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
                     <span>App Install</span>
                   </button>
 
                   <button
                     onClick={handleShareClick}
-                    className="flex items-center justify-center gap-1.5 flex-1 px-2 py-1.5 rounded-md bg-transparent border border-amber-600/80 text-amber-600 dark:text-amber-400 font-bold text-xs shadow-none hover:bg-amber-500/10 active:scale-[0.98] transition-all duration-200 cursor-pointer"
+                    className="flex items-center justify-center gap-1.5 flex-1 px-3 py-2 rounded-lg bg-transparent border border-amber-600/80 text-amber-600 dark:text-amber-400 font-bold text-xs shadow-none hover:bg-amber-500/10 active:scale-[0.98] transition-all duration-200 cursor-pointer"
                     title="Share App"
                   >
                     <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1037,15 +1039,15 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
                 <button 
                   onClick={() => setExpandedSidebarSections(prev => ({ portal: !prev.portal }))}
-                  className="w-full text-left flex items-center justify-between mb-2 px-1 cursor-pointer group"
+                  className="w-full text-left flex items-center justify-between mb-2.5 px-1 cursor-pointer group"
                 >
-                  <h3 className="text-[9px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest flex items-center gap-1.5 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
-                    <Sparkles className="w-3 h-3 text-amber-500" /> Portal Sections
+                  <h3 className="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest flex items-center gap-1.5 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Portal Sections
                   </h3>
                   <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${expandedSidebarSections.portal ? 'rotate-180' : ''}`} />
                 </button>
                 {expandedSidebarSections.portal && (
-                  <div className="grid grid-cols-2 gap-2 animate-in slide-in-from-top-1 fade-in duration-200">
+                  <div className="grid grid-cols-2 gap-2.5 animate-in slide-in-from-top-1 fade-in duration-200">
                     {navLinks.map((link) => {
                       const IconComp = link.icon;
                       const isActive = activeTab === link.id;
@@ -1053,16 +1055,16 @@ export const Header: React.FC<HeaderProps> = ({
                         <button
                           key={link.id}
                           onClick={(e) => handleNavClick(e as any, link.id)}
-                          className={`flex flex-col items-start justify-center p-2.5 rounded-xl transition-all cursor-pointer border group ${
+                          className={`flex flex-col items-start justify-center p-3 rounded-xl transition-all cursor-pointer border group ${
                             isActive 
                               ? `${link.activeCard}`
                               : 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/80 shadow-xs'
                           }`}
                         >
-                          <div className={`p-2 rounded-xl mb-1.5 transition-transform group-hover:scale-105 border ${link.iconBg}`}>
+                          <div className={`p-2 rounded-xl mb-2 transition-transform group-hover:scale-105 border ${link.iconBg}`}>
                             <IconComp className={`w-4 h-4 ${link.iconColor}`} />
                           </div>
-                          <span className={`text-[11px] tracking-tight truncate w-full text-left ${isActive ? 'font-black' : 'font-bold text-slate-700 dark:text-slate-200'}`}>
+                          <span className={`text-xs tracking-tight truncate w-full text-left ${isActive ? 'font-black' : 'font-bold text-slate-700 dark:text-slate-200'}`}>
                             {link.label}
                           </span>
                         </button>
@@ -1072,28 +1074,28 @@ export const Header: React.FC<HeaderProps> = ({
                 )}
               </div>
 
-              {/* SECTION 3: Community & Social Links (Compact Pills) */}
+              {/* SECTION 3: Community & Social Links */}
               <div>
                 <button 
                   onClick={() => setExpandedSidebarSections(prev => ({ connect: !prev.connect }))}
-                  className="w-full text-left flex items-center justify-between mb-2 px-1 cursor-pointer group"
+                  className="w-full text-left flex items-center justify-between mb-2.5 px-1 cursor-pointer group"
                 >
-                  <h3 className="text-[9px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest flex items-center gap-1.5 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
-                    <Send className="w-3 h-3 text-sky-500" /> Connect
+                  <h3 className="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest flex items-center gap-1.5 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
+                    <Send className="w-3.5 h-3.5 text-sky-500" /> Connect
                   </h3>
                   <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${expandedSidebarSections.connect ? 'rotate-180' : ''}`} />
                 </button>
                 {expandedSidebarSections.connect && (
-                  <div className="grid grid-cols-2 gap-1.5 animate-in slide-in-from-top-1 fade-in duration-200">
+                  <div className="grid grid-cols-2 gap-2 animate-in slide-in-from-top-1 fade-in duration-200">
                     {(socialLinks?.filter(l => l.enabled) || [
-                      { id: 'tg', platform: 'telegram' as const, title: 'Telegram Channel', url: 'https://t.me/fastarcgovtofficial' },
-                      { id: 'wa', platform: 'whatsapp' as const, title: 'WhatsApp Alerts', url: 'https://whatsapp.com/channel/fastarcgovtofficial' }
+                      { id: 'tg', platform: 'telegram' as const, title: 'Telegram Channel', url: 'https://t.me/govtbharatofficial' },
+                      { id: 'wa', platform: 'whatsapp' as const, title: 'WhatsApp Alerts', url: 'https://whatsapp.com/channel/govtbharatofficial' }
                     ]).map((item) => (
                       <a
                         key={item.id}
                         href={item.url}
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 p-2 rounded-xl bg-slate-100/50 dark:bg-slate-800/40 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-200 font-bold text-[10px] transition-all shadow-none hover:scale-[1.02]"
+                        className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-100/50 dark:bg-slate-800/40 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-200 font-bold text-xs transition-all shadow-none hover:scale-[1.02]"
                       >
                         <OfficialSocialLogo platform={item.platform} className="w-4 h-4 shrink-0" />
                         <span className="truncate leading-tight">{item.title}</span>
@@ -1103,51 +1105,51 @@ export const Header: React.FC<HeaderProps> = ({
                 )}
               </div>
 
-              {/* SECTION 4: Information & Help Pages (Compact List) */}
+              {/* SECTION 4: Information & Help Pages */}
               <div>
                 <button 
                   onClick={() => setExpandedSidebarSections(prev => ({ pages: !prev.pages }))}
-                  className="w-full text-left flex items-center justify-between mb-2 px-1 cursor-pointer group"
+                  className="w-full text-left flex items-center justify-between mb-2.5 px-1 cursor-pointer group"
                 >
-                  <h3 className="text-[9px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest flex items-center gap-1.5 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
-                    <Info className="w-3 h-3 text-indigo-500" /> Pages & Info
+                  <h3 className="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest flex items-center gap-1.5 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
+                    <Info className="w-3.5 h-3.5 text-indigo-500" /> Pages & Info
                   </h3>
                   <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${expandedSidebarSections.pages ? 'rotate-180' : ''}`} />
                 </button>
                 {expandedSidebarSections.pages && (
-                  <div className="grid grid-cols-2 gap-1 bg-slate-50 dark:bg-slate-800/30 p-1.5 rounded-xl border border-slate-100 dark:border-slate-800/50 animate-in slide-in-from-top-1 fade-in duration-200">
+                  <div className="grid grid-cols-2 gap-1.5 bg-slate-50 dark:bg-slate-800/30 p-2 rounded-xl border border-slate-100 dark:border-slate-800/50 animate-in slide-in-from-top-1 fade-in duration-200">
                   <button 
                     onClick={() => { setIsDrawerOpen(false); onInfoClick('about'); }}
-                    className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors text-[10px] font-bold cursor-pointer"
+                    className="flex items-center gap-2 px-2.5 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors text-xs font-bold cursor-pointer"
                   >
-                    <HelpCircle className="w-3 h-3" /> <span className="truncate">About Us</span>
+                    <HelpCircle className="w-3.5 h-3.5 shrink-0" /> <span className="truncate">About Us</span>
                   </button>
                   <button 
                     onClick={() => { setIsDrawerOpen(false); onInfoClick('privacy'); }}
-                    className="flex items-center justify-between px-2 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors text-[10px] font-bold cursor-pointer"
+                    className="flex items-center justify-between px-2.5 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors text-xs font-bold cursor-pointer"
                   >
                     <span className="flex items-center gap-1.5 truncate">
-                      <Shield className="w-3 h-3" /> <span className="truncate">Privacy</span>
+                      <Shield className="w-3.5 h-3.5 shrink-0" /> <span className="truncate">Privacy</span>
                     </span>
                     <span className="text-[7px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1 py-0.5 rounded font-black uppercase ml-1 shrink-0">AdSense</span>
                   </button>
                   <button 
                     onClick={() => { setIsDrawerOpen(false); onInfoClick('disclaimer'); }}
-                    className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors text-[10px] font-bold cursor-pointer"
+                    className="flex items-center gap-2 px-2.5 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors text-xs font-bold cursor-pointer"
                   >
-                    <AlertCircle className="w-3 h-3" /> <span className="truncate">Disclaimer</span>
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" /> <span className="truncate">Disclaimer</span>
                   </button>
                   <button 
                     onClick={() => { setIsDrawerOpen(false); onInfoClick('terms'); }}
-                    className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors text-[10px] font-bold cursor-pointer"
+                    className="flex items-center gap-2 px-2.5 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors text-xs font-bold cursor-pointer"
                   >
-                    <FileText className="w-3 h-3" /> <span className="truncate">Terms</span>
+                    <FileText className="w-3.5 h-3.5 shrink-0" /> <span className="truncate">Terms</span>
                   </button>
                   <button 
                     onClick={() => { setIsDrawerOpen(false); onInfoClick('contact'); }}
-                    className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors text-[10px] font-bold cursor-pointer col-span-2"
+                    className="flex items-center gap-2 px-2.5 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 transition-colors text-xs font-bold cursor-pointer col-span-2"
                   >
-                    <Phone className="w-3 h-3" /> <span className="truncate">Contact Support & Grievance</span>
+                    <Phone className="w-3.5 h-3.5 shrink-0" /> <span className="truncate">Contact Support & Grievance</span>
                   </button>
                 </div>
                 )}

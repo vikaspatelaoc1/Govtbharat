@@ -5,14 +5,14 @@ export const defaultDynamicPages: Record<string, DynamicPageItem> = {
   about: {
     id: 'about',
     title: 'About Us',
-    subtitle: 'About Fast_Arc Govt Result Portal',
-    metaDescription: 'Learn about Fast_Arc Govt Result official career and job notification portal.',
+    subtitle: 'About GovtBharat Portal',
+    metaDescription: 'Learn about GovtBharat official career and job notification portal.',
     lastUpdated: '2026-08-27',
     isPublished: true,
     content: `<div class="space-y-4">
   <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300">
-    <h3 class="text-base sm:text-lg font-black text-amber-400">About Fast_Arc Govt Result Portal</h3>
-    <p class="text-xs sm:text-sm mt-1 text-slate-200">Fast_Arc is India's next-generation, high-speed career and government vacancy notification engine. Built with modern, lightning-fast web technologies, we empower millions of aspiring youth across 28 States and 8 Union Territories with instant, authenticated updates.</p>
+    <h3 class="text-base sm:text-lg font-black text-amber-400">About GovtBharat Portal</h3>
+    <p class="text-xs sm:text-sm mt-1 text-slate-200">GovtBharat is India's next-generation, high-speed career and government vacancy notification engine. Built with modern, lightning-fast web technologies, we empower millions of aspiring youth across 28 States and 8 Union Territories with instant, authenticated updates.</p>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-3">
@@ -45,22 +45,22 @@ export const defaultDynamicPages: Record<string, DynamicPageItem> = {
   <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-start gap-2.5">
     <div>
       <strong class="block font-bold text-white mb-0.5">Google AdSense Privacy Policy Compliance Notice</strong>
-      This privacy statement outlines how Fast_Arc collects, manages, and safeguards user data, cookies, and adheres strictly to Google AdSense Advertising Policies.
+      This privacy statement outlines how GovtBharat collects, manages, and safeguards user data, cookies, and adheres strictly to Google AdSense Advertising Policies.
     </div>
   </div>
 
   <section class="space-y-2">
     <h3 class="text-base font-black text-white">1. Information We Collect</h3>
-    <p class="text-xs sm:text-sm text-slate-300">At <strong>Fast_Arc Govt Result</strong>, one of our main priorities is the privacy of our visitors. We do not require visitors to register or share sensitive personal financial credentials simply to browse latest sarkari jobs, results, or admit card updates.</p>
+    <p class="text-xs sm:text-sm text-slate-300">At <strong>GovtBharat</strong>, one of our main priorities is the privacy of our visitors. We do not require visitors to register or share sensitive personal financial credentials simply to browse latest sarkari jobs, results, or admit card updates.</p>
     <ul class="list-disc pl-5 space-y-1 text-slate-400 text-xs">
-      <li><strong>Log Files:</strong> Like standard web platforms, Fast_Arc uses log files. These files log visitors when they visit websites. Information collected includes IP addresses, browser type, Internet Service Provider (ISP), date/time stamps, referring/exit pages, and click statistics.</li>
+      <li><strong>Log Files:</strong> Like standard web platforms, GovtBharat uses log files. These files log visitors when they visit websites. Information collected includes IP addresses, browser type, Internet Service Provider (ISP), date/time stamps, referring/exit pages, and click statistics.</li>
       <li><strong>Subscription Data:</strong> If you voluntarily subscribe to our free Email/SMS/Telegram job alert notifications, your email or contact handle is stored securely strictly for job broadcasts.</li>
     </ul>
   </section>
 
   <section class="space-y-2">
     <h3 class="text-base font-black text-white">2. Cookies and Web Beacons (Google AdSense & DoubleClick DART)</h3>
-    <p class="text-xs sm:text-sm text-slate-300">Fast_Arc uses standard browser cookies to store information including visitor preferences and optimized layout settings.</p>
+    <p class="text-xs sm:text-sm text-slate-300">GovtBharat uses standard browser cookies to store information including visitor preferences and optimized layout settings.</p>
     <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700 space-y-2 text-xs">
       <strong class="text-amber-400 block font-bold">Google DoubleClick DART Cookie:</strong>
       <p class="text-slate-300">Google is one of our third-party advertising vendors on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our portal and other sites on the internet.</p>
@@ -70,7 +70,7 @@ export const defaultDynamicPages: Record<string, DynamicPageItem> = {
 
   <section class="space-y-2">
     <h3 class="text-base font-black text-white">3. Advertising Partners Policies</h3>
-    <p class="text-xs sm:text-sm text-slate-300">Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements. Fast_Arc has no access to or control over these cookies that are used by third-party advertisers.</p>
+    <p class="text-xs sm:text-sm text-slate-300">Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements. GovtBharat has no access to or control over these cookies that are used by third-party advertisers.</p>
   </section>
 
   <section class="space-y-2">
@@ -83,18 +83,18 @@ export const defaultDynamicPages: Record<string, DynamicPageItem> = {
     id: 'terms',
     title: 'Terms & Conditions',
     subtitle: 'Portal Usage Terms & Intellectual Property Rights',
-    metaDescription: 'Terms of service and user agreements for Fast_Arc portal visitors.',
+    metaDescription: 'Terms of service and user agreements for GovtBharat portal visitors.',
     lastUpdated: '2026-08-27',
     isPublished: true,
     content: `<div class="space-y-4">
   <section class="space-y-2">
     <h3 class="text-base font-black text-white">1. Terms of Portal Usage</h3>
-    <p class="text-xs sm:text-sm text-slate-300">Welcome to <strong>Fast_Arc Govt Result</strong>. By accessing this website, you agree to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern Fast_Arc's relationship with you in relation to this portal.</p>
+    <p class="text-xs sm:text-sm text-slate-300">Welcome to <strong>GovtBharat</strong>. By accessing this website, you agree to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern GovtBharat's relationship with you in relation to this portal.</p>
   </section>
 
   <section class="space-y-2">
     <h3 class="text-base font-black text-white">2. Intellectual Property Rights</h3>
-    <p class="text-xs sm:text-sm text-slate-300">The original editorial content, logo layout, database structure, and visual user interface designs created on Fast_Arc are the intellectual property of Fast_Arc. Government circulars, official exam syllabi, and departmental press releases belong to their respective authorities and are used under fair-use informative guidelines.</p>
+    <p class="text-xs sm:text-sm text-slate-300">The original editorial content, logo layout, database structure, and visual user interface designs created on GovtBharat are the intellectual property of GovtBharat. Government circulars, official exam syllabi, and departmental press releases belong to their respective authorities and are used under fair-use informative guidelines.</p>
   </section>
 
   <section class="space-y-2">
@@ -109,7 +109,7 @@ export const defaultDynamicPages: Record<string, DynamicPageItem> = {
 
   <section class="space-y-2">
     <h3 class="text-base font-black text-white">4. Modifications of Service</h3>
-    <p class="text-xs sm:text-sm text-slate-300">Fast_Arc reserves the right to revise, update, or discontinue any feature, job column, or alert feed at any time without prior notice.</p>
+    <p class="text-xs sm:text-sm text-slate-300">GovtBharat reserves the right to revise, update, or discontinue any feature, job column, or alert feed at any time without prior notice.</p>
   </section>
 </div>`
   },
@@ -126,7 +126,7 @@ export const defaultDynamicPages: Record<string, DynamicPageItem> = {
       <span>Important Legal Non-Government Affiliation Disclaimer</span>
     </div>
     <p class="text-xs text-rose-200 leading-relaxed">
-      <strong>Fast_Arc Govt Result (${getDomainNameLowercase()}) is a private, independent educational and recruitment news indexing platform.</strong> We are <u>NOT</u> associated, affiliated, endorsed by, or in any way officially connected with the Government of India, UPSC, SSC, State Public Service Commissions (UPPSC, BPSC, MPPSC), NTA, Railway Recruitment Boards (RRB), or any other Central or State Government Agency.
+      <strong>GovtBharat (${getDomainNameLowercase()}) is a private, independent educational and recruitment news indexing platform.</strong> We are <u>NOT</u> associated, affiliated, endorsed by, or in any way officially connected with the Government of India, UPSC, SSC, State Public Service Commissions (UPPSC, BPSC, MPPSC), NTA, Railway Recruitment Boards (RRB), or any other Central or State Government Agency.
     </p>
   </div>
 
@@ -141,12 +141,12 @@ export const defaultDynamicPages: Record<string, DynamicPageItem> = {
 
   <section class="space-y-2">
     <h3 class="text-base font-black text-white">2. No Guarantee of Recruitment / Zero Liability</h3>
-    <p class="text-xs sm:text-sm text-slate-300">Fast_Arc does not conduct any recruitment examinations, nor do we issue admit cards or job appointment letters. We never ask candidates for fees or payments for securing government jobs. Beware of touts or fraudulent individuals.</p>
+    <p class="text-xs sm:text-sm text-slate-300">GovtBharat does not conduct any recruitment examinations, nor do we issue admit cards or job appointment letters. We never ask candidates for fees or payments for securing government jobs. Beware of touts or fraudulent individuals.</p>
   </section>
 
   <section class="space-y-2">
     <h3 class="text-base font-black text-white">3. Third Party Links & External Websites</h3>
-    <p class="text-xs sm:text-sm text-slate-300">Our portal contains hyperlinks to official external government websites (like ssc.gov.in, upsc.gov.in, nta.ac.in). Fast_Arc has no control over the content, uptime, or privacy practices of these third-party portals.</p>
+    <p class="text-xs sm:text-sm text-slate-300">Our portal contains hyperlinks to official external government websites (like ssc.gov.in, upsc.gov.in, nta.ac.in). GovtBharat has no control over the content, uptime, or privacy practices of these third-party portals.</p>
   </section>
 </div>`
   },

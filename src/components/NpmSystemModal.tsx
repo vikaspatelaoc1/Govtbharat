@@ -604,7 +604,7 @@ export const NpmSystemContent: React.FC = () => {
                     </div>
                     <div className="flex justify-between py-1 border-b border-slate-800">
                       <span>MYSQL_DATABASE</span>
-                      <span className="text-emerald-400">fastarc_db</span>
+                      <span className="text-emerald-400">GovtBharat_db</span>
                     </div>
                     <div className="flex justify-between py-1 border-b border-slate-800">
                       <span>TMDB_API_KEY</span>

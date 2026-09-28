@@ -96,7 +96,7 @@ export function changeSiteLanguage(langCode: string) {
   const cookieVal = isEn ? '' : `/auto/${langCode}`;
   const expireStr = isEn ? 'expires=Thu, 01 Jan 1970 00:00:00 UTC;' : '';
 
-  localStorage.setItem('fastarc_preferred_language', langCode);
+  localStorage.setItem('GovtBharat_preferred_language', langCode);
 
   document.cookie = `googtrans=${cookieVal}; path=/; ${expireStr}`;
   if (!isEn) {
@@ -213,18 +213,18 @@ export const LanguageModal: React.FC<{
           >
             {/* Modal Header */}
             <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-gradient-to-r from-slate-50 via-white to-amber-50/30 dark:from-slate-900 dark:via-slate-900 dark:to-amber-950/20">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 dark:bg-amber-400/10 border border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400 shadow-xs">
+              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/10 dark:bg-amber-400/10 border border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400 shadow-xs shrink-0">
                   <HindiEnglishIcon className="w-6 h-6" />
                 </div>
-                <div>
-                  <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-1.5 flex-wrap">
                     <span>Select Language</span>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-bold">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-bold shrink-0">
                       भाषा चुनें
                     </span>
                   </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate">
                     Translate the entire website into your preferred language
                   </p>
                 </div>

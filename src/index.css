@@ -46,7 +46,26 @@ html, body {
   min-height: 100%;
   padding-top: 0;
   margin: 0;
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Universal fluid image and media containment */
+img, svg, video, canvas, audio, iframe, embed, object {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Safe text wrap helper for dynamic titles, links, and tokens */
+.break-words-safe {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 :root:not(.dark),
@@ -258,22 +277,19 @@ html {
    Applies ONLY in installed standalone PWA on mobile/tablet screens
    ========================================================================= */
 @media all and (display-mode: standalone) and (max-width: 1024px) {
-  /* 1. Job Box Grid - Force 2 Columns for Size Match */
-  .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3,
-  .grid.grid-cols-1.md\:grid-cols-2,
-  .grid.grid-cols-1 {
+  /* 1. Job Box Multi-Column Grid - Match 2 Columns only on column lists, not generic forms */
+  #main-job-columns .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3,
+  #main-job-columns .grid.grid-cols-1.md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 8px !important;
     padding: 4px !important;
   }
   
-  /* Make 1 column only on very very tiny screens */
-  @media (max-width: 350px) {
-    .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3,
-    .grid.grid-cols-1.md\:grid-cols-2,
-    .grid.grid-cols-1 {
+  /* Make 1 column on narrow compact phones */
+  @media (max-width: 380px) {
+    #main-job-columns .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3,
+    #main-job-columns .grid.grid-cols-1.md\:grid-cols-2 {
       grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
     }
   }
-
 }

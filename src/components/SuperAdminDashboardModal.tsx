@@ -33,6 +33,7 @@ import { PopularCategoriesAndTrafficAnalytics } from './PopularCategoriesAndTraf
 import { getDomainName } from '../utils/domain';
 import { DEFAULT_MOBILE_TABS_CONFIG } from '../data/mobileTabsData';
 import { MobileTabsConfig } from '../types';
+import { safeSaveJobsToLocalStorage } from '../utils/jobStorage';
 import { 
   saveEmployeeToFirestore, 
   deleteEmployeeFromFirestore, 
@@ -130,7 +131,7 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
   });
   const threeDotRef = useRef<HTMLDivElement>(null);
   const defaultSocialLinks: SocialLinkItem[] = [
-    { id: '1', platform: 'telegram', title: 'Telegram Channel', url: 'https://t.me/fastarcgov', icon: 'send', enabled: true },
+    { id: '1', platform: 'telegram', title: 'Telegram Channel', url: 'https://t.me/govtbharatofficial', icon: 'send', enabled: true },
     { id: '2', platform: 'whatsapp', title: 'WhatsApp Channel', url: 'https://whatsapp.com/channel/...', icon: 'message-circle', enabled: true },
     { id: '3', platform: 'youtube', title: 'YouTube Channel', url: 'https://youtube.com/...', icon: 'video', enabled: true }
   ];
@@ -172,8 +173,8 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
   }, [initialTab, isOpen]);
 
   const [tickerInput, setTickerInput] = useState(marqueeText);
-  const [siteTitle, setSiteTitle] = useState('FastArc Govt Jobs');
-  const [appName, setAppName] = useState('FastARC Result');
+  const [siteTitle, setSiteTitle] = useState('GovtBharat');
+  const [appName, setAppName] = useState('GovtBharat Result');
   const [appVersion, setAppVersion] = useState('1.0.0');
   const [maintenanceMode, setMaintenanceMode] = useState(false);
   const [isSavingConfig, setIsSavingConfig] = useState(false);
@@ -184,9 +185,9 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
       .then(res => res.json())
       .then(data => {
         if (data.siteConfig) {
-          setSiteTitle(data.siteConfig.siteTitle || 'FastArc Govt Jobs');
+          setSiteTitle(data.siteConfig.siteTitle || 'GovtBharat');
           setMaintenanceMode(!!data.siteConfig.maintenanceMode);
-          setAppName(data.siteConfig.appName || 'FastARC Result');
+          setAppName(data.siteConfig.appName || 'GovtBharat Result');
           setAppVersion(data.siteConfig.appVersion || '1.0.0');
         }
       })
@@ -320,10 +321,10 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
 
     // 4. Clean up localStorage sample emails if present
     try {
-      const stored = JSON.parse(localStorage.getItem('fastarc_subscribers') || '[]');
+      const stored = JSON.parse(localStorage.getItem('GovtBharat_subscribers') || '[]');
       if (Array.isArray(stored)) {
         const filtered = stored.filter(e => typeof e === 'string' && !e.includes('@example.com') && e !== 'rahul.kumar@gmail.com' && e !== 'priya.singh@yahoo.com' && e !== 'amit.sharma@outlook.com');
-        localStorage.setItem('fastarc_subscribers', JSON.stringify(filtered));
+        localStorage.setItem('GovtBharat_subscribers', JSON.stringify(filtered));
       }
     } catch (e) {}
 
@@ -446,10 +447,10 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
 
   // Super Admin Credentials state
   const [superAdminUser, setSuperAdminUser] = useState(
-    typeof window !== 'undefined' ? (localStorage.getItem('fastarc_superadmin_user') || 'Vikaspatelaoc') : 'Vikaspatelaoc'
+    typeof window !== 'undefined' ? (localStorage.getItem('GovtBharat_superadmin_user') || 'Vikaspatelaoc') : 'Vikaspatelaoc'
   );
   const [superAdminPass, setSuperAdminPass] = useState(
-    typeof window !== 'undefined' ? (localStorage.getItem('fastarc_superadmin_pass') || 'JTY@67YVP') : 'JTY@67YVP'
+    typeof window !== 'undefined' ? (localStorage.getItem('GovtBharat_superadmin_pass') || 'JTY@67YVP') : 'JTY@67YVP'
   );
   const [showSuperPassInDash, setShowSuperPassInDash] = useState(false);
 
@@ -461,8 +462,8 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
           setSuperAdminUser(creds.username);
           setSuperAdminPass(creds.password);
           if (typeof window !== 'undefined') {
-            localStorage.setItem('fastarc_superadmin_user', creds.username);
-            localStorage.setItem('fastarc_superadmin_pass', creds.password);
+            localStorage.setItem('GovtBharat_superadmin_user', creds.username);
+            localStorage.setItem('GovtBharat_superadmin_pass', creds.password);
           }
         }
       }).catch(err => {
@@ -482,8 +483,8 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
     }
     try {
       await updateSuperAdminCredentials(superAdminUser.trim(), superAdminPass.trim());
-      localStorage.setItem('fastarc_superadmin_user', superAdminUser.trim());
-      localStorage.setItem('fastarc_superadmin_pass', superAdminPass.trim());
+      localStorage.setItem('GovtBharat_superadmin_user', superAdminUser.trim());
+      localStorage.setItem('GovtBharat_superadmin_pass', superAdminPass.trim());
       onToast('👑 Super Admin ID and Password updated globally across all devices!');
     } catch (err: any) {
       onToast('❌ Failed to update credentials globally: ' + (err.message || err));
@@ -494,8 +495,8 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
     if (window.confirm('Reset Super Admin credentials globally to default (Vikaspatelaoc / JTY@67YVP)?')) {
       try {
         await updateSuperAdminCredentials('Vikaspatelaoc', 'JTY@67YVP');
-        localStorage.removeItem('fastarc_superadmin_user');
-        localStorage.removeItem('fastarc_superadmin_pass');
+        localStorage.removeItem('GovtBharat_superadmin_user');
+        localStorage.removeItem('GovtBharat_superadmin_pass');
         setSuperAdminUser('Vikaspatelaoc');
         setSuperAdminPass('JTY@67YVP');
         onToast('✅ Super Admin credentials reset globally.');
@@ -558,7 +559,7 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jobs, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `FastArc_Jobs_Backup_${new Date().toISOString().split('T')[0]}.json`);
+    downloadAnchor.setAttribute("download", `GovtBharat_Jobs_Backup_${new Date().toISOString().split('T')[0]}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -574,7 +575,7 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
           const parsedJobs = JSON.parse(e.target?.result as string);
           if (Array.isArray(parsedJobs)) {
             setJobs(parsedJobs);
-            localStorage.setItem('fastarc_jobs', JSON.stringify(parsedJobs));
+            safeSaveJobsToLocalStorage(parsedJobs);
             try {
               await bulkSaveJobsToFirestore(parsedJobs);
             } catch (err) {}
@@ -633,10 +634,10 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
 
     try {
       if (targetSub?.email) {
-        const stored = JSON.parse(localStorage.getItem('fastarc_subscribers') || '[]');
+        const stored = JSON.parse(localStorage.getItem('GovtBharat_subscribers') || '[]');
         if (Array.isArray(stored)) {
           const filtered = stored.filter(e => e !== targetSub.email);
-          localStorage.setItem('fastarc_subscribers', JSON.stringify(filtered));
+          localStorage.setItem('GovtBharat_subscribers', JSON.stringify(filtered));
         }
       }
     } catch (e) {}
@@ -665,10 +666,10 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
 
       try {
         if (targetSub.email) {
-          const stored = JSON.parse(localStorage.getItem('fastarc_subscribers') || '[]');
+          const stored = JSON.parse(localStorage.getItem('GovtBharat_subscribers') || '[]');
           if (Array.isArray(stored)) {
             const updated = stored.filter((s: any) => s !== targetSub.email);
-            localStorage.setItem('fastarc_subscribers', JSON.stringify(updated));
+            localStorage.setItem('GovtBharat_subscribers', JSON.stringify(updated));
           }
         }
       } catch (e) {}
@@ -731,7 +732,7 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
 
     const updatedEmployees = [newEmp, ...employees];
     setEmployees(updatedEmployees);
-    localStorage.setItem('fastarc_employees', JSON.stringify(updatedEmployees));
+    localStorage.setItem('GovtBharat_employees', JSON.stringify(updatedEmployees));
 
     try {
       await saveEmployeeToFirestore(newEmp);
@@ -763,7 +764,7 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
       return emp;
     });
     setEmployees(updated);
-    localStorage.setItem('fastarc_employees', JSON.stringify(updated));
+    localStorage.setItem('GovtBharat_employees', JSON.stringify(updated));
 
     if (changedEmp) {
       try {
@@ -783,7 +784,7 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
     const targetEmp = employees.find(e => e.id === empId);
     const updated = employees.filter(e => e.id !== empId);
     setEmployees(updated);
-    localStorage.setItem('fastarc_employees', JSON.stringify(updated));
+    localStorage.setItem('GovtBharat_employees', JSON.stringify(updated));
 
 
 
@@ -798,7 +799,7 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
     if (setDeletedEmployeeLogs) {
       setDeletedEmployeeLogs(prev => {
         const nextLogs = [newLog, ...prev];
-        localStorage.setItem('fastarc_deleted_employee_logs', JSON.stringify(nextLogs));
+        localStorage.setItem('GovtBharat_deleted_employee_logs', JSON.stringify(nextLogs));
         return nextLogs;
       });
     }
@@ -828,7 +829,7 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
       return emp;
     });
     setEmployees(updated);
-    localStorage.setItem('fastarc_employees', JSON.stringify(updated));
+    localStorage.setItem('GovtBharat_employees', JSON.stringify(updated));
 
     if (changedEmp) {
       try {
@@ -845,7 +846,7 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 w-full flex-1 rounded-2xl shadow-2xl border-2 border-amber-500/50 flex flex-col overflow-hidden animate-in fade-in duration-200 min-h-[700px] h-full">
+    <div className="bg-white dark:bg-slate-900 w-full flex-1 rounded-2xl shadow-2xl border-2 border-amber-500/50 flex flex-col overflow-hidden animate-in fade-in duration-200 min-h-0 sm:min-h-[500px] h-full">
         
         {/* Top Official India Tricolor Accent Line */}
         <div className="h-1.5 w-full bg-gradient-to-r from-amber-600 via-white to-emerald-600 shrink-0" />
@@ -2497,7 +2498,7 @@ export const SuperAdminDashboardModal: React.FC<SuperAdminDashboardModalProps> =
                       <button
                         onClick={() => {
                           if (setDeletedEmployeeLogs) setDeletedEmployeeLogs([]);
-                          localStorage.removeItem('fastarc_deleted_employee_logs');
+                          localStorage.removeItem('GovtBharat_deleted_employee_logs');
                           onToast('Deleted employee audit logs cleared!');
                         }}
                         className="text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 px-2.5 py-1 rounded-lg transition-all cursor-pointer"

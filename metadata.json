@@ -1,6 +1,6 @@
 {
-  "name": "FAST ARC",
-  "description": "WWW.FASTARCGOVT.INFO - FastArc Government Jobs Portal: latest vacancies, admit cards, results, and comprehensive real-time notifications.",
+  "name": "GovtBharat",
+  "description": "WWW.GOVTBHARAT.COM - GovtBharat Government Jobs Portal: latest vacancies, admit cards, results, and comprehensive real-time notifications.",
   "requestFramePermissions": [
     "microphone"
   ],

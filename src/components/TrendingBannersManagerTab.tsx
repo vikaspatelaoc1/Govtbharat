@@ -28,7 +28,7 @@ const GRADIENT_PRESETS = [
   { label: 'Purple to Electric Violet', value: 'from-[#7c3aed] via-[#9333ea] to-[#4c1d95]', readMore: 'text-[#7c3aed]' },
   { label: 'Vibrant Amber to Deep Rust', value: 'from-[#d97706] via-[#b45309] to-[#78350f]', readMore: 'text-[#92400e]' },
   { label: 'Dark Midnight to Teal', value: 'from-[#0f172a] via-[#134e4a] to-[#042f2e]', readMore: 'text-[#0d9488]' },
-  { label: 'Royal FastArc Maroon', value: 'from-[#8c1328] via-[#a61935] to-[#4c0519]', readMore: 'text-[#8c1328]' }
+  { label: 'Royal GovtBharat Maroon', value: 'from-[#8c1328] via-[#a61935] to-[#4c0519]', readMore: 'text-[#8c1328]' }
 ];
 
 const BOARD_TEXT_PRESETS = [
@@ -177,7 +177,7 @@ export const TrendingBannersManagerTab: React.FC<TrendingBannersManagerTabProps>
 
   // Reset to defaults
   const handleResetDefaults = () => {
-    if (window.confirm('Reset all banners and slider settings to the official FastArc defaults?')) {
+    if (window.confirm('Reset all banners and slider settings to the official GovtBharat defaults?')) {
       setCurrentConfig({
         ...currentConfig,
         banners: DEFAULT_TRENDING_BANNERS,

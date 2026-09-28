@@ -26,12 +26,12 @@ interface DomainEditorModalProps {
 const COMMON_EXTENSIONS = ['.info', '.com', '.in', '.org', '.net', '.live', '.edu.in', '.gov.in'];
 
 const QUICK_PRESETS = [
-  'FastArcGovt.info',
-  'FastArcResult.com',
-  'FastArcNaukri.in',
-  'FastArcGovt.com',
-  'FastJobAlert.info',
-  'GovtResult.info'
+  'GovtBharat.com',
+  'GovtBharat.in',
+  'GovtBharat.info',
+  'GovtBharat.org',
+  'GovtResult.info',
+  'SarkariBharat.com'
 ];
 
 export const DomainEditorModal: React.FC<DomainEditorModalProps> = ({ isOpen, onClose, onToast }) => {
@@ -70,7 +70,7 @@ export const DomainEditorModal: React.FC<DomainEditorModalProps> = ({ isOpen, on
   };
 
   const handleReset = () => {
-    if (window.confirm('Reset domain name back to default "FastArcGovt.info"?')) {
+    if (window.confirm('Reset domain name back to default "GovtBharat.com"?')) {
       const def = resetDomainNameToDefault();
       setDomainInput(def);
       if (onToast) onToast(`🔄 Domain reset to default: ${def}`);
@@ -87,7 +87,7 @@ export const DomainEditorModal: React.FC<DomainEditorModalProps> = ({ isOpen, on
     setDomainInput(`${clean}${ext}`);
   };
 
-  const cleanDisplayDomain = domainInput.trim() || 'FastArcGovt.info';
+  const cleanDisplayDomain = domainInput.trim() || 'GovtBharat.com';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
@@ -141,7 +141,7 @@ export const DomainEditorModal: React.FC<DomainEditorModalProps> = ({ isOpen, on
                 type="text"
                 value={domainInput}
                 onChange={(e) => setDomainInput(e.target.value)}
-                placeholder="e.g. FastArcGovt.info"
+                placeholder="e.g. GovtBharat.com"
                 className="w-full pl-11 pr-4 py-3 bg-slate-900 border-2 border-amber-500/50 focus:border-amber-400 rounded-xl text-white font-extrabold text-base sm:text-lg placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-amber-500/20 tracking-wide transition-all"
                 autoFocus
               />
@@ -216,7 +216,7 @@ export const DomainEditorModal: React.FC<DomainEditorModalProps> = ({ isOpen, on
                   2. Post Header & Stamp
                 </span>
                 <div className="inline-block py-1 px-4 rounded-md font-black text-sm text-[#dc2626] uppercase tracking-wider leading-tight">
-                  FASTARC RESULT OFFICIAL
+                  GovtBharat RESULT OFFICIAL
                   <div className="text-xs font-extrabold tracking-widest text-[#b91c1c] mt-0.5">
                     {cleanDisplayDomain.toUpperCase()}
                   </div>
@@ -229,7 +229,7 @@ export const DomainEditorModal: React.FC<DomainEditorModalProps> = ({ isOpen, on
                   3. Footer & SEO Meta Title
                 </span>
                 <p className="text-xs text-slate-300 font-medium truncate">
-                  © 2026 <strong className="text-amber-400">{cleanDisplayDomain}</strong> - FastArc Govt Result. All Rights Reserved.
+                  © 2026 <strong className="text-amber-400">{cleanDisplayDomain}</strong> - GovtBharat. All Rights Reserved.
                 </p>
                 <p className="text-[11px] text-slate-500 font-mono mt-0.5 truncate">
                   https://{cleanDisplayDomain.toLowerCase()} › Sarkari-Job-Updates

@@ -15,7 +15,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
   const [isVisible, setIsVisible] = useState(() => {
     if (typeof window !== 'undefined') {
       try {
-        const hasShown = sessionStorage.getItem('fastarc_splash_shown');
+        const hasShown = sessionStorage.getItem('GovtBharat_splash_shown');
         if (hasShown === 'true') {
           return false;
         }
@@ -30,7 +30,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
       setIsVisible(false);
       if (typeof window !== 'undefined') {
         try {
-          sessionStorage.setItem('fastarc_splash_shown', 'true');
+          sessionStorage.setItem('GovtBharat_splash_shown', 'true');
         } catch (e) { /* ignore */ }
       }
       onFinish?.();
@@ -70,7 +70,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-black border-3 border-amber-500 shadow-[0_0_35px_rgba(245,158,11,0.45)] flex items-center justify-center overflow-hidden">
               <img
                 src={siteLogo}
-                alt="FastArc Logo"
+                alt="GovtBharat Logo"
                 className="w-full h-full object-contain rounded-full"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src =
@@ -93,7 +93,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
                 </span>
               </h1>
               <p className="text-[10px] sm:text-[11px] text-amber-400 font-extrabold tracking-widest uppercase mt-1">
-                Govt Jobs Portal
+                Jobs Portal
               </p>
             </motion.div>
 

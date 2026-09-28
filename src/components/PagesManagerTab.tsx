@@ -16,7 +16,7 @@ interface PagesManagerTabProps {
 export const PagesManagerTab: React.FC<PagesManagerTabProps> = ({ onToast, onPreviewPage }) => {
   const [pages, setPages] = useState<Record<string, DynamicPageItem>>(() => {
     try {
-      const saved = localStorage.getItem('fastarc_dynamic_pages');
+      const saved = localStorage.getItem('GovtBharat_dynamic_pages');
       if (saved) {
         return { ...defaultDynamicPages, ...JSON.parse(saved) };
       }
@@ -40,7 +40,7 @@ export const PagesManagerTab: React.FC<PagesManagerTabProps> = ({ onToast, onPre
       if (cloudPages && Object.keys(cloudPages).length > 0) {
         setPages(prev => {
           const merged = { ...defaultDynamicPages, ...prev, ...cloudPages };
-          localStorage.setItem('fastarc_dynamic_pages', JSON.stringify(merged));
+          localStorage.setItem('GovtBharat_dynamic_pages', JSON.stringify(merged));
           return merged;
         });
       }
@@ -73,7 +73,7 @@ export const PagesManagerTab: React.FC<PagesManagerTabProps> = ({ onToast, onPre
   const handleSaveAll = async () => {
     setIsSaving(true);
     try {
-      localStorage.setItem('fastarc_dynamic_pages', JSON.stringify(pages));
+      localStorage.setItem('GovtBharat_dynamic_pages', JSON.stringify(pages));
       await saveDynamicPagesToFirestore(pages);
       setIsSaving(false);
       setSaveSuccess(true);

@@ -35,8 +35,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, employe
   useEffect(() => {
     // 1. Initial quick load from localStorage for rapid UX
     if (typeof window !== 'undefined') {
-      const savedUser = localStorage.getItem('fastarc_superadmin_user');
-      const savedPass = localStorage.getItem('fastarc_superadmin_pass');
+      const savedUser = localStorage.getItem('GovtBharat_superadmin_user');
+      const savedPass = localStorage.getItem('GovtBharat_superadmin_pass');
       if (savedUser) setCurrentSuperUser(savedUser);
       if (savedPass) setCurrentSuperPass(savedPass);
     }
@@ -48,8 +48,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, employe
           setCurrentSuperUser(creds.username);
           setCurrentSuperPass(creds.password);
           if (typeof window !== 'undefined') {
-            localStorage.setItem('fastarc_superadmin_user', creds.username);
-            localStorage.setItem('fastarc_superadmin_pass', creds.password);
+            localStorage.setItem('GovtBharat_superadmin_user', creds.username);
+            localStorage.setItem('GovtBharat_superadmin_pass', creds.password);
           }
         }
       }).catch(err => {
@@ -77,8 +77,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, employe
         
         // Sync local storage and state
         if (typeof window !== 'undefined') {
-          localStorage.setItem('fastarc_superadmin_user', creds.username);
-          localStorage.setItem('fastarc_superadmin_pass', creds.password);
+          localStorage.setItem('GovtBharat_superadmin_user', creds.username);
+          localStorage.setItem('GovtBharat_superadmin_pass', creds.password);
         }
         setCurrentSuperUser(creds.username);
         setCurrentSuperPass(creds.password);
@@ -86,10 +86,10 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, employe
     } catch (err) {
       console.warn("Real-time cloud credential verification failed, using local cache:", err);
       activeSuperUser = typeof window !== 'undefined' 
-        ? (localStorage.getItem('fastarc_superadmin_user') || 'Vikaspatelaoc') 
+        ? (localStorage.getItem('GovtBharat_superadmin_user') || 'Vikaspatelaoc') 
         : 'Vikaspatelaoc';
       activeSuperPass = typeof window !== 'undefined' 
-        ? (localStorage.getItem('fastarc_superadmin_pass') || 'JTY@67YVP') 
+        ? (localStorage.getItem('GovtBharat_superadmin_pass') || 'JTY@67YVP') 
         : 'JTY@67YVP';
     }
 
@@ -132,10 +132,10 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, employe
     setSuccessMsg(null);
 
     let activeSuperUser = typeof window !== 'undefined' 
-      ? (localStorage.getItem('fastarc_superadmin_user') || 'Vikaspatelaoc') 
+      ? (localStorage.getItem('GovtBharat_superadmin_user') || 'Vikaspatelaoc') 
       : 'Vikaspatelaoc';
     let activeSuperPass = typeof window !== 'undefined' 
-      ? (localStorage.getItem('fastarc_superadmin_pass') || 'JTY@67YVP') 
+      ? (localStorage.getItem('GovtBharat_superadmin_pass') || 'JTY@67YVP') 
       : 'JTY@67YVP';
 
     try {
@@ -169,8 +169,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, employe
       await updateSuperAdminCredentials(newUsername.trim(), newPassword.trim());
 
       // Save to local storage for quick access
-      localStorage.setItem('fastarc_superadmin_user', newUsername.trim());
-      localStorage.setItem('fastarc_superadmin_pass', newPassword.trim());
+      localStorage.setItem('GovtBharat_superadmin_user', newUsername.trim());
+      localStorage.setItem('GovtBharat_superadmin_pass', newPassword.trim());
       setCurrentSuperUser(newUsername.trim());
       setCurrentSuperPass(newPassword.trim());
 
@@ -194,8 +194,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, employe
       try {
         await updateSuperAdminCredentials('Vikaspatelaoc', 'JTY@67YVP');
 
-        localStorage.removeItem('fastarc_superadmin_user');
-        localStorage.removeItem('fastarc_superadmin_pass');
+        localStorage.removeItem('GovtBharat_superadmin_user');
+        localStorage.removeItem('GovtBharat_superadmin_pass');
         setCurrentSuperUser('Vikaspatelaoc');
         setCurrentSuperPass('JTY@67YVP');
         setSuccessMsg('✅ Reset to Default Super Admin Credentials globally!');
@@ -211,7 +211,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, employe
 
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-2xl shadow-2xl p-6 border border-slate-200 dark:border-slate-800 transform scale-95 transition-all overflow-hidden relative">
+      <div className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-2xl shadow-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 transform scale-95 transition-all overflow-y-auto max-h-[92vh] my-auto relative custom-scrollbar">
         <div className="flex justify-between items-center border-b border-slate-150 dark:border-slate-800 pb-3 mb-4">
           <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <svg className="w-5 h-5 text-red-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">

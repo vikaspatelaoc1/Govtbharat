@@ -363,7 +363,7 @@ export const ModernAppView: React.FC<ModernAppViewProps> = ({
       id: 'telegram',
       label: 'TELEGRAM',
       platform: 'telegram',
-      url: socialLinks?.find(s => s.platform === 'telegram')?.url || 'https://t.me/fastarcgovtofficial',
+      url: socialLinks?.find(s => s.platform === 'telegram')?.url || 'https://t.me/govtbharatofficial',
       icon: (
         <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-5.5 sm:h-5.5" fill="none">
           <path 
@@ -377,7 +377,7 @@ export const ModernAppView: React.FC<ModernAppViewProps> = ({
       id: 'whatsapp',
       label: 'WHATSAPP',
       platform: 'whatsapp',
-      url: socialLinks?.find(s => s.platform === 'whatsapp')?.url || 'https://whatsapp.com/channel/fastarcgovtofficial',
+      url: socialLinks?.find(s => s.platform === 'whatsapp')?.url || 'https://whatsapp.com/channel/govtbharatofficial',
       icon: (
         <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-5.5 sm:h-5.5" fill="none">
           <path 
@@ -393,7 +393,7 @@ export const ModernAppView: React.FC<ModernAppViewProps> = ({
       id: 'youtube',
       label: 'YOUTUBE',
       platform: 'youtube',
-      url: socialLinks?.find(s => s.platform === 'youtube')?.url || 'https://youtube.com/@fastarcgovtofficial',
+      url: socialLinks?.find(s => s.platform === 'youtube')?.url || 'https://youtube.com/@govtbharatofficial',
       icon: (
         <svg viewBox="0 0 24 24" className="w-5.5 h-5.5 sm:w-6 sm:h-6" fill="none">
           <rect x="2" y="5" width="20" height="14" rx="4.5" fill="#FF0000" />
@@ -405,7 +405,7 @@ export const ModernAppView: React.FC<ModernAppViewProps> = ({
       id: 'instagram',
       label: 'INSTAGRAM',
       platform: 'instagram',
-      url: socialLinks?.find(s => s.platform === 'instagram')?.url || 'https://instagram.com/fastarcgovtofficial',
+      url: socialLinks?.find(s => s.platform === 'instagram')?.url || 'https://instagram.com/govtbharatofficial',
       icon: (
         <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-5.5 sm:h-5.5" fill="none">
           <defs>
@@ -427,7 +427,7 @@ export const ModernAppView: React.FC<ModernAppViewProps> = ({
       id: 'twitter',
       label: 'X',
       platform: 'twitter',
-      url: socialLinks?.find(s => s.platform === 'twitter')?.url || 'https://x.com/fastarcgovt',
+      url: socialLinks?.find(s => s.platform === 'twitter')?.url || 'https://x.com/govtbharat',
       icon: (
         <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-5.5 sm:h-5.5" fill="none">
           <path 
@@ -441,7 +441,7 @@ export const ModernAppView: React.FC<ModernAppViewProps> = ({
       id: 'facebook',
       label: 'FACEBOOK',
       platform: 'facebook',
-      url: socialLinks?.find(s => s.platform === 'facebook')?.url || 'https://facebook.com/fastarcgovtofficial',
+      url: socialLinks?.find(s => s.platform === 'facebook')?.url || 'https://facebook.com/govtbharatofficial',
       icon: (
         <svg viewBox="0 0 24 24" className="w-5.5 h-5.5 sm:w-6 sm:h-6" fill="none">
           <circle cx="12" cy="12" r="10" fill="#1877F2" />
@@ -680,13 +680,13 @@ export const ModernAppView: React.FC<ModernAppViewProps> = ({
                       onTabChange(cat.targetTab);
                       if (cat.targetTab === 'home') {
                         if (setSearchQuery) setSearchQuery('');
-                        window.scrollTo({ top: 0, behavior: 'auto' });
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
                       } else {
                         const el = document.getElementById(`section-${cat.targetTab}`) || document.getElementById('main-job-columns');
                         if (el) {
-                          el.scrollIntoView({ behavior: 'auto' });
+                          el.scrollIntoView({ behavior: 'smooth' });
                         } else {
-                          window.scrollTo({ top: 260, behavior: 'auto' });
+                          window.scrollTo({ top: 260, behavior: 'smooth' });
                         }
                       }
                     });
@@ -945,7 +945,7 @@ export const ModernAppBottomSection: React.FC<ModernAppBottomSectionProps> = ({
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <span className="text-white/60 text-[9px] uppercase">
-                      FastArc
+                      GovtBharat
                     </span>
                   </div>
                 </div>
@@ -998,22 +998,11 @@ export const ModernAppBottomSection: React.FC<ModernAppBottomSectionProps> = ({
         </section>
       )}
 
-      {/* Mobile Footer Brand, Version & In-App Update Trigger */}
-      <div className="max-w-6xl mx-auto px-4 text-center text-slate-500 dark:text-slate-400 text-xs py-2 space-y-1.5">
+      {/* Mobile Footer Brand */}
+      <div className="max-w-6xl mx-auto px-4 text-center text-slate-500 dark:text-slate-400 text-xs py-2">
         <p className="font-semibold text-[11px]">
-          FastArc Govt Jobs Portal &bull; All Rights Reserved
+          GovtBharat Jobs Portal &bull; All Rights Reserved
         </p>
-        <div className="flex items-center justify-center gap-3 text-[10px]">
-          <button
-            type="button"
-            onClick={() => {
-              window.dispatchEvent(new CustomEvent('fastarc:check-updates'));
-            }}
-            className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 hover:underline font-bold cursor-pointer"
-          >
-            <span>⚡ Check for App Updates / नया वर्जन चेक करें</span>
-          </button>
-        </div>
       </div>
 
       {/* Tool Detail & Interactive Utility Modal */}

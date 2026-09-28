@@ -132,7 +132,7 @@ export const MobileAppButtonsManagerTab: React.FC<MobileAppButtonsManagerTabProp
 
   // Reset
   const handleReset = () => {
-    if (window.confirm('Reset all mobile tabs & colors back to FastArc brand defaults?')) {
+    if (window.confirm('Reset all mobile tabs & colors back to GovtBharat brand defaults?')) {
       setCurrentConfig(DEFAULT_MOBILE_TABS_CONFIG);
       onToast('Reset to brand defaults. Click Save to persist.');
     }
@@ -463,7 +463,7 @@ export const MobileAppButtonsManagerTab: React.FC<MobileAppButtonsManagerTabProp
                 <div className="flex items-center space-x-2 text-xs">
                   <span className="text-slate-500 font-semibold">Theme Gradient Preset:</span>
                   {[
-                    { label: 'FastArc Crimson', grad: 'from-[#8c1328] via-[#a81934] to-[#670d1e]' },
+                    { label: 'GovtBharat Crimson', grad: 'from-[#8c1328] via-[#a81934] to-[#670d1e]' },
                     { label: 'Deep Slate Navy', grad: 'from-[#0B1120] via-[#162238] to-[#0f172a]' },
                     { label: 'Royal Amber Gold', grad: 'from-[#b45309] via-[#d97706] to-[#78350f]' },
                     { label: 'Forest Green', grad: 'from-[#064e3b] via-[#047857] to-[#022c22]' },

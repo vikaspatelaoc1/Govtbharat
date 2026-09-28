@@ -20,6 +20,7 @@ import { OfficialSocialLogo } from './SocialIcons';
 interface JobDetailsPageProps {
   job: JobAlert | null;
   allJobs: JobAlert[];
+  isApplication?: boolean;
   onBackToHome: () => void;
   onSelectJob?: (jobId: string) => void;
   siteLogo?: string;
@@ -43,6 +44,7 @@ interface JobDetailsPageProps {
 export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
   job: rawJob,
   allJobs,
+  isApplication = false,
   onBackToHome,
   onSelectJob,
   siteLogo = "/logo.png",
@@ -141,7 +143,7 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
     if (!job) return;
     const url = getJobDetailUrl(job);
     const shareData = {
-      title: `${job.title} - FastArc Govt Result`,
+      title: `${job.title} - GovtBharat`,
       text: `${job.title}\nCheck full details, eligibility, dates & apply online:\n`,
       url: url,
     };
@@ -267,7 +269,7 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
 
   return (
     <div className="min-h-screen bg-[#f8fafc] dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 flex flex-col selection:bg-amber-500 selection:text-slate-950 font-sans print:bg-white print:text-black">
-      {/* 1. Standard FastArc Full-width Responsive Header */}
+      {/* 1. Standard GovtBharat Full-width Responsive Header */}
       <div 
         className="print:hidden sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm"
         style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
@@ -315,8 +317,8 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
             >
               {job.category.replace('-', ' ')}
             </button>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-            <span className="text-slate-800 dark:text-slate-200 font-semibold truncate max-w-[200px] sm:max-w-xs md:max-w-md">
+            <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <span className="text-slate-800 dark:text-slate-200 font-semibold truncate max-w-[130px] xs:max-w-[180px] sm:max-w-xs md:max-w-md">
               {job.title}
             </span>
           </nav>
@@ -343,7 +345,7 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
       </section>
 
       {/* 3. Main Content Container */}
-      <main className="flex-1 w-full px-3 sm:px-4 md:px-6 py-6 md:py-8 space-y-6">
+      <main className="flex-1 w-full px-3 sm:px-4 md:px-6 py-6 md:py-8 space-y-6 pb-[calc(2.5rem+env(safe-area-inset-bottom,0px))] md:pb-8">
         
         {/* SARKARI RESULT OFFICIAL FORMATTED JOB POSTING CARD */}
         <article className="bg-white dark:bg-slate-900 rounded-2xl border-2 border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden print:border-none print:shadow-none">
@@ -365,9 +367,9 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
               {job.postName || job.title} : Short Details of Notification
             </p>
 
-            {/* FastArc Official Branding Stamp in Sarkari Red */}
+            {/* GovtBharat Official Branding Stamp in Sarkari Red */}
             <div className="inline-block py-1 px-4 rounded-md my-1 font-black text-sm sm:text-base text-[#dc2626] dark:text-[#f87171] uppercase tracking-wider">
-              FASTARC RESULT OFFICIAL
+              GovtBharat RESULT OFFICIAL
               <div className="text-xs sm:text-sm font-extrabold tracking-widest text-[#b91c1c] dark:text-[#ef4444]">
                 {currentDomain.toUpperCase()}
               </div>
@@ -588,8 +590,8 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
                 <div className="bg-[#059669] dark:bg-emerald-800 text-white font-black text-center py-2.5 px-4 text-xs sm:text-sm uppercase tracking-wider">
                   Vacancy Details : Total {job.totalVacancies || 'Multiple'} Posts
                 </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs sm:text-sm border-collapse">
+                <div className="overflow-x-auto custom-scrollbar">
+                  <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[420px]">
                     <thead>
                       <tr className="bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white font-extrabold border-b border-slate-300 dark:border-slate-700">
                         <th className="p-3 border-r border-slate-300 dark:border-slate-700">Post Name</th>
@@ -623,8 +625,8 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
                 <div className="bg-[#1d4ed8] dark:bg-blue-800 text-white font-black text-center py-2.5 px-4 text-xs sm:text-sm uppercase tracking-wider">
                   Category-Wise Vacancy Reservation Details
                 </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-center text-xs sm:text-sm border-collapse">
+                <div className="overflow-x-auto custom-scrollbar">
+                  <table className="w-full text-center text-xs sm:text-sm border-collapse min-w-[500px]">
                     <thead>
                       <tr className="bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white font-extrabold border-b border-slate-300 dark:border-slate-700">
                         <th className="p-2.5 text-left border-r border-slate-300 dark:border-slate-700">Post Name</th>
@@ -662,8 +664,8 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
                 <div className="bg-[#d91e63] dark:bg-pink-800 text-white font-black text-center py-2.5 px-4 text-xs sm:text-sm uppercase tracking-wider">
                   Subject Available & Code List
                 </div>
-                <div className="overflow-x-auto max-h-96">
-                  <table className="w-full text-left text-xs sm:text-sm border-collapse">
+                <div className="overflow-x-auto max-h-96 custom-scrollbar">
+                  <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[440px]">
                     <thead className="sticky top-0 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-extrabold border-b border-slate-300 dark:border-slate-700">
                       <tr>
                         <th className="p-2.5 border-r border-slate-300 dark:border-slate-700 text-center w-16">S No.</th>
@@ -780,7 +782,7 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
                     className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x-2 divide-slate-300 dark:divide-slate-700 hover:bg-slate-50/70 dark:hover:bg-slate-800/50 transition-colors"
                   >
                     {/* Left Column: Category Title (e.g. APPLY ONLINE, DOWNLOAD NOTIFICATION, etc.) */}
-                    <div className={`p-3.5 sm:p-4 font-black ${row.colorClass || 'text-[#d91e63] dark:text-[#f472b6]'} text-xs sm:text-sm uppercase flex items-center justify-between`}>
+                    <div className={`p-3.5 sm:p-4 font-black ${row.colorClass || 'text-[#d91e63] dark:text-[#f472b6]'} text-xs sm:text-sm uppercase flex flex-wrap items-center justify-between gap-1.5`}>
                       <a
                         href={row.actionUrl}
                         target="_blank"
@@ -916,7 +918,7 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
             {/* 15. Source Verification & Disclaimer */}
             <div className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 p-4 bg-slate-100/70 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1">
               <p><strong>Official Source :</strong> {job.officialSource || job.orgName} Portal.</p>
-              <p><strong>Disclaimer :</strong> FastArc is an educational information portal. While all details are verified against official recruitment notices, candidates are advised to verify details on the official commission website before applying.</p>
+              <p><strong>Disclaimer :</strong> GovtBharat is an educational information portal. While all details are verified against official recruitment notices, candidates are advised to verify details on the official commission website before applying.</p>
             </div>
 
           </div>
@@ -988,8 +990,9 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
         </button>
       )}
 
-      {/* 17. Standard Full-width FastArc Footer */}
-      <footer className="custom-footer-override relative bg-slate-900 pt-0 pb-8 mt-12 transition-colors duration-300 print:hidden overflow-hidden">
+      {/* 17. Standard Full-width GovtBharat Footer (Hidden on Mobile/PWA Job Details, unchanged on Desktop) */}
+      {!isApplication && (
+        <footer className="hidden md:block custom-footer-override relative bg-slate-900 pt-0 pb-8 mt-12 transition-colors duration-300 print:hidden overflow-hidden">
         {/* Tricolor Border Line matching image (Saffron -> White -> Green) */}
         <div className="h-1.5 w-full bg-gradient-to-r from-[#FF671F] via-[#FFFFFF] to-[#046A38] shadow-sm mb-4 sm:mb-5" />
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -1014,12 +1017,12 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
                   onBackToHome();
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                title="FastArc Govt Jobs Portal - Back to Home"
+                title="GovtBharat Portal - Back to Home"
               >
                 <div className="w-13 h-13 sm:w-15 sm:h-15 lg:w-16 lg:h-16 rounded-full p-0.5 bg-black border-2 border-amber-500 shadow-md flex items-center justify-center overflow-hidden shrink-0 transform group-hover:scale-105 transition-transform duration-200">
                   <img 
                     src={siteLogo || "/logo.png"} 
-                    alt="FastArc Logo" 
+                    alt="GovtBharat Logo" 
                     className="w-full h-full object-contain rounded-full"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "https://lh3.googleusercontent.com/d/1IE6MQ8EUwyKmGeXnpLTXx7d5HBLJiKb4";
@@ -1028,14 +1031,14 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
                 </div>
                 <div>
                   <h4 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-none group-hover:text-amber-400 transition-colors">
-                    Fast<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300">Arc</span>
+                    Govt<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300">Bharat</span>
                   </h4>
-                  <p className="text-xs sm:text-[13px] text-amber-400 font-extrabold tracking-wider uppercase mt-1">Govt Jobs Portal</p>
+                  <p className="text-xs sm:text-[13px] text-amber-400 font-extrabold tracking-wider uppercase mt-1">Jobs Portal</p>
                 </div>
               </a>
 
               <p className="text-slate-300 text-sm sm:text-[14.5px] leading-relaxed">
-                FastArc Govt Jobs Portal offers lightning-fast notification updates for Central & State Government examinations, admit cards, answer keys, results, and curriculum PDF patterns.
+                GovtBharat Portal offers lightning-fast notification updates for Central & State Government examinations, admit cards, answer keys, results, and curriculum PDF patterns.
               </p>
             </div>
             <div>
@@ -1132,13 +1135,13 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
                 </button>
               </h5>
               <p className="text-sm sm:text-[14px] text-slate-300 leading-relaxed font-normal">
-                FastArc is an independent career news aggregator. We are NOT associated with UPSC, SSC, NTA, or any government agency. Always cross-verify exam details on official commission platforms before submitting application fees.
+                GovtBharat is an independent career news aggregator. We are NOT associated with UPSC, SSC, NTA, or any government agency. Always cross-verify exam details on official commission platforms before submitting application fees.
               </p>
             </div>
           </div>
 
           <div className="border-t border-slate-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-            <p>&copy; 2026 {getDomainName()} - FastArc Govt Result. All Rights Reserved.</p>
+            <p>&copy; 2026 {getDomainName()} - GovtBharat. All Rights Reserved.</p>
             <div className="flex items-center gap-3">
               {socialLinks.filter(l => l.enabled).map(item => (
                 <a
@@ -1156,6 +1159,7 @@ export const JobDetailsPage: React.FC<JobDetailsPageProps> = ({
           </div>
         </div>
       </footer>
+      )}
     </div>
   );
 };

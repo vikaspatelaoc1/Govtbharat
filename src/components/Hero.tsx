@@ -83,7 +83,7 @@ export const Hero: React.FC<HeroProps> = ({ searchQuery, setSearchQuery, jobs, m
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('fastarc_search_queries');
+      const saved = localStorage.getItem('GovtBharat_search_queries');
       if (saved) {
         try {
           setSearchHistory(JSON.parse(saved));
@@ -101,14 +101,14 @@ export const Hero: React.FC<HeroProps> = ({ searchQuery, setSearchQuery, jobs, m
     if (!query.trim()) return;
     const newHistory = [query.trim(), ...searchHistory.filter(h => h.toLowerCase() !== query.trim().toLowerCase())].slice(0, 5);
     setSearchHistory(newHistory);
-    localStorage.setItem('fastarc_search_queries', JSON.stringify(newHistory));
+    localStorage.setItem('GovtBharat_search_queries', JSON.stringify(newHistory));
   };
 
   const removeHistoryItem = (e: React.MouseEvent, query: string) => {
     e.stopPropagation();
     const newHistory = searchHistory.filter(h => h !== query);
     setSearchHistory(newHistory);
-    localStorage.setItem('fastarc_search_queries', JSON.stringify(newHistory));
+    localStorage.setItem('GovtBharat_search_queries', JSON.stringify(newHistory));
   };
 
   const handleSearchSubmit = () => {
@@ -252,7 +252,7 @@ export const Hero: React.FC<HeroProps> = ({ searchQuery, setSearchQuery, jobs, m
         </div>
         
         <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">
-          Fast_<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300">Arc</span> - Instant Updates
+          Govt<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300">Bharat</span> - Instant Updates
         </h2>
         
         <p className="text-slate-300 text-sm md:text-base max-w-2xl mx-auto mb-3 sm:mb-4 px-2">
@@ -362,7 +362,7 @@ export const Hero: React.FC<HeroProps> = ({ searchQuery, setSearchQuery, jobs, m
                     e.stopPropagation();
                     setSearchHistory([]);
                     setSelectedIndex(-1);
-                    localStorage.removeItem('fastarc_search_queries');
+                    localStorage.removeItem('GovtBharat_search_queries');
                   }}
                   className="text-xs text-slate-500 hover:text-rose-400 transition-colors cursor-pointer"
                 >

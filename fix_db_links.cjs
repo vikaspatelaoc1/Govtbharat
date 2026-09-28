@@ -26,8 +26,8 @@ function normalizeExternalUrl(url) {
   }
 }
 
-if (fs.existsSync('data/fastarc_database.json')) {
-  const db = JSON.parse(fs.readFileSync('data/fastarc_database.json', 'utf8'));
+if (fs.existsSync('data/GovtBharat_database.json')) {
+  const db = JSON.parse(fs.readFileSync('data/GovtBharat_database.json', 'utf8'));
   let updated = 0;
   if (db.jobs && Array.isArray(db.jobs)) {
     db.jobs.forEach(job => {
@@ -44,7 +44,7 @@ if (fs.existsSync('data/fastarc_database.json')) {
         });
       }
     });
-    fs.writeFileSync('data/fastarc_database.json', JSON.stringify(db, null, 2));
-    console.log(`Updated ${updated} links in data/fastarc_database.json!`);
+    fs.writeFileSync('data/GovtBharat_database.json', JSON.stringify(db, null, 2));
+    console.log(`Updated ${updated} links in data/GovtBharat_database.json!`);
   }
 }

@@ -1,17 +1,17 @@
 import { loadWebsiteControlConfig, saveWebsiteControlConfig } from './websiteControlConfig';
 
-export const DOMAIN_CHANGE_EVENT = 'fastarc_domain_name_changed';
+export const DOMAIN_CHANGE_EVENT = 'GovtBharat_domain_name_changed';
 
 export const getDomainName = (): string => {
   try {
-    const directDomain = typeof localStorage !== 'undefined' ? localStorage.getItem('fastarc_custom_domain_name') : null;
+    const directDomain = typeof localStorage !== 'undefined' ? localStorage.getItem('GovtBharat_custom_domain_name') : null;
     if (directDomain && directDomain.trim()) {
       return directDomain.trim();
     }
     const config = loadWebsiteControlConfig();
-    return config.header?.domainName?.trim() || 'FastArcGovt.info';
+    return config.header?.domainName?.trim() || 'GovtBharat.com';
   } catch {
-    return 'FastArcGovt.info';
+    return 'GovtBharat.com';
   }
 };
 
@@ -30,7 +30,7 @@ export const updateDomainNameAcrossPortal = (newDomainName: string): boolean => 
 
     // 1. Direct local storage key for instant zero-latency retrieval
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('fastarc_custom_domain_name', cleanedDomain);
+      localStorage.setItem('GovtBharat_custom_domain_name', cleanedDomain);
     }
 
     // 2. Update website control config structure
@@ -42,8 +42,8 @@ export const updateDomainNameAcrossPortal = (newDomainName: string): boolean => 
     
     // Also update footer email/copyright if default
     if (config.footer) {
-      config.footer.copyrightText = `© 2026 ${cleanedDomain} - FastArc Govt Result. All Rights Reserved.`;
-      if (!config.footer.contactEmail || config.footer.contactEmail.includes('fastarcgovt')) {
+      config.footer.copyrightText = `© 2026 ${cleanedDomain} - GovtBharat. All Rights Reserved.`;
+      if (!config.footer.contactEmail || config.footer.contactEmail.includes('GovtBharat') || config.footer.contactEmail.includes('govtbharat')) {
         config.footer.contactEmail = `support@${cleanedDomain.toLowerCase()}`;
       }
     }
@@ -64,7 +64,7 @@ export const updateDomainNameAcrossPortal = (newDomainName: string): boolean => 
 };
 
 export const resetDomainNameToDefault = (): string => {
-  const defaultDomain = 'FastArcGovt.info';
+  const defaultDomain = 'GovtBharat.com';
   updateDomainNameAcrossPortal(defaultDomain);
   return defaultDomain;
 };

@@ -395,7 +395,7 @@ export const DEFAULT_MOBILE_TABS_CONFIG: MobileTabsConfig = {
     {
       id: 'cat-ssc',
       label: 'SSC',
-      color: '#8c1328', // FastArc Signature Maroon
+      color: '#8c1328', // GovtBharat Signature Maroon
       textColor: '#ffffff',
       filterKey: 'SSC',
       enabled: true,
@@ -467,7 +467,7 @@ export const DEFAULT_MOBILE_TABS_CONFIG: MobileTabsConfig = {
   ]
 };
 
-const STORAGE_KEY = 'fastarc_mobile_tabs_config_v1';
+const STORAGE_KEY = 'GovtBharat_mobile_tabs_config_v1';
 
 export function loadMobileTabsConfig(): MobileTabsConfig {
   try {

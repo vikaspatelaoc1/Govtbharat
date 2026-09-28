@@ -374,8 +374,8 @@ export const fullCatalogJobs: JobAlert[] = ${JSON.stringify(allJobsList, null, 2
 fs.writeFileSync(path.join(__dirname, '../src/data/fullCatalogJobs.ts'), fullCatalogCode, 'utf8');
 console.log(`Wrote ${allJobsList.length} jobs to src/data/fullCatalogJobs.ts`);
 
-// Also update data/fastarc_database.json with all jobs
-const dbJsonPath = path.join(__dirname, '../data/fastarc_database.json');
+// Also update data/GovtBharat_database.json with all jobs
+const dbJsonPath = path.join(__dirname, '../data/GovtBharat_database.json');
 let existingDb = {};
 if (fs.existsSync(dbJsonPath)) {
   try {
@@ -385,15 +385,15 @@ if (fs.existsSync(dbJsonPath)) {
 existingDb.jobs = allJobsList;
 if (!existingDb.siteConfig) {
   existingDb.siteConfig = {
-    siteTitle: 'FastArc Govt Jobs',
+    siteTitle: 'GovtBharat Jobs',
     maintenanceMode: false,
     autoWatcherEnabled: true,
-    appName: 'FastARC Result',
-    shortName: 'FastArc',
+    appName: 'GovtBharat Result',
+    shortName: 'GovtBharat',
     appVersion: '1.0.0'
   };
 } else {
   existingDb.siteConfig.autoWatcherEnabled = true;
 }
 fs.writeFileSync(dbJsonPath, JSON.stringify(existingDb, null, 2), 'utf8');
-console.log(`Updated data/fastarc_database.json with ${allJobsList.length} jobs.`);
+console.log(`Updated data/GovtBharat_database.json with ${allJobsList.length} jobs.`);

@@ -148,7 +148,7 @@ export const SocialLinksManager: React.FC<SocialLinksManagerProps> = ({
     setFormPlatform('telegram');
     setFormTitle('Telegram Channel');
     setFormUrl('https://t.me/');
-    setFormHandle('@fastarc');
+    setFormHandle('@GovtBharat');
     setFormBadgeText('Join Channel');
     setFormEnabled(true);
   };
@@ -242,7 +242,7 @@ export const SocialLinksManager: React.FC<SocialLinksManagerProps> = ({
   };
 
   const handleResetToDefaults = async () => {
-    if (!confirm('Reset all social links to default FastArc official channels?')) return;
+    if (!confirm('Reset all social links to default GovtBharat Official channels?')) return;
     setSocialLinks(defaultSocialLinks);
     try {
       await onSaveToFirestore(defaultSocialLinks);
@@ -508,7 +508,7 @@ export const SocialLinksManager: React.FC<SocialLinksManagerProps> = ({
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. @fastarcgovtofficial"
+                    placeholder="e.g. @govtbharatofficial"
                     value={formHandle}
                     onChange={(e) => setFormHandle(e.target.value)}
                     className="w-full border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 rounded-xl p-2 text-slate-900 dark:text-white outline-none focus:border-amber-500"

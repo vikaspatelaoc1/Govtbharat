@@ -1,8 +1,8 @@
 const fs = require('fs');
 
 async function migrate() {
-  if (fs.existsSync('data/fastarc_database.json')) {
-     const db = JSON.parse(fs.readFileSync('data/fastarc_database.json', 'utf8'));
+  if (fs.existsSync('data/GovtBharat_database.json')) {
+     const db = JSON.parse(fs.readFileSync('data/GovtBharat_database.json', 'utf8'));
      
      function normalizeExternalUrl(url) {
        if (!url || typeof url !== 'string' || !url.trim() || url.trim() === '#') return '';
@@ -26,8 +26,8 @@ async function migrate() {
            });
          }
        });
-       fs.writeFileSync('data/fastarc_database.json', JSON.stringify(db, null, 2));
-       console.log("Updated data/fastarc_database.json!");
+       fs.writeFileSync('data/GovtBharat_database.json', JSON.stringify(db, null, 2));
+       console.log("Updated data/GovtBharat_database.json!");
      }
   }
 }

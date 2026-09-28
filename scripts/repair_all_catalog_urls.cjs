@@ -1,5 +1,5 @@
 /**
- * Comprehensive URL Audit & Repair Script for FastArc Database
+ * Comprehensive URL Audit & Repair Script for GovtBharat Database
  * Checks all job links across the database, repairs synthetic/broken URLs with
  * verified, real official Indian Government portals, and updates both local data and Firestore.
  */
@@ -293,7 +293,7 @@ async function runRepairAudit() {
   console.log('🔍 Comprehensive Job Links Audit & Repair Starting...');
   console.log('================================================================');
 
-  const dbPath = path.resolve(__dirname, '../data/fastarc_database.json');
+  const dbPath = path.resolve(__dirname, '../data/GovtBharat_database.json');
   if (!fs.existsSync(dbPath)) {
     console.error('❌ Could not find database file:', dbPath);
     return;
@@ -301,7 +301,7 @@ async function runRepairAudit() {
 
   const rawData = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
   const jobs = rawData.jobs || [];
-  console.log(`📊 Loaded ${jobs.length} jobs from fastarc_database.json.`);
+  console.log(`📊 Loaded ${jobs.length} jobs from GovtBharat_database.json.`);
 
   let repairedCount = 0;
   let brokenLinksReplaced = 0;
@@ -344,8 +344,8 @@ async function runRepairAudit() {
       answerKey: rawLinks.answerKey ? newAnswerKey : undefined,
       syllabus: rawLinks.syllabus ? newSyllabus : undefined,
       videoHindi: (rawLinks.videoHindi && rawLinks.videoHindi.startsWith('http')) ? rawLinks.videoHindi : videoSearch,
-      telegram: 'https://t.me/fastarcgov',
-      whatsapp: 'https://whatsapp.com/channel/0029VaFastArcGov'
+      telegram: 'https://t.me/GovtBharatgov',
+      whatsapp: 'https://whatsapp.com/channel/0029VaGovtBharatGov'
     };
 
     job.linkHealthStatus = 'Healthy';
@@ -360,10 +360,10 @@ async function runRepairAudit() {
     if (jobModified) repairedCount++;
   }
 
-  // Save back to fastarc_database.json
+  // Save back to GovtBharat_database.json
   rawData.jobs = jobs;
   fs.writeFileSync(dbPath, JSON.stringify(rawData, null, 2), 'utf8');
-  console.log(`✅ Updated data/fastarc_database.json.`);
+  console.log(`✅ Updated data/GovtBharat_database.json.`);
   console.log(`   - Total Jobs Processed: ${jobs.length}`);
   console.log(`   - Jobs with Repaired Links: ${repairedCount}`);
   console.log(`   - Broken Link Instances Fixed: ${brokenLinksReplaced}`);

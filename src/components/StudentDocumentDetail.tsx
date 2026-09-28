@@ -14,7 +14,7 @@ export const StudentDocumentDetail: React.FC<Props> = ({ document, onBack }) => 
     window.scrollTo({ top: 0, behavior: 'smooth' });
     // Update basic SEO dynamically (just title for now)
     const oldTitle = window.document.title;
-    window.document.title = `${document.title} - FastArc Student Center`;
+    window.document.title = `${document.title} - GovtBharat Student Center`;
     return () => {
       window.document.title = oldTitle;
     };

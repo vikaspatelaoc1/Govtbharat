@@ -119,7 +119,7 @@ export const AutoFeedContent: React.FC<AutoFeedContentProps> = ({
       })
       .then(data => {
         if (data?.siteConfig) {
-          const localSaved = typeof window !== 'undefined' ? localStorage.getItem('fastarc_auto_sync') : null;
+          const localSaved = typeof window !== 'undefined' ? localStorage.getItem('GovtBharat_auto_sync') : null;
           if (localSaved !== null) {
             setIsAutoSyncActive(localSaved !== 'false');
           } else if (typeof data.siteConfig.autoWatcherEnabled === 'boolean') {
@@ -619,7 +619,7 @@ export const AutoFeedContent: React.FC<AutoFeedContentProps> = ({
 
   const pythonScraperCode = `
 # ==============================================================================
-# FastArc Sarkari Job Automated Web Scraper & RSS Ingestion Daemon
+# GovtBharat Sarkari Job Automated Web Scraper & RSS Ingestion Daemon
 # Run via Python Cron: (e.g. crontab: */30 * * * * python3 scraper_daemon.py)
 # ==============================================================================
 import requests
@@ -627,7 +627,7 @@ import xml.etree.ElementTree as ET
 import time
 
 API_ENDPOINT = "https://${getDomainNameLowercase()}/api/v1/sarkari-posts"
-API_SECRET = "FASTARC_SECRET_KEY_12345"
+API_SECRET = "GovtBharat_SECRET_KEY_12345"
 
 def scrape_and_push(feed_url, default_category="latest-jobs"):
     print(f"📡 Fetching RSS Feed from: {feed_url}")
@@ -650,7 +650,7 @@ def scrape_and_push(feed_url, default_category="latest-jobs"):
                     "links": { "apply": link, "official": link }
                 }
                 
-                # Push to FastArc API Gateway
+                # Push to GovtBharat API Gateway
                 headers = {"Authorization": f"Bearer {API_SECRET}", "Content-Type": "application/json"}
                 res = requests.post(API_ENDPOINT, json=payload, headers=headers)
                 print(f"   ↳ Auto-Injected: {title} | Status: {res.status_code}")
@@ -658,7 +658,7 @@ def scrape_and_push(feed_url, default_category="latest-jobs"):
         print(f"❌ Scraper error: {e}")
 
 if __name__ == "__main__":
-    print("🚀 Running FastArc Multi-Portal Automated Scraper...")
+    print("🚀 Running GovtBharat Multi-Portal Automated Scraper...")
     scrape_and_push("https://employmentnews.gov.in/feed.rss", "latest-jobs")
     scrape_and_push("https://rrbapply.gov.in/updates.rss", "admit-cards")
 `.trim();
@@ -691,7 +691,7 @@ if __name__ == "__main__":
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer FASTARC_SECRET_KEY_12345'
+            'Authorization': 'Bearer GovtBharat_SECRET_KEY_12345'
           },
           body: JSON.stringify(parsed)
         });
@@ -730,7 +730,7 @@ if __name__ == "__main__":
                 </span>
               </div>
               <p className="text-xs text-slate-400 mt-0.5">
-                Auto-scrape official govt portals, parse live RSS XML feeds, auto-categorize alerts, and syndicate FastArc feeds.
+                Auto-scrape official govt portals, parse live RSS XML feeds, auto-categorize alerts, and syndicate GovtBharat feeds.
               </p>
             </div>
           </div>
@@ -751,7 +751,7 @@ if __name__ == "__main__":
                 const newStatus = !isAutoSyncActive;
                 setIsAutoSyncActive(newStatus);
                 if (typeof window !== 'undefined') {
-                  localStorage.setItem('fastarc_auto_sync', String(newStatus));
+                  localStorage.setItem('GovtBharat_auto_sync', String(newStatus));
                 }
                 onToast(newStatus ? "▶️ Automated Background Scraper Watcher Active!" : "⏸️ Auto-Sync Paused");
                 try {
@@ -767,7 +767,7 @@ if __name__ == "__main__":
                       if (data?.success && typeof data.autoWatcherEnabled === 'boolean') {
                         setIsAutoSyncActive(data.autoWatcherEnabled);
                         if (typeof window !== 'undefined') {
-                          localStorage.setItem('fastarc_auto_sync', String(data.autoWatcherEnabled));
+                          localStorage.setItem('GovtBharat_auto_sync', String(data.autoWatcherEnabled));
                         }
                       }
                     } catch {
@@ -1224,7 +1224,7 @@ if __name__ == "__main__":
       )}
 
       {/* ========================================================================= */}
-      {/* SUB-TAB 2: PUBLIC RSS FEEDS (FASTARC XML SYNDICATION) */}
+      {/* SUB-TAB 2: PUBLIC RSS FEEDS (GovtBharat XML SYNDICATION) */}
       {/* ========================================================================= */}
       {activeSubTab === 'rss_feeds' && (
         <div className="space-y-6">
@@ -1234,7 +1234,7 @@ if __name__ == "__main__":
                 <Rss className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-extrabold text-base text-slate-900 dark:text-white">FastArc Public RSS 2.0 Syndication Feeds</h3>
+                <h3 className="font-extrabold text-base text-slate-900 dark:text-white">GovtBharat Public RSS 2.0 Syndication Feeds</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   Allow news aggregators, Android apps, Telegram bots, and external websites to subscribe to your live job updates in standard RSS 2.0 XML format.
                 </p>
@@ -1748,7 +1748,7 @@ if __name__ == "__main__":
                   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(syncLogs, null, 2));
                   const downloadAnchor = document.createElement('a');
                   downloadAnchor.setAttribute("href", dataStr);
-                  downloadAnchor.setAttribute("download", `fastarc-granular-logs-${Date.now()}.json`);
+                  downloadAnchor.setAttribute("download", `GovtBharat-granular-logs-${Date.now()}.json`);
                   document.body.appendChild(downloadAnchor);
                   downloadAnchor.click();
                   downloadAnchor.remove();

@@ -16,7 +16,7 @@ function checkUrl(url) {
 }
 
 async function run() {
-  const db = JSON.parse(fs.readFileSync('data/fastarc_database.json', 'utf8'));
+  const db = JSON.parse(fs.readFileSync('data/GovtBharat_database.json', 'utf8'));
   const uniqueUrls = new Set();
   
   db.jobs.forEach(job => {

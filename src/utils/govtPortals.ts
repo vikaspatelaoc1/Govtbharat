@@ -671,8 +671,8 @@ export function verifyAndRepairJobLinks(job: any): any {
     answerKey: rawLinks.answerKey ? cleanAnswerKey : undefined,
     syllabus: rawLinks.syllabus ? cleanSyllabus : undefined,
     videoHindi: rawLinks.videoHindi && rawLinks.videoHindi.startsWith('http') ? rawLinks.videoHindi : videoSearch,
-    telegram: rawLinks.telegram || 'https://t.me/fastarcgov',
-    whatsapp: rawLinks.whatsapp || 'https://whatsapp.com/channel/0029VaFastArcGov'
+    telegram: rawLinks.telegram || 'https://t.me/govtbharatofficial',
+    whatsapp: rawLinks.whatsapp || 'https://whatsapp.com/channel/govtbharatofficial'
   };
 
   return {

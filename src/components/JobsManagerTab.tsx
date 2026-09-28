@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { JobAlert } from '../types';
 import { bulkDeleteJobsFromFirestore } from '../services/firestoreService';
+import { safeSaveJobsToLocalStorage } from '../utils/jobStorage';
 import { Search, Trash2, CheckSquare, Square, AlertTriangle, Edit2, CheckCircle2, RefreshCw, Filter } from 'lucide-react';
 import { PopularCategoriesAndTrafficAnalytics } from './PopularCategoriesAndTrafficAnalytics';
 
@@ -85,7 +86,7 @@ export const JobsManagerTab: React.FC<JobsManagerTabProps> = ({
       // 2. Update local state & localStorage
       setJobs(prev => {
         const updated = prev.filter(j => !selectedJobIds.includes(j.id));
-        localStorage.setItem('fastarc_jobs', JSON.stringify(updated));
+        safeSaveJobsToLocalStorage(updated);
         return updated;
       });
 

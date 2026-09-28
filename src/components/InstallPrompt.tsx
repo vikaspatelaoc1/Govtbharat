@@ -6,7 +6,7 @@ export function InstallPrompt() {
   const [isInstallable, setIsInstallable] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
-  const [appName, setAppName] = useState('FastARC Result');
+  const [appName, setAppName] = useState('GovtBharat');
 
   useEffect(() => {
     // Fetch appName from config
@@ -52,8 +52,8 @@ export function InstallPrompt() {
       if (outcome === 'accepted') {
         setShowPrompt(false);
         try {
-          localStorage.setItem('fastarc_app_view', 'app');
-          window.dispatchEvent(new CustomEvent('fastarc_toggle_app_mode', { detail: { mode: 'app' } }));
+          localStorage.setItem('GovtBharat_app_view', 'app');
+          window.dispatchEvent(new CustomEvent('GovtBharat_toggle_app_mode', { detail: { mode: 'app' } }));
         } catch (e) {}
       }
       setDeferredPrompt(null);
@@ -67,7 +67,7 @@ export function InstallPrompt() {
   return (
     <div className="fixed bottom-4 left-4 right-4 z-[9999] bg-white dark:bg-slate-900 border-2 border-amber-500 rounded-2xl shadow-2xl p-4 flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4 animate-in slide-in-from-bottom-10 fade-in duration-300">
       <div className="flex items-center gap-4 w-full">
-        <img src="/logo.png" alt="FastArc App Icon" className="w-12 h-12 rounded-xl object-contain bg-black p-0.5" />
+        <img src="/logo.png" alt="GovtBharat App Icon" className="w-12 h-12 rounded-xl object-contain bg-black p-0.5" />
         <div className="flex-1">
           <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">Install {appName} App</h4>
           <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 leading-snug">

@@ -39,7 +39,7 @@ code = code.replace(/<a([^>]*?)href=\{(job\.links\??\.[a-zA-Z]+ \|\| "[^"]+")\}(
   return "<SafeExternalLink url={" + p2 + "}" + attrs + " showIcon={" + showIcon + "}>" + p4 + "</SafeExternalLink>";
 });
 
-// There might be some fallback using single quotes or different structure like href={job.links?.telegram || 'https://t.me/fastarcgov'}
+// There might be some fallback using single quotes or different structure like href={job.links?.telegram || 'https://t.me/GovtBharatgov'}
 code = code.replace(/<a([^>]*?)href=\{(job\.links\??\.[a-zA-Z]+ \|\| '[^']+?')\}([^>]*?)>([\s\S]*?)<\/a>/g, (match, p1, p2, p3, p4) => {
   let attrs = (p1 + p3)
     .replace(/\s+target="_blank"/g, '')
