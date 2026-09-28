@@ -1,3 +1,4 @@
+import { checkIsApplicationMode } from '../utils/appMode';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -36,6 +37,7 @@ interface HeaderProps {
   searchQuery?: string;
   setSearchQuery?: (q: string) => void;
   jobs?: JobAlert[];
+  isApplication?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({ 
@@ -60,7 +62,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenNotifications,
   searchQuery = "",
   setSearchQuery,
-  jobs = []
+  jobs = [],
+  isApplication: propIsApplication
 }) => {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -87,69 +90,41 @@ export const Header: React.FC<HeaderProps> = ({
   const [voiceListening, setVoiceListening] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   
-  const [isApplication, setIsApplication] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode');
-    if (mode === 'app') return true;
-    if (mode === 'web') return false;
-    return (
-      window.matchMedia('(display-mode: standalone)').matches ||
-      window.matchMedia('(display-mode: fullscreen)').matches ||
-      window.matchMedia('(display-mode: minimal-ui)').matches ||
-      (window.navigator as any).standalone === true ||
-      document.referrer.includes('android-app://') ||
-      urlParams.get('source') === 'pwa' ||
-      urlParams.get('utm_source') === 'pwa' ||
-      localStorage.getItem('GovtBharat_app_view') === 'app'
-    );
-  });
+  const [internalIsApplication, setInternalIsApplication] = useState<boolean>(() => checkIsApplicationMode());
+  const isApplication = propIsApplication !== undefined ? propIsApplication : internalIsApplication;
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const checkAppMode = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const mode = urlParams.get('mode');
-      if (mode === 'app') {
-        setIsApplication(true);
-        return;
-      }
-      if (mode === 'web') {
-        setIsApplication(false);
-        return;
-      }
-      const isStandalone =
-        window.matchMedia('(display-mode: standalone)').matches ||
-        window.matchMedia('(display-mode: fullscreen)').matches ||
-        window.matchMedia('(display-mode: minimal-ui)').matches ||
-        (window.navigator as any).standalone === true ||
-        document.referrer.includes('android-app://') ||
-        urlParams.get('source') === 'pwa' ||
-        urlParams.get('utm_source') === 'pwa' ||
-        localStorage.getItem('GovtBharat_app_view') === 'app';
-      setIsApplication(!!isStandalone);
+      setInternalIsApplication(checkIsApplicationMode());
     };
+
     checkAppMode();
 
-    const mqStandalone = window.matchMedia('(display-mode: standalone)');
+    const mqStandalone = window.matchMedia("(display-mode: standalone)");
     const handleMq = () => checkAppMode();
-    if (mqStandalone.addEventListener) {
-      mqStandalone.addEventListener('change', handleMq);
-    }
+    mqStandalone.addEventListener?.("change", handleMq);
 
     const handleAppModeSwitch = (e: any) => {
-      if (e.detail?.mode === 'app') {
-        setIsApplication(true);
-      } else if (e.detail?.mode === 'web') {
-        setIsApplication(false);
+      if (e.detail?.mode === "app") {
+        setInternalIsApplication(true);
+      } else if (e.detail?.mode === "web") {
+        setInternalIsApplication(false);
       }
     };
-    window.addEventListener('GovtBharat_toggle_app_mode', handleAppModeSwitch);
+
+    const handlePopState = () => {
+      checkAppMode();
+    };
+
+    window.addEventListener("GovtBharat_toggle_app_mode", handleAppModeSwitch);
+    window.addEventListener("popstate", handlePopState);
 
     return () => {
-      if (mqStandalone.removeEventListener) {
-        mqStandalone.removeEventListener('change', handleMq);
-      }
-      window.removeEventListener('GovtBharat_toggle_app_mode', handleAppModeSwitch);
+      mqStandalone.removeEventListener?.("change", handleMq);
+      window.removeEventListener("GovtBharat_toggle_app_mode", handleAppModeSwitch);
+      window.removeEventListener("popstate", handlePopState);
     };
   }, []);
   const [currentLangCode, setCurrentLangCode] = useState<string>('en');
@@ -256,25 +231,12 @@ export const Header: React.FC<HeaderProps> = ({
 
   const handleInstallClick = async () => {
     if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        setDeferredPrompt(null);
-        setIsInstallable(false);
-        try {
-          localStorage.setItem('GovtBharat_app_view', 'app');
-          window.dispatchEvent(new CustomEvent('GovtBharat_toggle_app_mode', { detail: { mode: 'app' } }));
-        } catch (e) {}
-      }
-    } else {
-      // If browser has already installed or doesn't support deferredPrompt, toggle app view directly
       try {
-        localStorage.setItem('GovtBharat_app_view', 'app');
-        window.dispatchEvent(new CustomEvent('GovtBharat_toggle_app_mode', { detail: { mode: 'app' } }));
-        if (!window.location.search.includes('mode=app')) {
-          const newUrl = new URL(window.location.href);
-          newUrl.searchParams.set('mode', 'app');
-          window.history.pushState({}, '', newUrl.toString());
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === "accepted") {
+          setDeferredPrompt(null);
+          setIsInstallable(false);
         }
       } catch (e) {}
     }
@@ -872,18 +834,19 @@ export const Header: React.FC<HeaderProps> = ({
                              <span>Column Settings</span>
                            </button>
                            <button 
-                             onClick={() => { 
-                               setIsHeader3DotOpen(false); 
-                               setIsDrawerOpen(false); 
-                               const nextMode = isApplication ? 'web' : 'app';
-                               try {
-                                 localStorage.setItem('GovtBharat_app_view', nextMode);
-                               } catch(e) {}
-                               window.dispatchEvent(new CustomEvent('GovtBharat_toggle_app_mode', { detail: { mode: nextMode } }));
-                               const newUrl = new URL(window.location.href);
-                               newUrl.searchParams.set('mode', nextMode);
-                               window.history.pushState({}, '', newUrl.toString());
-                             }} 
+                             onClick={() => {
+                                setIsHeader3DotOpen(false);
+                                setIsDrawerOpen(false);
+                                const nextMode = isApplication ? "web" : "app";
+                                const newUrl = new URL(window.location.href);
+                                if (nextMode === "app") {
+                                  newUrl.searchParams.set("mode", "app");
+                                } else {
+                                  newUrl.searchParams.set("mode", "web");
+                                }
+                                window.history.pushState({}, "", newUrl.toString());
+                                window.dispatchEvent(new CustomEvent("GovtBharat_toggle_app_mode", { detail: { mode: nextMode } }));
+                              }} 
                              className="w-full flex items-center space-x-3 p-2 hover:bg-slate-800 rounded-lg text-left text-xs font-bold text-amber-300 border border-amber-500/30 bg-amber-500/10"
                            >
                              <Smartphone className="w-4 h-4 text-amber-400" />

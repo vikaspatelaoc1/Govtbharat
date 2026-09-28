@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 /**
  * Mobile application install & update popup has been permanently removed

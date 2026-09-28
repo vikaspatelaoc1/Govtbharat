@@ -441,44 +441,20 @@ export async function bulkSaveStagingJobsToFirestore(jobs: StagingJob[]): Promis
 
 // Promote a Staging Job to Main Live Jobs Collection (Deletes from staging & publishes live)
 export async function promoteStagingJobToLive(stagingJob: StagingJob): Promise<void> {
-  if (isClientFirestoreQuotaExceeded) return;
+  const id = stagingJob.stagingId || stagingJob.id;
   try {
-    const liveJobId = stagingJob.id.startsWith('stage-') ? `job-${stagingJob.id.replace('stage-', '')}` : stagingJob.id;
-    const liveDocRef = doc(db, 'jobs', liveJobId);
-    const stagingDocRef = doc(db, 'staging_jobs', stagingJob.stagingId || stagingJob.id);
-
-    const liveJobData = cleanForFirestore({
-      ...stagingJob,
-      id: liveJobId,
-      isNew: true,
-      lastUpdated: new Date().toISOString()
-    });
-    delete (liveJobData as any).stagingId;
-    delete (liveJobData as any).reviewStatus;
-
-    const batch = writeBatch(db);
-    batch.set(liveDocRef, liveJobData, { merge: true });
-    batch.delete(stagingDocRef);
-    await batch.commit();
+    const res = await fetch(`/api/v1/jobs/staging/${id}/promote`, { method: "POST" });
+    const data = await res.json();
+    if (!data.success) {
+      throw new Error(data.error || "Failed to promote job on server");
+    }
   } catch (err: any) {
-    handleFirestoreQuotaError(err, 'promoteStagingJobToLive');
-  }
-}
-
-// Promote all Staging Jobs to Live
-export async function promoteAllStagingJobsToLive(stagingJobs: StagingJob[]): Promise<number> {
-  if (!stagingJobs || stagingJobs.length === 0 || isClientFirestoreQuotaExceeded) return 0;
-  let count = 0;
-  try {
-    const CHUNK_SIZE = 200; // Batch limit 500, we do 2 ops per job (set + delete)
-    for (let i = 0; i < stagingJobs.length; i += CHUNK_SIZE) {
-      const chunk = stagingJobs.slice(i, i + CHUNK_SIZE);
-      const batch = writeBatch(db);
-      chunk.forEach((stagingJob) => {
-        const liveJobId = stagingJob.id.startsWith('stage-') ? `job-${stagingJob.id.replace('stage-', '')}` : stagingJob.id;
-        const liveDocRef = doc(db, 'jobs', liveJobId);
-        const stagingDocRef = doc(db, 'staging_jobs', stagingJob.stagingId || stagingJob.id);
-
+    console.warn("Server promote error, trying client fallback:", err);
+    if (!isClientFirestoreQuotaExceeded) {
+      try {
+        const liveJobId = stagingJob.id.startsWith("stage-") ? `job-${stagingJob.id.replace("stage-", "")}` : stagingJob.id;
+        const liveDocRef = doc(db, "jobs", liveJobId);
+        const stagingDocRef = doc(db, "staging_jobs", stagingJob.stagingId || stagingJob.id);
         const liveJobData = cleanForFirestore({
           ...stagingJob,
           id: liveJobId,
@@ -487,17 +463,65 @@ export async function promoteAllStagingJobsToLive(stagingJobs: StagingJob[]): Pr
         });
         delete (liveJobData as any).stagingId;
         delete (liveJobData as any).reviewStatus;
-
+        const batch = writeBatch(db);
         batch.set(liveDocRef, liveJobData, { merge: true });
         batch.delete(stagingDocRef);
-        count++;
-      });
-      await batch.commit();
+        await batch.commit();
+      } catch (clientErr: any) {
+        handleFirestoreQuotaError(clientErr, "promoteStagingJobToLive");
+        throw clientErr;
+      }
+    } else {
+      throw err;
     }
-    return count;
+  }
+}
+
+// Promote all Staging Jobs to Live
+export async function promoteAllStagingJobsToLive(stagingJobs: StagingJob[]): Promise<number> {
+  if (!stagingJobs || stagingJobs.length === 0) return 0;
+  try {
+    const res = await fetch("/api/v1/jobs/staging/promote-all", { method: "POST" });
+    const data = await res.json();
+    if (!data.success) {
+      throw new Error(data.error || "Failed to promote all jobs on server");
+    }
+    return data.count || stagingJobs.length;
   } catch (err: any) {
-    handleFirestoreQuotaError(err, 'promoteAllStagingJobsToLive');
-    return count;
+    console.warn("Server promote-all error, trying client fallback:", err);
+    if (!isClientFirestoreQuotaExceeded) {
+      let count = 0;
+      try {
+        const CHUNK_SIZE = 200;
+        for (let i = 0; i < stagingJobs.length; i += CHUNK_SIZE) {
+          const chunk = stagingJobs.slice(i, i + CHUNK_SIZE);
+          const batch = writeBatch(db);
+          chunk.forEach((stagingJob) => {
+            const liveJobId = stagingJob.id.startsWith("stage-") ? `job-${stagingJob.id.replace("stage-", "")}` : stagingJob.id;
+            const liveDocRef = doc(db, "jobs", liveJobId);
+            const stagingDocRef = doc(db, "staging_jobs", stagingJob.stagingId || stagingJob.id);
+            const liveJobData = cleanForFirestore({
+              ...stagingJob,
+              id: liveJobId,
+              isNew: true,
+              lastUpdated: new Date().toISOString()
+            });
+            delete (liveJobData as any).stagingId;
+            delete (liveJobData as any).reviewStatus;
+            batch.set(liveDocRef, liveJobData, { merge: true });
+            batch.delete(stagingDocRef);
+            count++;
+          });
+          await batch.commit();
+        }
+        return count;
+      } catch (clientErr: any) {
+        handleFirestoreQuotaError(clientErr, "promoteAllStagingJobsToLive");
+        throw clientErr;
+      }
+    } else {
+      throw err;
+    }
   }
 }
 

@@ -23,7 +23,6 @@ import { ModernAppView, ModernAppBottomSection } from './components/ModernAppVie
 import { LogoutConfirmModal } from './components/LogoutConfirmModal';
 import { FAQ } from './components/FAQ';
 import { SplashScreen } from './components/SplashScreen';
-import { InstallPrompt } from './components/InstallPrompt';
 import { getSocialTheme } from './components/SocialLinksManager';
 import { OfficialSocialLogo } from './components/SocialIcons';
 import { JobAlert, JobCategory, EmployeeUser, SocialLinkItem, SuperAdminTabType, SyncLogEntry, MobileTabsConfig } from './types';
@@ -34,6 +33,7 @@ import { loadThemeColors, applyThemeColorsToDOM } from './utils/themeColors';
 import { loadColumnConfigs, DEFAULT_COLUMN_CONFIGS, ColumnConfigsMap } from './utils/columnConfig';
 import { loadWebsiteControlConfig, applyWebsiteControlToDOM, WebsiteControlConfig } from './utils/websiteControlConfig';
 import { updateJobDetailSeo, resetDefaultSeo } from './utils/seo';
+import { checkIsApplicationMode } from './utils/appMode';
 import { enrichJobDetails, cleanOfficialUrl } from './utils/jobEnricher';
 import { safeSaveJobsToLocalStorage, loadJobsFromLocalStorage } from './utils/jobStorage';
 import { 
@@ -620,74 +620,40 @@ export default function App() {
     return cfg;
   });
 
-  const [isApplication, setIsApplication] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode');
-    if (mode === 'app') return true;
-    if (mode === 'web') return false;
-    return (
-      window.matchMedia('(display-mode: standalone)').matches ||
-      window.matchMedia('(display-mode: fullscreen)').matches ||
-      window.matchMedia('(display-mode: minimal-ui)').matches ||
-      (window.navigator as any).standalone === true ||
-      document.referrer.includes('android-app://') ||
-      urlParams.get('source') === 'pwa' ||
-      urlParams.get('utm_source') === 'pwa' ||
-      localStorage.getItem('GovtBharat_app_view') === 'app'
-    );
-  });
+  const [isApplication, setIsApplication] = useState<boolean>(() => checkIsApplicationMode());
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
+
     const checkAppMode = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const mode = urlParams.get('mode');
-      if (mode === 'app') {
-        setIsApplication(true);
-        return;
-      }
-      if (mode === 'web') {
-        setIsApplication(false);
-        return;
-      }
-      const isStandalone =
-        window.matchMedia('(display-mode: standalone)').matches ||
-        window.matchMedia('(display-mode: fullscreen)').matches ||
-        window.matchMedia('(display-mode: minimal-ui)').matches ||
-        (window.navigator as any).standalone === true ||
-        document.referrer.includes('android-app://') ||
-        urlParams.get('source') === 'pwa' ||
-        urlParams.get('utm_source') === 'pwa' ||
-        localStorage.getItem('GovtBharat_app_view') === 'app';
-      setIsApplication(!!isStandalone);
+      setIsApplication(checkIsApplicationMode());
     };
 
     checkAppMode();
 
-    const mqStandalone = window.matchMedia('(display-mode: standalone)');
-    const mqFullscreen = window.matchMedia('(display-mode: fullscreen)');
-    const mqMinimal = window.matchMedia('(display-mode: minimal-ui)');
-
+    const mqStandalone = window.matchMedia("(display-mode: standalone)");
     const handleMq = () => checkAppMode();
-    mqStandalone.addEventListener?.('change', handleMq);
-    mqFullscreen.addEventListener?.('change', handleMq);
-    mqMinimal.addEventListener?.('change', handleMq);
+    mqStandalone.addEventListener?.("change", handleMq);
 
     const handleAppModeSwitch = (e: any) => {
-      if (e.detail?.mode === 'app') {
+      if (e.detail?.mode === "app") {
         setIsApplication(true);
-      } else if (e.detail?.mode === 'web') {
+      } else if (e.detail?.mode === "web") {
         setIsApplication(false);
       }
     };
-    window.addEventListener('GovtBharat_toggle_app_mode', handleAppModeSwitch);
+
+    const handlePopState = () => {
+      checkAppMode();
+    };
+
+    window.addEventListener("GovtBharat_toggle_app_mode", handleAppModeSwitch);
+    window.addEventListener("popstate", handlePopState);
 
     return () => {
-      mqStandalone.removeEventListener?.('change', handleMq);
-      mqFullscreen.removeEventListener?.('change', handleMq);
-      mqMinimal.removeEventListener?.('change', handleMq);
-      window.removeEventListener('GovtBharat_toggle_app_mode', handleAppModeSwitch);
+      mqStandalone.removeEventListener?.("change", handleMq);
+      window.removeEventListener("GovtBharat_toggle_app_mode", handleAppModeSwitch);
+      window.removeEventListener("popstate", handlePopState);
     };
   }, []);
 
@@ -1597,7 +1563,6 @@ export default function App() {
   return (
     <div className="app-container bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300 w-full">
       <SplashScreen siteLogo={siteLogo} />
-      <InstallPrompt />
       {/* Mobile System Status Bar Safe Area & Fixed Top Navigation */}
       <div 
         id="app-fixed-top-header"
@@ -2821,7 +2786,6 @@ export default function App() {
         onConfirm={confirmLogout}
         onCancel={() => setIsLogoutConfirmOpen(false)}
       />
-      <InstallPrompt />
     </div>
   );
 }
