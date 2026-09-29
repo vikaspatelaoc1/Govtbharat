@@ -136,11 +136,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Persistent JSON file database paths:
-// Full runtime cache stored in hidden .runtime_data directory so AI Studio editor never hits file-size download limits
-const RUNTIME_DIR = process.env.VERCEL ? path.join("/tmp", "runtime_data") : path.join(process.cwd(), ".runtime_data");
+// Persistent JSON file database paths stored in system /tmp
+// Stored outside workspace (/tmp) so AI Studio File Explorer NEVER displays huge files or download limit errors
+const RUNTIME_DIR = "/tmp/runtime_data";
 const RUNTIME_DB_FILE = path.join(RUNTIME_DIR, "GovtBharat_database.json");
-const DATA_DIR = process.env.VERCEL ? path.join("/tmp", "data") : path.join(process.cwd(), "data");
+const DATA_DIR = "/tmp/data";
 const DB_FILE = path.join(DATA_DIR, "GovtBharat_database.json");
 
 // URL sanitizer & official portal cleaner with authoritative verification
@@ -399,14 +399,13 @@ export async function ensureDatabaseLoaded(timeoutMs = 8000): Promise<DatabaseSc
     // Fallback to read from local/bundled JSON file if Firebase is not connected or empty
     try {
       const candidatePaths = [
+        "/tmp/runtime_data/GovtBharat_database.json",
+        "/tmp/runtime_data/GovtBharat_database.json.bak",
+        "/tmp/data/GovtBharat_database.json",
         RUNTIME_DB_FILE,
-        RUNTIME_DB_FILE + ".bak",
         DB_FILE,
         path.join(process.cwd(), ".runtime_data", "GovtBharat_database.json"),
-        path.join(process.cwd(), "data", "GovtBharat_database.json"),
-        path.join(__dirname, "data", "GovtBharat_database.json"),
-        path.join(__dirname, "..", "data", "GovtBharat_database.json"),
-        path.join("/tmp", "data", "GovtBharat_database.json")
+        path.join(process.cwd(), "data", "GovtBharat_database.json")
       ];
       for (const p of candidatePaths) {
         if (fs.existsSync(p)) {
@@ -512,9 +511,9 @@ function isQuotaError(err: any): boolean {
   );
 }
 
-// Helper to save DB to disk atomically with resilient cloud sync and zero editor limits
+// Helper to save DB to disk atomically in /tmp (isolated from AI Studio workspace explorer)
 async function saveDatabase(data: DatabaseSchema) {
-  // 1. Always persist full database to hidden .runtime_data directory
+  // Persist full database to system /tmp directory outside workspace
   try {
     if (!fs.existsSync(RUNTIME_DIR)) {
       fs.mkdirSync(RUNTIME_DIR, { recursive: true });
@@ -535,33 +534,8 @@ async function saveDatabase(data: DatabaseSchema) {
     fs.renameSync(tempFile, RUNTIME_DB_FILE);
   } catch (diskErr: any) {
     if (diskErr?.code !== "EROFS") {
-      console.warn("⚠️ Runtime database save notification:", diskErr?.message || diskErr);
+      console.warn("⚠️ System database save notification:", diskErr?.message || diskErr);
     }
-  }
-
-  // 2. Keep visible editor file data/GovtBharat_database.json lightweight (< 500 KB) so it NEVER hits IDE file download limits
-  try {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
-    }
-    const lightDb = {
-      isInitialized: true,
-      siteConfig: data.siteConfig,
-      marqueeText: data.marqueeText,
-      notificationConfig: data.notificationConfig,
-      scraperSources: data.scraperSources || [],
-      employees: data.employees || [],
-      subscribers: (data.subscribers || []).slice(0, 100),
-      users: data.users || [],
-      totalCatalogJobsCount: data.jobs ? data.jobs.length : 2320,
-      _catalogNote: "All 2320+ jobs are cataloged in src/data/fullCatalogJobs.ts and cached in .runtime_data/GovtBharat_database.json. This seed file stays lightweight (<500KB) to prevent IDE download limits.",
-      jobs: (data.jobs || []).slice(0, 50)
-    };
-    const lightTemp = `${DB_FILE}.${Date.now()}.tmp`;
-    fs.writeFileSync(lightTemp, JSON.stringify(lightDb, null, 2), "utf-8");
-    fs.renameSync(lightTemp, DB_FILE);
-  } catch (lightErr: any) {
-    // Non-critical, continue
   }
 
   // 2. Persist state to Firestore asynchronously in background (non-blocking for serverless)
