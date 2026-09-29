@@ -200,11 +200,14 @@ console.log('Final Category Counts:', finalCatCounts);
 console.log('Final New Badges:', countNew);
 
 // 1. Write to fullCatalogJobs.ts
-const fullCatalogCode = 'import { JobAlert } from \'../types\';\n\nexport const fullCatalogJobs: JobAlert[] = ' + JSON.stringify(allJobs, null, 2) + ';\n';
+const fullCatalogCode = 'import { JobAlert } from \'../types\';\n\nexport const fullCatalogJobs: JobAlert[] = ([\n' + JSON.stringify(allJobs, null, 2).slice(1, -1) + '\n]) as any;\n';
 fs.writeFileSync('./src/data/fullCatalogJobs.ts', fullCatalogCode, 'utf8');
 console.log('Updated src/data/fullCatalogJobs.ts successfully.');
 
 // 2. Write to GovtBharat_database.json
+if (!fs.existsSync('./data')) {
+  fs.mkdirSync('./data', { recursive: true });
+}
 let existingDbJson = {};
 if (fs.existsSync('./data/GovtBharat_database.json')) {
   try {
